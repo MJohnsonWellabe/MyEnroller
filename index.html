@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyEnroller – The Leading E-App & Underwriting Workflow Software</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* ── Top Nav ── */
+    #top-nav {
+      position: fixed; top:0; left:0; right:0; height:68px;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 0 2.5rem; z-index: 1000;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    }
+    .top-nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.45rem; font-weight:700;
+      color: var(--white); text-decoration:none; margin-right:auto;
+    }
+    .top-nav-brand span { color:var(--aqua); }
+
+    /* Nav links */
+    .top-nav-links {
+      display:flex; align-items:center; gap:0.2rem;
+      list-style:none; margin:0; padding:0;
+    }
+    .top-nav-links > li { position:relative; }
+    .top-nav-links > li > a,
+    .top-nav-links > li > button {
+      display:flex; align-items:center; gap:0.3rem;
+      padding:0.5rem 0.85rem;
+      color:rgba(255,255,255,0.85);
+      font-family:var(--font-body); font-size:0.9rem; font-weight:500;
+      background:none; border:none; cursor:pointer;
+      border-radius:6px; white-space:nowrap;
+      transition: background 0.18s, color 0.18s;
+    }
+    .top-nav-links > li > a:hover,
+    .top-nav-links > li > button:hover {
+      background:rgba(255,255,255,0.10); color:var(--white);
+    }
+    .chevron { font-size:0.6rem; opacity:0.7; transition:transform 0.2s; }
+    .top-nav-links li.dd-open > button .chevron { transform:rotate(180deg); }
+
+    /* Dropdown panel */
+    .nav-dropdown {
+      display:none; position:absolute; top:calc(100% + 8px); right:0;
+      min-width:200px; background:var(--white);
+      border-radius:10px; border:1px solid var(--gray-200);
+      box-shadow:0 8px 32px rgba(11,31,74,0.16);
+      padding:0.5rem 0; z-index:2000;
+    }
+    .nav-dropdown.open { display:block; animation:dropIn 0.18s ease; }
+    @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+    .nav-dropdown a {
+      display:block; padding:0.6rem 1.2rem;
+      font-size:0.88rem; color:var(--navy); font-weight:500;
+      transition:background 0.15s, color 0.15s;
+    }
+    .nav-dropdown a:hover { background:var(--aqua-pale); color:var(--aqua); }
+    .nav-dropdown a.dd-all { font-weight:700; border-bottom:1px solid var(--gray-200); margin-bottom:0.25rem; padding-bottom:0.75rem; }
+    .nav-dropdown .dd-label {
+      font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--aqua); padding:0.6rem 1.2rem 0.2rem; pointer-events:none;
+    }
+
+    /* CTA button in nav */
+    .nav-cta {
+      padding:0.45rem 1.15rem !important;
+      background:var(--aqua) !important;
+      color:var(--navy) !important; font-weight:700 !important;
+      border-radius:6px; margin-left:0.5rem;
+    }
+    .nav-cta:hover { background:var(--aqua-light) !important; transform:translateY(-1px); }
+
+    /* Mobile toggle */
+    #mobile-btn {
+      display:none; flex-direction:column; gap:5px;
+      background:none; border:none; cursor:pointer; padding:6px; margin-left:1rem;
+    }
+    #mobile-btn span { display:block; width:24px; height:2px; background:var(--white); border-radius:2px; transition:all 0.25s; }
+    #mobile-btn.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+    #mobile-btn.open span:nth-child(2){ opacity:0; }
+    #mobile-btn.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+    #mobile-drawer {
+      display:none; position:fixed; top:68px; left:0; right:0; bottom:0;
+      background:#163066; z-index:999; overflow-y:auto; padding:0.5rem 0;
+    }
+    #mobile-drawer.open { display:block; }
+    .m-link { display:block; padding:0.85rem 1.75rem; color:rgba(255,255,255,0.85); font-size:0.97rem; font-weight:500; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .m-link:hover { color:var(--aqua); }
+    .m-sec { padding:1rem 1.75rem 0.3rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--aqua); }
+
+    /* ── Hero ── */
+    .hero { min-height:100vh; position:relative; display:flex; align-items:center; overflow:hidden; background:var(--navy); padding-top:68px; }
+    .hero-slides { position:absolute; inset:0; }
+    .hero-slide { position:absolute; inset:0; opacity:0; transition:opacity 1.2s ease; }
+    .hero-slide.active { opacity:1; }
+    .hero-slide img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(120deg,rgba(11,31,74,0.93) 0%,rgba(11,31,74,0.74) 55%,rgba(0,181,200,0.15) 100%); }
+    .hero-content { position:relative; z-index:2; max-width:680px; padding:2rem max(2rem,6vw); }
+    .hero-eyebrow { font-size:0.78rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--aqua); margin-bottom:1rem; }
+    .hero-content h1 { color:var(--white); margin-bottom:1.25rem; }
+    .hero-content > p { color:rgba(255,255,255,0.82); font-size:1.1rem; margin-bottom:2rem; }
+    .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+    .hero-dots { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:3; }
+    .hero-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.35); cursor:pointer; transition:all 0.25s; }
+    .hero-dot.active { background:var(--aqua); transform:scale(1.35); }
+
+    /* ── Section helpers ── */
+    .sec { padding:5rem 2rem; }
+    .sec-alt { background:var(--gray-50); }
+    .sec-navy { background:var(--navy); }
+    .wrap { max-width:1140px; margin:0 auto; }
+    .eyebrow { display:block; text-align:center; font-size:0.76rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--aqua); margin-bottom:0.4rem; }
+    .sec-h2 { text-align:center; margin-bottom:0.75rem; }
+    .bar { width:46px; height:3px; background:var(--aqua); border-radius:2px; margin:0 auto 2.75rem; }
+
+    /* ── Mission / Vision cards ── */
+    .mv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem; }
+    .mv-card { background:var(--white); border-radius:14px; border-top:3px solid var(--aqua); padding:2rem 1.75rem; box-shadow:0 2px 12px rgba(11,31,74,0.07); }
+    .mv-card .ico { font-size:1.6rem; margin-bottom:0.8rem; }
+    .mv-card h3 { font-size:1.12rem; color:var(--navy); margin-bottom:0.55rem; }
+    .mv-card p { color:var(--gray-600); font-size:0.93rem; margin:0; line-height:1.65; }
+
+    /* ── Platform Advantage card ── */
+    .pa-card { display:grid; grid-template-columns:210px 1fr; border-radius:16px; overflow:hidden; box-shadow:0 6px 32px rgba(11,31,74,0.13); border:1px solid var(--gray-200); background:var(--white); }
+    .pa-tabs { background:var(--navy); padding:0.5rem 0; display:flex; flex-direction:column; }
+    .pa-tab {
+      padding:0.9rem 1.3rem; color:rgba(255,255,255,0.62);
+      cursor:pointer; font-size:0.86rem; font-weight:500;
+      font-family:var(--font-body); border:none; background:none;
+      text-align:left; border-left:3px solid transparent;
+      transition:all 0.2s; line-height:1.3;
+    }
+    .pa-tab:hover { color:var(--white); background:rgba(255,255,255,0.06); }
+    .pa-tab.active { color:var(--aqua); background:rgba(0,181,200,0.12); border-left-color:var(--aqua); }
+    .pa-content { padding:2.5rem; }
+    .pa-panel { display:none; animation:fadeUp 0.22s ease; }
+    .pa-panel.active { display:block; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(7px)} to{opacity:1;transform:none} }
+    .pa-panel .pe { font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--aqua); margin-bottom:0.35rem; }
+    .pa-panel h3 { color:var(--navy); margin-bottom:0.9rem; font-size:1.25rem; }
+    .pa-bullets { list-style:none; padding:0; margin:0; }
+    .pa-bullets li { display:flex; align-items:flex-start; gap:0.6rem; margin-bottom:0.75rem; color:var(--gray-600); font-size:0.92rem; line-height:1.5; }
+    .pa-bullets li::before { content:'→'; color:var(--aqua); font-weight:700; flex-shrink:0; margin-top:1px; }
+    .pa-bullets li strong { color:var(--navy); }
+    /* Stats panel */
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--gray-200); }
+    .stat-box { text-align:center; }
+    .stat-n { font-family:var(--font-display); font-size:2rem; font-weight:700; color:var(--aqua); line-height:1; }
+    .stat-d { font-size:0.79rem; color:var(--gray-600); margin-top:0.3rem; line-height:1.35; }
+
+    /* ── Case Studies row ── */
+    .case-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
+    .case-tile {
+      background:var(--white); border-radius:12px;
+      border:1px solid var(--gray-200); border-top:3px solid var(--aqua);
+      padding:1.75rem 1.5rem; cursor:pointer;
+      transition:all 0.22s; text-decoration:none;
+      display:flex; flex-direction:column; gap:0.45rem;
+    }
+    .case-tile:hover { box-shadow:0 8px 28px rgba(11,31,74,0.13); transform:translateY(-3px); }
+    .case-tile .ct-tag { font-size:0.71rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--aqua); }
+    .case-tile h3 { font-size:1rem; color:var(--navy); margin:0; line-height:1.35; }
+    .case-tile .ct-arrow { margin-top:auto; padding-top:0.75rem; font-size:0.84rem; font-weight:600; color:var(--aqua); }
+
+    /* ── FAQ expanding cards ── */
+    .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
+    .faq-card { background:var(--white); border-radius:12px; border:1px solid var(--gray-200); overflow:hidden; box-shadow:0 2px 8px rgba(11,31,74,0.06); transition:box-shadow 0.2s; }
+    .faq-card:hover { box-shadow:0 4px 18px rgba(11,31,74,0.10); }
+    .faq-trigger {
+      width:100%; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:1.2rem 1.4rem; background:none; border:none; cursor:pointer;
+      font-family:var(--font-body); font-size:0.96rem; font-weight:600; color:var(--navy);
+      text-align:left; transition:background 0.18s;
+    }
+    .faq-trigger:hover { background:var(--aqua-pale); }
+    .faq-plus {
+      flex-shrink:0; width:26px; height:26px; border-radius:50%;
+      background:var(--aqua); color:var(--navy);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; font-weight:700; line-height:1;
+      transition:transform 0.25s, background 0.2s;
+    }
+    .faq-card.open .faq-plus { transform:rotate(45deg); background:var(--navy); color:var(--white); }
+    .faq-body {
+      max-height:0; overflow:hidden;
+      transition:max-height 0.35s ease, padding 0.2s;
+      padding:0 1.4rem; background:var(--gray-50);
+      border-top:1px solid transparent;
+    }
+    .faq-card.open .faq-body { max-height:500px; padding:1.2rem 1.4rem; border-top-color:var(--gray-200); }
+    .faq-body p { margin:0 0 0.4rem; color:var(--gray-600); font-size:0.92rem; }
+    .faq-body ul { padding-left:1.1rem; margin:0.35rem 0 0; }
+    .faq-body ul li { color:var(--gray-600); font-size:0.92rem; margin-bottom:0.3rem; }
+
+    /* ── Contact CTA ── */
+    .cta-box { background:rgba(255,255,255,0.07); border:1px solid rgba(0,181,200,0.22); border-radius:16px; padding:2.5rem; max-width:640px; margin:0 auto; }
+    .cta-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .cf-group { margin-bottom:1rem; }
+    .cf-group label { display:block; font-size:0.83rem; font-weight:600; color:rgba(255,255,255,0.72); margin-bottom:0.3rem; }
+    .cf-group input,.cf-group textarea { width:100%; padding:0.7rem 1rem; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; font-family:var(--font-body); font-size:0.94rem; color:var(--white); transition:border-color 0.2s; }
+    .cf-group input::placeholder,.cf-group textarea::placeholder { color:rgba(255,255,255,0.32); }
+    .cf-group input:focus,.cf-group textarea:focus { outline:none; border-color:var(--aqua); box-shadow:0 0 0 3px rgba(0,181,200,0.18); }
+    .cf-group textarea { min-height:105px; resize:vertical; }
+    .cta-meta { color:rgba(255,255,255,0.4); font-size:0.83rem; margin-top:1rem; text-align:center; }
+    .cta-meta a { color:var(--aqua); }
+
+    /* ── Footer ── */
+    #site-footer { background:var(--navy); padding:3.5rem 2rem 2rem; }
+    .ft-inner { max-width:1140px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .ft-brand { font-family:var(--font-display); font-size:1.3rem; font-weight:700; color:var(--white); margin-bottom:0.6rem; }
+    .ft-brand span { color:var(--aqua); }
+    .ft-tagline { color:rgba(255,255,255,0.48); font-size:0.87rem; max-width:230px; line-height:1.55; }
+    .ft-col h5 { color:var(--white); font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.85rem; }
+    .ft-col ul { list-style:none; padding:0; margin:0; }
+    .ft-col ul li { margin-bottom:0.42rem; }
+    .ft-col ul li a { color:rgba(255,255,255,0.52); font-size:0.87rem; transition:color 0.18s; }
+    .ft-col ul li a:hover { color:var(--aqua); }
+    .ft-bottom { max-width:1140px; margin:1.5rem auto 0; text-align:center; font-size:0.81rem; color:rgba(255,255,255,0.33); }
+
+    /* ── Responsive ── */
+    @media(max-width:960px){
+      .top-nav-links { display:none; }
+      #mobile-btn { display:flex; }
+      .mv-grid { grid-template-columns:1fr; }
+      .pa-card { grid-template-columns:1fr; }
+      .pa-tabs { flex-direction:row; overflow-x:auto; }
+      .pa-tab { border-left:none; border-bottom:3px solid transparent; white-space:nowrap; }
+      .pa-tab.active { border-bottom-color:var(--aqua); border-left:none; }
+      .case-row { grid-template-columns:repeat(2,1fr); }
+      .faq-grid { grid-template-columns:1fr; }
+      .ft-inner { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:600px){
+      .case-row { grid-template-columns:1fr; }
+      .cta-row { grid-template-columns:1fr; }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .ft-inner { grid-template-columns:1fr; gap:1.75rem; }
+      .sec { padding:3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav id="top-nav">
+  <a class="top-nav-brand" href="index.html">My<span>Enroller</span></a>
+
+  <ul class="top-nav-links" id="nav-ul">
+    <li><a href="pages/about.html">About Us</a></li>
+
+    <li id="li-products">
+      <button onclick="toggleDrop('li-products','drop-products')">
+        Our Products <span class="chevron">▾</span>
+      </button>
+      <div class="nav-dropdown" id="drop-products">
+        <a class="dd-all" href="pages/products.html">All Products</a>
+        <a href="pages/medicare-supplement.html">Medicare Supplement</a>
+        <a href="pages/preneed.html">Preneed</a>
+        <a href="pages/final-expense.html">Final Expense</a>
+        <a href="pages/annuity.html">Annuity</a>
+        <a href="pages/ancillary-health.html">Ancillary Health</a>
+      </div>
+    </li>
+
+    <li id="li-tools">
+      <button onclick="toggleDrop('li-tools','drop-tools')">
+        Our Tools <span class="chevron">▾</span>
+      </button>
+      <div class="nav-dropdown" id="drop-tools">
+        <a class="dd-all" href="pages/tools.html">All Tools</a>
+        <a href="pages/activity-map.html">Activity Map</a>
+        <a href="pages/my-easy-match.html">My Easy Match</a>
+        <a href="pages/messaging.html">MyEnroller Messaging</a>
+        <a href="pages/incentives.html">Instant Incentives</a>
+        <a href="pages/app-scanning.html">Application Scanning</a>
+        <a href="pages/lead-gen.html">Lead Gen Tools</a>
+      </div>
+    </li>
+
+    <li><a href="pages/join-the-team.html">Join the Team</a></li>
+    <li><a href="pages/contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+
+  <button id="mobile-btn" aria-label="Menu" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="mobile-drawer">
+  <a class="m-link" href="pages/about.html">About Us</a>
+  <div class="m-sec">Our Products</div>
+  <a class="m-link" href="pages/products.html">All Products</a>
+  <a class="m-link" href="pages/medicare-supplement.html">Medicare Supplement</a>
+  <a class="m-link" href="pages/preneed.html">Preneed</a>
+  <a class="m-link" href="pages/final-expense.html">Final Expense</a>
+  <a class="m-link" href="pages/annuity.html">Annuity</a>
+  <a class="m-link" href="pages/ancillary-health.html">Ancillary Health</a>
+  <div class="m-sec">Our Tools</div>
+  <a class="m-link" href="pages/tools.html">All Tools</a>
+  <a class="m-link" href="pages/activity-map.html">Activity Map</a>
+  <a class="m-link" href="pages/my-easy-match.html">My Easy Match</a>
+  <a class="m-link" href="pages/messaging.html">MyEnroller Messaging</a>
+  <a class="m-link" href="pages/incentives.html">Instant Incentives</a>
+  <a class="m-link" href="pages/app-scanning.html">Application Scanning</a>
+  <a class="m-link" href="pages/lead-gen.html">Lead Gen Tools</a>
+  <a class="m-link" href="pages/join-the-team.html">Join the Team</a>
+  <a class="m-link" href="pages/contact.html" style="color:var(--aqua);font-weight:700;">Contact Us</a>
+</div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active"><img src="assets/images/MyEnrollerSS1.jpg" alt="MyEnroller workflow" /></div>
+    <div class="hero-slide"><img src="assets/images/MyEnrollerSS2.jpg" alt="MyEnroller dashboard" /></div>
+    <div class="hero-slide"><img src="assets/images/MyEnrollerSS3.jpg" alt="MyEnroller underwriting" /></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Built by Carriers, for Carriers</div>
+    <h1>The Leading E-App &amp; Underwriting Workflow Software for Life and Health Carriers</h1>
+    <p>Modern enrollment, real-time underwriting decisioning, and data visibility — in one carrier-designed platform.</p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="pages/contact.html">Request a Demo</a>
+      <a class="btn btn-outline" href="pages/about.html">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot active" data-s="0"></div>
+    <div class="hero-dot" data-s="1"></div>
+    <div class="hero-dot" data-s="2"></div>
+  </div>
+</section>
+
+<!-- ══════════════ MISSION / VISION / ADVANTAGE ══════════════ -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <span class="eyebrow">Who We Are</span>
+    <h2 class="sec-h2">Purpose-Built for Modern Insurance</h2>
+    <div class="bar"></div>
+    <div class="mv-grid">
+      <div class="mv-card">
+        <div class="ico">🎯</div>
+        <h3>Our Mission</h3>
+        <p>MyEnroller's mission is to create the best insurance buying and engagement experiences in the market — for both consumers and agents — by delivering fast, intuitive technology solutions that help clients grow.</p>
+      </div>
+      <div class="mv-card">
+        <div class="ico">🔭</div>
+        <h3>Our Vision</h3>
+        <p>Our vision is to become the trusted platform partner for modern insurance buying and underwriting — recognized for speed, flexibility, and results — while reshaping how carriers go to market in a digital-first world.</p>
+      </div>
+      <div class="mv-card">
+        <div class="ico">⚡</div>
+        <h3>Our Proven Advantage</h3>
+        <p>MyEnroller was built by career carrier operators who understand the real constraints of underwriting, distribution, and operations. Our first client more than doubled sales year over year by removing friction at the point of sale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PLATFORM ADVANTAGE (interactive card) ══════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <span class="eyebrow">Platform Advantage</span>
+    <h2 class="sec-h2">What We Bring to Market</h2>
+    <div class="bar"></div>
+
+    <div class="pa-card">
+      <!-- Left: clickable tabs -->
+      <div class="pa-tabs">
+        <button class="pa-tab active" data-panel="pa0">Business Strategy</button>
+        <button class="pa-tab" data-panel="pa1">Technology</button>
+        <button class="pa-tab" data-panel="pa2">Product</button>
+        <button class="pa-tab" data-panel="pa3">Sales &amp; Underwriting</button>
+        <button class="pa-tab" data-panel="pa4">Agent Experience</button>
+        <button class="pa-tab" data-panel="pa5">Proven Results</button>
+      </div>
+
+      <!-- Right: content panels -->
+      <div class="pa-content">
+
+        <div class="pa-panel active" id="pa0">
+          <div class="pe">Long-Term Vision</div>
+          <h3>Business Strategy</h3>
+          <ul class="pa-bullets">
+            <li><strong>Drive profitable growth</strong> — Unlock new revenue by expanding distribution, launching products faster, and optimizing agent workflows.</li>
+            <li><strong>Improve agent experience</strong> — Simplify how agents quote, sell, and service insurance products with intuitive tools and real-time decisions.</li>
+            <li><strong>Accelerate speed to market</strong> — Move from concept to launch faster with configurable capabilities that reduce development, testing, and approval cycles.</li>
+            <li><strong>Provide executive-level insights</strong> — Deliver timely, decision-ready insights that connect performance, risk, and growth across the enterprise.</li>
+          </ul>
+        </div>
+
+        <div class="pa-panel" id="pa1">
+          <div class="pe">Long-Term Vision</div>
+          <h3>Technology</h3>
+          <ul class="pa-bullets">
+            <li><strong>Align and manage the business</strong> — Empower teams to act faster with configurable tools that reduce friction and dependency on IT.</li>
+            <li><strong>Enable rapid setup and integration</strong> — Plug into internal systems and external partners quickly using modular, API-first integrations.</li>
+            <li><strong>Apply AI-enabled capabilities and analytics</strong> — Automate decisions, elevate insights, and streamline workflows with responsibly-applied AI.</li>
+            <li><strong>Reduce total cost of ownership</strong> — Provide mid-sized and regional carriers with affordable access to modern technology without requiring scale.</li>
+          </ul>
+        </div>
+
+        <div class="pa-panel" id="pa2">
+          <div class="pe">Long-Term Vision</div>
+          <h3>Product</h3>
+          <ul class="pa-bullets">
+            <li><strong>Accelerate product agility and speed</strong> — Rapidly iterate on product features, rules, and enhancements without long development cycles.</li>
+            <li><strong>Broaden and deepen distribution relationships</strong> — Expand reach and activate new channels with tools designed for diverse distribution models.</li>
+            <li><strong>Provide insurance industry expertise</strong> — Embed proven carrier knowledge and best practices directly into configurable platform capabilities.</li>
+            <li><strong>Align pricing to outcomes</strong> — Charge carriers based on outcomes delivered, not seats, licenses, or unused capacity.</li>
+          </ul>
+        </div>
+
+        <div class="pa-panel" id="pa3">
+          <div class="pe">Long-Term Vision</div>
+          <h3>Sales &amp; Underwriting</h3>
+          <ul class="pa-bullets">
+            <li><strong>Enable point-of-sale decisions</strong> — Provide instant decisions and issue policies in minutes, not days or weeks.</li>
+            <li><strong>Maximize straight-through processing</strong> — Increase touchless application flow by automating routine decisions and exceptions.</li>
+            <li><strong>Optimize underwriting and risk management</strong> — Calibrate risk selection to improve outcomes while maintaining disciplined risk management.</li>
+            <li><strong>Deliver real-time visibility</strong> — Give business leaders live reporting to monitor performance and make informed decisions faster.</li>
+          </ul>
+        </div>
+
+        <div class="pa-panel" id="pa4">
+          <div class="pe">Long-Term Vision</div>
+          <h3>Agent Experience</h3>
+          <ul class="pa-bullets">
+            <li><strong>Modernize the purchasing experience</strong> — Deliver an industry-leading, point-of-sale experience that agents want to use.</li>
+            <li><strong>Boost agent productivity</strong> — Cut application time in half so agents can serve more customers with the same effort.</li>
+            <li><strong>Drive agent engagement</strong> — Drive activity and adoption with real-time messaging, gamification, and targeted engagement.</li>
+            <li><strong>Enable real-time agent visibility</strong> — Provide instant insight into agent activity to better support and accelerate performance.</li>
+          </ul>
+        </div>
+
+        <div class="pa-panel" id="pa5">
+          <div class="pe">Demonstrated Platform Advantage</div>
+          <h3>Proven Results in Production</h3>
+          <p style="color:var(--gray-600);font-size:0.92rem;margin-bottom:0;">Real numbers from live carrier deployments — not projections.</p>
+          <div class="stats-grid">
+            <div class="stat-box"><div class="stat-n">235%</div><div class="stat-d">Year-over-year sales growth, 2024 to 2025</div></div>
+            <div class="stat-box"><div class="stat-n">75%</div><div class="stat-d">STP / instant decisioning for UW and OE applications</div></div>
+            <div class="stat-box"><div class="stat-n">27%</div><div class="stat-d">Reduction in acquisition costs over 12 months</div></div>
+            <div class="stat-box"><div class="stat-n">58%</div><div class="stat-d">Increase in writing agents, 2024 to 2025</div></div>
+            <div class="stat-box"><div class="stat-n">37%</div><div class="stat-d">Increase in applications per agent</div></div>
+            <div class="stat-box"><div class="stat-n">1+</div><div class="stat-d">Product modifications per day on average in 2026</div></div>
+          </div>
+        </div>
+
+      </div><!-- /pa-content -->
+    </div><!-- /pa-card -->
+  </div>
+</section>
+
+<!-- ══════════════ CASE STUDIES — single row of tiles ══════════════ -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <span class="eyebrow">Proven Results</span>
+    <h2 class="sec-h2">Case Studies</h2>
+    <div class="bar"></div>
+    <div class="case-row">
+      <a class="case-tile" href="pages/case-study-stm.html">
+        <div class="ct-tag">Time to Market</div>
+        <h3>Accelerating Time to Market</h3>
+        <div class="ct-arrow">Read Case Study →</div>
+      </a>
+      <a class="case-tile" href="pages/case-study-growth.html">
+        <div class="ct-tag">Business Growth</div>
+        <h3>How Wellabe Accelerated Growth</h3>
+        <div class="ct-arrow">Read Case Study →</div>
+      </a>
+      <a class="case-tile" href="pages/case-study-qob.html">
+        <div class="ct-tag">Quality of Business</div>
+        <h3>Improving Quality of Business</h3>
+        <div class="ct-arrow">Read Case Study →</div>
+      </a>
+      <a class="case-tile" href="pages/case-study-satisfaction.html">
+        <div class="ct-tag">Agent Satisfaction</div>
+        <h3>Improving Agent Satisfaction</h3>
+        <div class="ct-arrow">Read Case Study →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ — expanding cards ══════════════ -->
+<section class="sec">
+  <div class="wrap" style="max-width:880px;">
+    <span class="eyebrow">Questions &amp; Answers</span>
+    <h2 class="sec-h2">Frequently Asked Questions</h2>
+    <div class="bar"></div>
+    <div class="faq-grid">
+
+      <div class="faq-card" id="fq1">
+        <button class="faq-trigger" onclick="toggleFaq('fq1')">
+          What is MyEnroller?
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>MyEnroller is a configurable buying and underwriting platform built to help carriers move faster, convert more business, and make better decisions at the point of sale. It combines modern enrollment, real-time underwriting decisioning, and data visibility into a single, carrier-designed platform — without adding operational complexity.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq2">
+        <button class="faq-trigger" onclick="toggleFaq('fq2')">
+          Who is MyEnroller for?
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>MyEnroller is built for carriers and distributors who want speed without sacrificing control. It's ideal for organizations looking to modernize their buying experience, improve agent satisfaction, increase placement quality, and iterate faster — without rebuilding core systems.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq3">
+        <button class="faq-trigger" onclick="toggleFaq('fq3')">
+          Will I control my underwriting decisions?
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>Yes. MyEnroller is fully configurable to your underwriting philosophy, rules, and risk tolerances. You control what decisions are made, when they're made, and how they're applied — ensuring speed happens within clear, carrier-defined guardrails.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq4">
+        <button class="faq-trigger" onclick="toggleFaq('fq4')">
+          What are the key benefits?
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <ul>
+            <li>Faster time to market through configuration, not custom builds</li>
+            <li>Improved agent experience and higher engagement</li>
+            <li>Better quality of business through earlier decisioning</li>
+            <li>Real-time visibility into submissions and outcomes</li>
+            <li>A platform built by carrier operators — not generic insurtech vendors</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT CTA ══════════════ -->
+<section class="sec sec-navy" style="text-align:center;">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--aqua);">Get in Touch</span>
+    <h2 class="sec-h2" style="color:var(--white);">Ready to See MyEnroller in Action?</h2>
+    <div class="bar"></div>
+    <p style="color:rgba(255,255,255,0.72);max-width:540px;margin:0 auto 2rem;">Whether you're evaluating platforms or ready to move, we'd love to connect.</p>
+
+    <div class="cta-box">
+      <form id="cta-form">
+        <div class="cta-row">
+          <div class="cf-group"><label>Name</label><input type="text" placeholder="Your full name" /></div>
+          <div class="cf-group"><label>Company</label><input type="text" placeholder="Your organization" /></div>
+        </div>
+        <div class="cf-group"><label>Email</label><input type="email" placeholder="you@yourcompany.com" /></div>
+        <div class="cf-group"><label>Message</label><textarea placeholder="Tell us what you're looking for…"></textarea></div>
+        <!-- PLACEHOLDER: Add Formspree action to <form> tag once you have your form ID:
+             action="https://formspree.io/f/YOUR_ID" method="POST" -->
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:0.9rem;font-size:1rem;">Send Message</button>
+      </form>
+      <p class="cta-meta">Or call us: <a href="tel:+1XXXXXXXXXX"><!-- PLACEHOLDER -->(XXX) XXX-XXXX</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer id="site-footer">
+  <div class="ft-inner">
+    <div>
+      <div class="ft-brand">My<span>Enroller</span></div>
+      <p class="ft-tagline">The leading e-app and underwriting workflow software for life and health carriers.</p>
+    </div>
+    <div class="ft-col">
+      <h5>Products</h5>
+      <ul>
+        <li><a href="pages/medicare-supplement.html">Medicare Supplement</a></li>
+        <li><a href="pages/preneed.html">Preneed</a></li>
+        <li><a href="pages/final-expense.html">Final Expense</a></li>
+        <li><a href="pages/annuity.html">Annuity</a></li>
+        <li><a href="pages/ancillary-health.html">Ancillary Health</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="pages/activity-map.html">Activity Map</a></li>
+        <li><a href="pages/my-easy-match.html">My Easy Match</a></li>
+        <li><a href="pages/messaging.html">Messaging</a></li>
+        <li><a href="pages/incentives.html">Instant Incentives</a></li>
+        <li><a href="pages/app-scanning.html">App Scanning</a></li>
+        <li><a href="pages/lead-gen.html">Lead Gen</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="pages/about.html">About Us</a></li>
+        <li><a href="pages/contact.html">Contact Us</a></li>
+        <li><a href="pages/join-the-team.html">Join the Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">&copy; <span id="fy"></span> MyEnroller. All rights reserved.</div>
+</footer>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+  document.getElementById('fy').textContent = new Date().getFullYear();
+
+  /* Nav dropdowns */
+  function toggleDrop(liId, dropId) {
+    var allLis = document.querySelectorAll('#nav-ul li');
+    var allDrops = document.querySelectorAll('.nav-dropdown');
+    var targetLi = document.getElementById(liId);
+    var targetDrop = document.getElementById(dropId);
+    var isOpen = targetDrop.classList.contains('open');
+    allLis.forEach(function(l){ l.classList.remove('dd-open'); });
+    allDrops.forEach(function(d){ d.classList.remove('open'); });
+    if (!isOpen) {
+      targetLi.classList.add('dd-open');
+      targetDrop.classList.add('open');
+    }
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#nav-ul')) {
+      document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('open'); });
+      document.querySelectorAll('#nav-ul li').forEach(function(l){ l.classList.remove('dd-open'); });
+    }
+  });
+
+  /* Mobile */
+  function toggleMobile() {
+    document.getElementById('mobile-btn').classList.toggle('open');
+    document.getElementById('mobile-drawer').classList.toggle('open');
+  }
+
+  /* Hero slideshow */
+  (function(){
+    var slides = document.querySelectorAll('.hero-slide');
+    var dots   = document.querySelectorAll('.hero-dot');
+    var cur = 0, t;
+    function go(n) {
+      slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+      cur = (n + slides.length) % slides.length;
+      slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    }
+    t = setInterval(function(){ go(cur+1); }, 5000);
+    dots.forEach(function(d){
+      d.addEventListener('click', function(){
+        clearInterval(t); go(parseInt(this.dataset.s));
+        t = setInterval(function(){ go(cur+1); }, 5000);
+      });
+    });
+  })();
+
+  /* Platform Advantage tabs */
+  document.querySelectorAll('.pa-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.pa-tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.pa-panel').forEach(function(p){ p.classList.remove('active'); });
+      this.classList.add('active');
+      document.getElementById(this.dataset.panel).classList.add('active');
+    });
+  });
+
+  /* FAQ expand */
+  function toggleFaq(id) {
+    var card = document.getElementById(id);
+    var isOpen = card.classList.contains('open');
+    document.querySelectorAll('.faq-card').forEach(function(c){ c.classList.remove('open'); });
+    if (!isOpen) card.classList.add('open');
+  }
+
+  /* Contact form */
+  document.getElementById('cta-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert("Thank you! We'll be in touch shortly.\n\n(Developer: connect this form to Formspree — see README.md)");
+  });
+</script>
+
+</body>
+</html>

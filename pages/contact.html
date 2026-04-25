@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us – MyEnroller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="page-content">
+  <div class="page-header">
+    <div class="breadcrumb"><a href="../index.html">Home</a> › Contact Us</div>
+    <h1>Let's Connect</h1>
+    <p>Whether you're evaluating platforms or ready to move — we'd love to hear from you.</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="split-section" style="gap:5rem;align-items:flex-start;">
+        <div>
+          <span class="eyebrow">Get in Touch</span>
+          <h2>Ready to See MyEnroller in Action?</h2>
+          <div class="divider-aqua left"></div>
+          <p>Reach out to schedule a demo, ask questions, or start a conversation about what MyEnroller can do for your organization. We're built by carriers, for carriers — and we love talking shop.</p>
+
+          <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:1.5rem;">
+            <div style="display:flex;align-items:flex-start;gap:1rem;">
+              <div class="card-icon" style="flex-shrink:0;">📧</div>
+              <div>
+                <h4>Email Us</h4>
+                <!-- PLACEHOLDER: Replace with your actual email address -->
+                <a href="mailto:info@myenroller.com" style="color:var(--aqua);font-size:1rem;">info@myenroller.com</a>
+                <p style="font-size:0.9rem;margin-top:0.25rem;">We typically respond within one business day.</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:1rem;">
+              <div class="card-icon" style="flex-shrink:0;">📞</div>
+              <div>
+                <h4>Call Us</h4>
+                <!-- PLACEHOLDER: Replace with your actual phone number -->
+                <a href="tel:+1XXXXXXXXXX" style="color:var(--aqua);font-size:1rem;">(XXX) XXX-XXXX</a>
+                <p style="font-size:0.9rem;margin-top:0.25rem;">Available Monday–Friday during business hours.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="background:var(--gray-50);border-radius:var(--radius-lg);padding:2.5rem;border:1px solid var(--gray-200);">
+            <h3 style="margin-bottom:1.5rem;">Send Us a Message</h3>
+            <!-- PLACEHOLDER: To make this form work, integrate with Formspree, EmailJS, or your own backend.
+                 Formspree example: Change the form action to https://formspree.io/f/YOUR_FORM_ID
+                 and add method="POST" to the form tag. -->
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="c-name">Full Name *</label>
+                <input type="text" id="c-name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label for="c-company">Company *</label>
+                <input type="text" id="c-company" placeholder="Your organization" required />
+              </div>
+              <div class="form-group">
+                <label for="c-email">Email Address *</label>
+                <input type="email" id="c-email" placeholder="you@company.com" required />
+              </div>
+              <div class="form-group">
+                <label for="c-phone">Phone Number</label>
+                <input type="tel" id="c-phone" placeholder="(XXX) XXX-XXXX" />
+              </div>
+              <div class="form-group">
+                <label for="c-interest">I'm interested in…</label>
+                <select id="c-interest">
+                  <option value="">Select an option</option>
+                  <option>Medicare Supplement</option>
+                  <option>Preneed</option>
+                  <option>Final Expense</option>
+                  <option>Annuity</option>
+                  <option>Ancillary Health</option>
+                  <option>MyEnroller Tools</option>
+                  <option>General Information / Demo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="c-msg">Message</label>
+                <textarea id="c-msg" placeholder="Tell us about your organization and what you're looking for…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;padding:1rem;">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for reaching out! We\'ll be in touch shortly.\n\n(Developer note: Connect this form to Formspree or your email provider to make it fully functional.)');
+  });
+</script>
+</body>
+</html>
