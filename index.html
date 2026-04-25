@@ -127,6 +127,47 @@
     .mv-card h3 { font-size:1.12rem; color:var(--navy); margin-bottom:0.55rem; }
     .mv-card p { color:var(--gray-600); font-size:0.93rem; margin:0; line-height:1.65; }
 
+    /* ── Proven Results stats strip ── */
+    .proven-stats {
+      margin-top: 2.75rem;
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 2.25rem 2.5rem;
+    }
+    .proven-stats-label {
+      font-size: 0.74rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--aqua); margin-bottom: 1.5rem; text-align: center;
+    }
+    .proven-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+    .ps-item {
+      text-align: center;
+      padding: 0 1rem;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .ps-item:last-child { border-right: none; }
+    .ps-num {
+      font-family: var(--font-display);
+      font-size: 2.1rem; font-weight: 700;
+      color: var(--aqua); line-height: 1;
+    }
+    .ps-desc {
+      font-size: 0.76rem; color: rgba(255,255,255,0.65);
+      margin-top: 0.4rem; line-height: 1.4;
+    }
+    @media(max-width:960px){
+      .proven-stats-grid { grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+      .ps-item { border-right: none; }
+    }
+    @media(max-width:600px){
+      .proven-stats-grid { grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+      .proven-stats { padding: 1.75rem 1.25rem; }
+    }
+
     /* ── Platform Advantage card ── */
     .pa-card { display:grid; grid-template-columns:210px 1fr; border-radius:16px; overflow:hidden; box-shadow:0 6px 32px rgba(11,31,74,0.13); border:1px solid var(--gray-200); background:var(--white); }
     .pa-tabs { background:var(--navy); padding:0.5rem 0; display:flex; flex-direction:column; }
@@ -362,10 +403,41 @@
         <p>MyEnroller was built by career carrier operators who understand the real constraints of underwriting, distribution, and operations. Our first client more than doubled sales year over year by removing friction at the point of sale.</p>
       </div>
     </div>
+
+    <!-- ── Proven Results stats — directly under advantage text ── -->
+    <div class="proven-stats">
+      <div class="proven-stats-label">Demonstrated Results</div>
+      <div class="proven-stats-grid">
+        <div class="ps-item">
+          <div class="ps-num">235%</div>
+          <div class="ps-desc">Year-over-year sales growth, 2024 to 2025</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num">75%</div>
+          <div class="ps-desc">STP / instant decisioning for UW and OE applications</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num">27%</div>
+          <div class="ps-desc">Reduction in acquisition costs over 12 months</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num">58%</div>
+          <div class="ps-desc">Increase in writing agents, 2024 to 2025</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num">37%</div>
+          <div class="ps-desc">Increase in applications written per agent</div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num">1+</div>
+          <div class="ps-desc">Product modifications per day on average in 2026</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══════════════ PLATFORM ADVANTAGE (interactive card) ══════════════ -->
+<!-- ══════════════ WHAT WE BRING TO MARKET (interactive card) ══════════════ -->
 <section class="sec">
   <div class="wrap">
     <span class="eyebrow">Platform Advantage</span>
@@ -380,7 +452,6 @@
         <button class="pa-tab" data-panel="pa2">Product</button>
         <button class="pa-tab" data-panel="pa3">Sales &amp; Underwriting</button>
         <button class="pa-tab" data-panel="pa4">Agent Experience</button>
-        <button class="pa-tab" data-panel="pa5">Proven Results</button>
       </div>
 
       <!-- Right: content panels -->
@@ -439,20 +510,6 @@
             <li><strong>Drive agent engagement</strong> — Drive activity and adoption with real-time messaging, gamification, and targeted engagement.</li>
             <li><strong>Enable real-time agent visibility</strong> — Provide instant insight into agent activity to better support and accelerate performance.</li>
           </ul>
-        </div>
-
-        <div class="pa-panel" id="pa5">
-          <div class="pe">Demonstrated Platform Advantage</div>
-          <h3>Proven Results in Production</h3>
-          <p style="color:var(--gray-600);font-size:0.92rem;margin-bottom:0;">Real numbers from live carrier deployments — not projections.</p>
-          <div class="stats-grid">
-            <div class="stat-box"><div class="stat-n">235%</div><div class="stat-d">Year-over-year sales growth, 2024 to 2025</div></div>
-            <div class="stat-box"><div class="stat-n">75%</div><div class="stat-d">STP / instant decisioning for UW and OE applications</div></div>
-            <div class="stat-box"><div class="stat-n">27%</div><div class="stat-d">Reduction in acquisition costs over 12 months</div></div>
-            <div class="stat-box"><div class="stat-n">58%</div><div class="stat-d">Increase in writing agents, 2024 to 2025</div></div>
-            <div class="stat-box"><div class="stat-n">37%</div><div class="stat-d">Increase in applications per agent</div></div>
-            <div class="stat-box"><div class="stat-n">1+</div><div class="stat-d">Product modifications per day on average in 2026</div></div>
-          </div>
         </div>
 
       </div><!-- /pa-content -->
