@@ -168,6 +168,40 @@
       .proven-stats { padding: 1.75rem 1.25rem; }
     }
 
+    /* ── Platform accordion items ── */
+    .pa-accordion { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem; }
+    .pa-item { border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; }
+    .pa-item-trigger {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.9rem 1.1rem;
+      background: var(--white); border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.94rem; font-weight: 600;
+      color: var(--navy); text-align: left;
+      transition: background 0.18s;
+    }
+    .pa-item-trigger:hover { background: var(--aqua-pale); }
+    .pa-item.open .pa-item-trigger { background: var(--aqua-pale); }
+    .pa-item-plus {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--aqua); color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 700; line-height: 1;
+      transition: transform 0.22s, background 0.18s;
+    }
+    .pa-item.open .pa-item-plus { transform: rotate(45deg); background: var(--navy); color: var(--white); }
+    .pa-item-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.2s;
+      padding: 0 1.1rem;
+      background: var(--gray-50);
+      font-size: 0.91rem; color: var(--gray-600); line-height: 1.6;
+      border-top: 1px solid transparent;
+    }
+    .pa-item.open .pa-item-body {
+      max-height: 200px; padding: 0.85rem 1.1rem;
+      border-top-color: var(--gray-200);
+    }
+
     /* ── Platform Advantage card ── */
     .pa-card { display:grid; grid-template-columns:210px 1fr; border-radius:16px; overflow:hidden; box-shadow:0 6px 32px rgba(11,31,74,0.13); border:1px solid var(--gray-200); background:var(--white); }
     .pa-tabs { background:var(--navy); padding:0.5rem 0; display:flex; flex-direction:column; }
@@ -457,59 +491,164 @@
       <!-- Right: content panels -->
       <div class="pa-content">
 
+        <!-- BUSINESS STRATEGY -->
         <div class="pa-panel active" id="pa0">
           <div class="pe">Long-Term Vision</div>
           <h3>Business Strategy</h3>
-          <ul class="pa-bullets">
-            <li><strong>Drive profitable growth</strong> — Unlock new revenue by expanding distribution, launching products faster, and optimizing agent workflows.</li>
-            <li><strong>Improve agent experience</strong> — Simplify how agents quote, sell, and service insurance products with intuitive tools and real-time decisions.</li>
-            <li><strong>Accelerate speed to market</strong> — Move from concept to launch faster with configurable capabilities that reduce development, testing, and approval cycles.</li>
-            <li><strong>Provide executive-level insights</strong> — Deliver timely, decision-ready insights that connect performance, risk, and growth across the enterprise.</li>
-          </ul>
+          <div class="pa-accordion">
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Drive profitable growth</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Unlock new revenue by expanding distribution, launching products faster, and optimizing agent workflows.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Improve agent experience</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Simplify how agents quote, sell, and service insurance products with intuitive tools and real-time decisions.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Accelerate speed to market</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Move from concept to launch faster with configurable capabilities that reduce development, testing, and approval cycles.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Provide executive-level insights</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Deliver timely, decision-ready insights that connect performance, risk, and growth across the enterprise.</div>
+            </div>
+          </div>
         </div>
 
+        <!-- TECHNOLOGY -->
         <div class="pa-panel" id="pa1">
           <div class="pe">Long-Term Vision</div>
           <h3>Technology</h3>
-          <ul class="pa-bullets">
-            <li><strong>Align and manage the business</strong> — Empower teams to act faster with configurable tools that reduce friction and dependency on IT.</li>
-            <li><strong>Enable rapid setup and integration</strong> — Plug into internal systems and external partners quickly using modular, API-first integrations.</li>
-            <li><strong>Apply AI-enabled capabilities and analytics</strong> — Automate decisions, elevate insights, and streamline workflows with responsibly-applied AI.</li>
-            <li><strong>Reduce total cost of ownership</strong> — Provide mid-sized and regional carriers with affordable access to modern technology without requiring scale.</li>
-          </ul>
+          <div class="pa-accordion">
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Align and manage the business</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Empower teams to act faster with configurable tools that reduce friction and dependency on IT.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Enable rapid setup and integration</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Plug into internal systems and external partners quickly using modular, API-first integrations.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Apply AI-enabled capabilities and analytics</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Automate decisions, elevate insights, and streamline workflows with responsibly-applied AI.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Reduce total cost of ownership</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Provide mid-sized and regional carriers with affordable access to modern technology without requiring scale.</div>
+            </div>
+          </div>
         </div>
 
+        <!-- PRODUCT -->
         <div class="pa-panel" id="pa2">
           <div class="pe">Long-Term Vision</div>
           <h3>Product</h3>
-          <ul class="pa-bullets">
-            <li><strong>Accelerate product agility and speed</strong> — Rapidly iterate on product features, rules, and enhancements without long development cycles.</li>
-            <li><strong>Broaden and deepen distribution relationships</strong> — Expand reach and activate new channels with tools designed for diverse distribution models.</li>
-            <li><strong>Provide insurance industry expertise</strong> — Embed proven carrier knowledge and best practices directly into configurable platform capabilities.</li>
-            <li><strong>Align pricing to outcomes</strong> — Charge carriers based on outcomes delivered, not seats, licenses, or unused capacity.</li>
-          </ul>
+          <div class="pa-accordion">
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Accelerate product agility and speed</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Rapidly iterate on product features, rules, and enhancements without long development cycles.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Broaden and deepen distribution relationships</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Expand reach and activate new channels with tools designed for diverse distribution models.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Provide insurance industry expertise</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Embed proven carrier knowledge and best practices directly into configurable platform capabilities.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Align pricing to outcomes</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Charge carriers based on outcomes delivered, not seats, licenses, or unused capacity.</div>
+            </div>
+          </div>
         </div>
 
+        <!-- SALES & UNDERWRITING -->
         <div class="pa-panel" id="pa3">
           <div class="pe">Long-Term Vision</div>
           <h3>Sales &amp; Underwriting</h3>
-          <ul class="pa-bullets">
-            <li><strong>Enable point-of-sale decisions</strong> — Provide instant decisions and issue policies in minutes, not days or weeks.</li>
-            <li><strong>Maximize straight-through processing</strong> — Increase touchless application flow by automating routine decisions and exceptions.</li>
-            <li><strong>Optimize underwriting and risk management</strong> — Calibrate risk selection to improve outcomes while maintaining disciplined risk management.</li>
-            <li><strong>Deliver real-time visibility</strong> — Give business leaders live reporting to monitor performance and make informed decisions faster.</li>
-          </ul>
+          <div class="pa-accordion">
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Enable point-of-sale decisions</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Provide instant decisions and issue policies in minutes, not days or weeks.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Maximize straight-through processing</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Increase touchless application flow by automating routine decisions and exceptions.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Optimize underwriting and risk management</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Calibrate risk selection to improve outcomes while maintaining disciplined risk management.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Deliver real-time visibility</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Give business leaders live reporting to monitor performance and make informed decisions faster.</div>
+            </div>
+          </div>
         </div>
 
+        <!-- AGENT EXPERIENCE -->
         <div class="pa-panel" id="pa4">
           <div class="pe">Long-Term Vision</div>
           <h3>Agent Experience</h3>
-          <ul class="pa-bullets">
-            <li><strong>Modernize the purchasing experience</strong> — Deliver an industry-leading, point-of-sale experience that agents want to use.</li>
-            <li><strong>Boost agent productivity</strong> — Cut application time in half so agents can serve more customers with the same effort.</li>
-            <li><strong>Drive agent engagement</strong> — Drive activity and adoption with real-time messaging, gamification, and targeted engagement.</li>
-            <li><strong>Enable real-time agent visibility</strong> — Provide instant insight into agent activity to better support and accelerate performance.</li>
-          </ul>
+          <div class="pa-accordion">
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Modernize the purchasing experience</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Deliver an industry-leading, point-of-sale experience that agents want to use.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Boost agent productivity</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Cut application time in half so agents can serve more customers with the same effort.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Drive agent engagement</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Drive activity and adoption with real-time messaging, gamification, and targeted engagement.</div>
+            </div>
+            <div class="pa-item">
+              <button class="pa-item-trigger" onclick="togglePaItem(this)">
+                <span>Enable real-time agent visibility</span><span class="pa-item-plus">+</span>
+              </button>
+              <div class="pa-item-body">Provide instant insight into agent activity to better support and accelerate performance.</div>
+            </div>
+          </div>
         </div>
 
       </div><!-- /pa-content -->
@@ -737,6 +876,16 @@
     var isOpen = card.classList.contains('open');
     document.querySelectorAll('.faq-card').forEach(function(c){ c.classList.remove('open'); });
     if (!isOpen) card.classList.add('open');
+  }
+
+  /* Platform accordion items */
+  function togglePaItem(btn) {
+    var item = btn.closest('.pa-item');
+    var panel = item.closest('.pa-panel');
+    var isOpen = item.classList.contains('open');
+    // Close all items in this panel
+    panel.querySelectorAll('.pa-item').forEach(function(i){ i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
   }
 
   /* Contact form */

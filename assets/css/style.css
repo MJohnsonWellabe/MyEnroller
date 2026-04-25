@@ -271,7 +271,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 }
 
 /* ── Grid Utilities ── */
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.5rem; }
 
@@ -770,4 +770,5 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
   .section { padding: 3rem 1.25rem; }
   .page-header { padding: 3.5rem 1.25rem 3rem; }
   .modal-box { padding: 2rem 1.5rem; }
+  .grid-2 { grid-template-columns: 1fr; }
 }
