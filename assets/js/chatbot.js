@@ -139,8 +139,12 @@ Your goal: Help serious carrier stakeholders quickly understand whether MyEnroll
 
   // ── STATE ────────────────────────────────────────────────────────────────────
   let messages = [];
-  let isOpen   = true;
   let isTyping = false;
+  // Remember minimize state across page navigations within this browser session.
+  // First visit ever = open. Once user minimizes, stays minimized on all pages.
+  var STORAGE_KEY = 'me_chat_minimized';
+  var wasMinimized = sessionStorage.getItem(STORAGE_KEY) === 'true';
+  var isOpen = !wasMinimized;
 
   // ── INJECT CSS ───────────────────────────────────────────────────────────────
   const style = document.createElement('style');
@@ -389,6 +393,8 @@ Your goal: Help serious carrier stakeholders quickly understand whether MyEnroll
 
   function setOpen(open) {
     isOpen = open;
+    // Persist minimized state so it survives page navigation
+    sessionStorage.setItem(STORAGE_KEY, open ? 'false' : 'true');
     if (open) {
       chatWindow.classList.remove('hidden');
     } else {
@@ -482,7 +488,12 @@ Your goal: Help serious carrier stakeholders quickly understand whether MyEnroll
     inputEl.focus();
   }
 
-  // ── OPENING GREETING ─────────────────────────────────────────────────────────
+  // ── APPLY INITIAL STATE + GREETING ──────────────────────────────────────────
+  // Apply saved minimize state immediately (no flash)
+  if (!isOpen) {
+    chatWindow.classList.add('hidden');
+  }
+  // Show greeting only on first visit (when not minimized from a previous page)
   setTimeout(function () {
     addMessage('bot', "Hi, I'm here to help. What can I help you with today?");
   }, 600);

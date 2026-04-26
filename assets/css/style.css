@@ -247,9 +247,17 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 .breadcrumb a { color: var(--aqua); }
 .breadcrumb a:hover { text-decoration: underline; }
 
-/* ── Sections ── */
+/* ── Section ── */
 .section {
   padding: 5rem 2rem;
+}
+.section-subtitle {
+  color: var(--aqua);
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  margin: 0.2rem auto 1rem;
+  text-align: center;
 }
 .section-alt { background: var(--gray-50); }
 .section-navy {
