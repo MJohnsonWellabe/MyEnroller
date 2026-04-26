@@ -38,6 +38,7 @@ const NAV_HTML = `
       </ul>
     </li>
     <li><a href="../pages/contact.html">Contact Us</a></li>
+    <li><a href="../pages/see-it-in-action.html">See It in Action</a></li>
     <li><a href="../pages/join-the-team.html">Join the Team</a></li>
   </ul>
 </div>
@@ -79,7 +80,8 @@ const FOOTER_HTML = `
       <ul>
         <li><a href="../pages/about.html">About Us</a></li>
         <li><a href="../pages/contact.html">Contact Us</a></li>
-        <li><a href="../pages/join-the-team.html">Join the Team</a></li>
+        <li><a href="../pages/see-it-in-action.html">See It in Action</a></li>
+    <li><a href="../pages/join-the-team.html">Join the Team</a></li>
       </ul>
     </div>
   </div>
