@@ -7,6 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    @media (max-width: 700px) {
+      .team-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
 </head>
 <body>
 <div id="nav-placeholder"></div>
@@ -88,7 +93,7 @@
         <h2>Meet the Team</h2>
         <div class="divider-aqua"></div>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.75rem;">
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.75rem;" class="team-grid">
 
         <div class="team-card">
           <div class="team-avatar">MJ</div>

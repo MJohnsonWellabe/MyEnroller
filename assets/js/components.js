@@ -98,3 +98,7 @@ document.getElementById('footer-year').textContent = new Date().getFullYear();
 const s = document.createElement('script');
 s.src = '../assets/js/nav.js';
 document.body.appendChild(s);
+
+const cb = document.createElement("script");
+cb.src = "../assets/js/chatbot.js";
+document.body.appendChild(cb);
