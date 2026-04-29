@@ -65,7 +65,7 @@
         '.me-sd{width:22px;height:22px;border-radius:50%;flex-shrink:0;}' +
         '.me-tn{font-weight:700;font-size:0.87rem;color:#1A202C;font-family:inherit;}' +
         '.me-td{font-size:0.73rem;color:#718096;margin-top:1px;line-height:1.3;font-family:inherit;}' +
-        '#me-pc{width:100%;padding:0.82rem;background:#0B1F4A;color:#fff;border:none;border-radius:9px;font-size:0.94rem;font-weight:700;cursor:pointer;font-family:inherit;display:block;box-sizing:border-box;}' +
+        
         '#me-sk{display:block;text-align:center;padding:0.6rem;margin-top:0.5rem;font-size:0.79rem;color:#A0AEC0;cursor:pointer;font-family:inherit;}' +
         '@media(max-width:460px){.me-tg{grid-template-columns:1fr;}}';
       document.head.appendChild(ps);
@@ -102,7 +102,7 @@
       var ds = document.createElement('div'); ds.className = 'me-td'; ds.textContent = t.description;
       tile.appendChild(swRow); tile.appendChild(nm); tile.appendChild(ds);
 
-      /* Single unified handler — works on both touch and mouse */
+      /* Tap/click a tile: apply theme immediately and close picker */
       tile.addEventListener('pointerdown', function (e) {
         e.stopPropagation();
         modal.querySelectorAll('.me-tt').forEach(function (x) { x.classList.remove('sel'); });
@@ -110,22 +110,15 @@
         selectedId = id;
         applyTheme(id);
         updateThemeBtn();
+        /* Close immediately after selection — no confirm button needed */
+        setTimeout(function () {
+          overlay.remove();
+          pickerOpen = false;
+          if (onClose) onClose();
+        }, 120); /* tiny delay so user sees the selection highlight */
       });
 
       grid.appendChild(tile);
-    });
-
-    var confirmBtn = document.createElement('button');
-    confirmBtn.id = 'me-pc';
-    confirmBtn.type = 'button';
-    confirmBtn.textContent = 'Apply Branding';
-    confirmBtn.addEventListener('pointerdown', function (e) {
-      e.stopPropagation();
-      applyTheme(selectedId);
-      overlay.remove();
-      pickerOpen = false;
-      updateThemeBtn();
-      if (onClose) onClose();
     });
 
     var skip = document.createElement('div');
@@ -140,13 +133,13 @@
       if (onClose) onClose();
     });
 
-    /* Absorb taps on the overlay backdrop so they don't bleed through */
+    /* Absorb taps on the overlay backdrop */
     overlay.addEventListener('pointerdown', function (e) {
       if (e.target === overlay) e.stopPropagation();
     });
 
     modal.appendChild(h2); modal.appendChild(sub); modal.appendChild(grid);
-    modal.appendChild(confirmBtn); modal.appendChild(skip);
+    modal.appendChild(skip);
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
   }
@@ -191,126 +184,10 @@
     document.body.appendChild(themeBtn);
   }
 
-  /* ── EXIT SURVEY ─────────────────────────────────────────────────────────── */
-  var surveyShown = false;
-
-  function buildExitSurvey(afterClose) {
-    if (surveyShown) { if (afterClose) afterClose(); return; }
-    if (sessionStorage.getItem('me_sv_done')) { if (afterClose) afterClose(); return; }
-    surveyShown = true;
-
-    if (!document.getElementById('me-ss')) {
-      var ss = document.createElement('style');
-      ss.id = 'me-ss';
-      ss.textContent =
-        '#me-svo{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(11,31,74,0.65);z-index:2147483641;display:flex;align-items:center;justify-content:center;padding:1.5rem;}' +
-        '#me-svm{background:#fff;border-radius:20px;padding:2.25rem 1.75rem 1.75rem;max-width:380px;width:100%;text-align:center;position:relative;z-index:2147483642;}' +
-        '#me-svm h3{font-family:"Playfair Display",Georgia,serif;font-size:1.3rem;font-weight:700;color:#0B1F4A;margin:0 0 0.3rem;}' +
-        '#me-svm .sv-s{font-size:0.84rem;color:#718096;margin:0 0 1.25rem;}' +
-        '.me-fs{display:flex;justify-content:center;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap;}' +
-        '.me-fc{width:50px;height:50px;border-radius:50%;border:2px solid #E2E8F0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:#fff;touch-action:manipulation;user-select:none;-webkit-user-select:none;}' +
-        '.me-fc.sel{border-color:#0B1F4A;background:#EEF2FF;box-shadow:0 0 0 3px rgba(11,31,74,0.12);}' +
-        '#me-svs{width:100%;padding:0.78rem;background:#0B1F4A;color:#fff;border:none;border-radius:9px;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:0.65rem;display:block;box-sizing:border-box;}' +
-        '#me-svs:disabled{background:#CBD5E0;cursor:not-allowed;}' +
-        '#me-svk{font-size:0.79rem;color:#A0AEC0;cursor:pointer;display:block;padding:0.35rem;touch-action:manipulation;}';
-      document.head.appendChild(ss);
-    }
-
-    var overlay = document.createElement('div'); overlay.id = 'me-svo';
-    var modal   = document.createElement('div'); modal.id   = 'me-svm';
-
-    var h3  = document.createElement('h3');  h3.textContent  = 'How was your experience today?';
-    var sub = document.createElement('p');   sub.className   = 'sv-s'; sub.textContent = 'Your feedback helps us improve.';
-
-    var fw = document.createElement('div'); fw.className = 'me-fs';
-    var FACES = [{e:'😞',v:1},{e:'😕',v:2},{e:'😐',v:3},{e:'🙂',v:4},{e:'😄',v:5}];
-    var rating = null;
-    var sb = document.createElement('button'); sb.id = 'me-svs'; sb.type = 'button'; sb.textContent = 'Submit'; sb.disabled = true;
-
-    FACES.forEach(function (opt) {
-      var f = document.createElement('div'); f.className = 'me-fc'; f.textContent = opt.e;
-      f.addEventListener('pointerdown', function (e) {
-        e.stopPropagation();
-        fw.querySelectorAll('.me-fc').forEach(function (x) { x.classList.remove('sel'); });
-        f.classList.add('sel');
-        rating = opt.v;
-        sb.disabled = false;
-      });
-      fw.appendChild(f);
-    });
-
-    function closeSurvey(proceed) {
-      sessionStorage.setItem('me_sv_done', 'true');
-      overlay.remove(); surveyShown = false;
-      if (proceed && afterClose) afterClose();
-    }
-
-    sb.addEventListener('click', function () {
-      console.log('ME survey rating:', rating);
-      modal.innerHTML =
-        '<div style="font-size:2.2rem;margin-bottom:0.65rem;">🙏</div>' +
-        '<h3 style="font-family:Playfair Display,Georgia,serif;font-size:1.25rem;font-weight:700;color:#0B1F4A;margin:0 0 0.4rem;">Thank you!</h3>' +
-        '<p style="font-size:0.86rem;color:#718096;margin:0;">We appreciate your feedback.</p>';
-      setTimeout(function () { closeSurvey(true); }, 1800);
-    });
-
-    var sk = document.createElement('div'); sk.id = 'me-svk'; sk.textContent = 'No thanks';
-    sk.addEventListener('pointerdown', function (e) { e.stopPropagation(); closeSurvey(true); });
-
-    modal.appendChild(h3); modal.appendChild(sub); modal.appendChild(fw); modal.appendChild(sb); modal.appendChild(sk);
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-  }
-
-  function initExitSurvey() {
-    var pageLoadTime = Date.now();
-
-    /* TRIGGER 1 — External link clicks (capture phase, works on all devices) */
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest('a');
-      if (!a || !a.href || a.getAttribute('href') === '#') return;
-      if (!isExternalUrl(a.href)) return;
-      e.preventDefault(); e.stopPropagation();
-      var dest = a.href;
-      buildExitSurvey(function () { window.location.href = dest; });
-    }, true);
-
-    /* TRIGGER 2 — Desktop exit intent: mouse leaves browser window through top
-       The correct event is mouseleave on document, checking relatedTarget === null
-       which means the pointer left the document entirely (not just moved to a child) */
-    document.addEventListener('mouseleave', function (e) {
-      /* relatedTarget is null when mouse leaves the browser window */
-      if (e.relatedTarget !== null) return;
-      /* Only fire after 4 seconds on page to avoid instant false triggers */
-      if (Date.now() - pageLoadTime < 4000) return;
-      if (sessionStorage.getItem('me_sv_done')) return;
-      if (surveyShown) return;
-      buildExitSurvey(null);
-    });
-
-    /* TRIGGER 3 — Mobile/tablet: page hidden after meaningful time on site */
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState !== 'hidden') return;
-      if (sessionStorage.getItem('me_sv_done')) return;
-      if (surveyShown) return;
-      if (Date.now() - pageLoadTime < 8000) return;
-      sessionStorage.setItem('me_sv_intent', '1');
-    });
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState !== 'visible') return;
-      if (!sessionStorage.getItem('me_sv_intent')) return;
-      if (sessionStorage.getItem('me_sv_done')) return;
-      sessionStorage.removeItem('me_sv_intent');
-      setTimeout(function () { buildExitSurvey(null); }, 300);
-    });
-  }
-
   /* ── INIT ───────────────────────────────────────────────────────────────── */
   function init() {
     buildThemeToggle();
     maybeShowPicker();
-    initExitSurvey();
   }
 
   if (document.readyState === 'loading') {

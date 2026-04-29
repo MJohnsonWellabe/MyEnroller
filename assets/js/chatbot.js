@@ -499,4 +499,63 @@ Your goal: Help serious carrier stakeholders quickly understand whether MyEnroll
     addMessage('bot', "Hi, I'm here to help. What can I help you with today?");
   }, 600);
 
+  // ── IN-CHAT EXPERIENCE SURVEY (60 seconds after page load) ──────────────────
+  // Fires once per session. If chatbot is minimized, opens it first.
+  var SURVEY_SESSION_KEY = 'me_chat_survey_done';
+  if (!sessionStorage.getItem(SURVEY_SESSION_KEY)) {
+    setTimeout(function () {
+      // Don't show if user is already mid-conversation
+      if (messages.length > 1) return;
+
+      // Open chatbot if minimized
+      if (!isOpen) setOpen(true);
+
+      // Add survey message with face buttons
+      var surveyDiv = document.createElement('div');
+      surveyDiv.className = 'me-msg bot';
+      surveyDiv.style.padding = '10px 13px';
+
+      var question = document.createElement('div');
+      question.style.marginBottom = '10px';
+      question.style.fontWeight = '600';
+      question.style.color = '#0B1F4A';
+      question.textContent = 'How has your experience been today?';
+
+      var facesRow = document.createElement('div');
+      facesRow.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;';
+
+      var FACES = [
+        { e: '😞', v: 1, l: 'Very dissatisfied' },
+        { e: '😕', v: 2, l: 'Dissatisfied'      },
+        { e: '😐', v: 3, l: 'Neutral'            },
+        { e: '🙂', v: 4, l: 'Satisfied'          },
+        { e: '😄', v: 5, l: 'Very satisfied'     },
+      ];
+
+      FACES.forEach(function (opt) {
+        var btn = document.createElement('button');
+        btn.title = opt.l;
+        btn.textContent = opt.e;
+        btn.style.cssText = 'font-size:1.4rem;background:#F7FAFC;border:2px solid #E2E8F0;border-radius:50%;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color 0.15s;touch-action:manipulation;';
+        btn.addEventListener('pointerdown', function (e) {
+          e.stopPropagation();
+          // Mark done so it never shows again this session
+          sessionStorage.setItem(SURVEY_SESSION_KEY, 'true');
+          // Log rating
+          console.log('ME chat survey rating:', opt.v);
+          // Remove survey bubble and replace with thank-you
+          surveyDiv.remove();
+          addMessage('bot', 'Thank you for the feedback! ' + opt.e + '  If there\'s anything I can help you with, just ask.');
+        });
+        facesRow.appendChild(btn);
+      });
+
+      surveyDiv.appendChild(question);
+      surveyDiv.appendChild(facesRow);
+      messagesEl.appendChild(surveyDiv);
+      scrollToBottom();
+
+    }, 60000); // 60 seconds
+  }
+
 })();
