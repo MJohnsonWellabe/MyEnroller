@@ -95,6 +95,10 @@ const s = document.createElement('script');
 s.src = 'assets/js/nav.js';
 document.body.appendChild(s);
 
+const ft = document.createElement("script");
+ft.src = "assets/js/features.js";
+document.body.appendChild(ft);
+
 const cb = document.createElement("script");
 cb.src = "assets/js/chatbot.js";
 document.body.appendChild(cb);

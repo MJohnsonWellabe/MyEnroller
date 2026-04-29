@@ -153,7 +153,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether MyEnroll
       position: fixed;
       bottom: 24px;
       right: 24px;
-      z-index: 9999;
+      z-index: 2147483647;
       font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
       font-size: 14px;
     }
@@ -187,8 +187,9 @@ Your goal: Help serious carrier stakeholders quickly understand whether MyEnroll
       transition: opacity 0.22s ease, transform 0.22s ease;
     }
     #me-chat-window.hidden {
-      opacity: 0; transform: translateY(12px) scale(0.97);
-      pointer-events: none; position: absolute; bottom: 68px; right: 0;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
     }
 
     /* Header */

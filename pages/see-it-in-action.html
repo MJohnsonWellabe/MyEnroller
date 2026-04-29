@@ -437,6 +437,7 @@
       transition: all 0.18s;
     }
     .demo-btn-back:hover { background: #F7FAFC; border-color: #A0AEC0; }
+    .demo-btn-restart:hover { background: #E8F8FA; }
     .demo-btn-next {
       padding: 0.7rem 2rem;
       background: var(--navy);
@@ -452,7 +453,6 @@
     }
     .demo-btn-next:hover {
       background: #163066;
-      transform: translateY(-1px);
       box-shadow: 0 4px 16px rgba(11,31,74,0.3);
     }
     .demo-btn-restart {
@@ -487,6 +487,23 @@
       .demo-body { padding: 1.25rem; }
       .progress-step-label { display: none; }
     }
+    /* ── Chatbot stacking fix for demo page ── */
+    /* Prevent demo elements from creating competing stacking contexts */
+    .demo-shell, .demo-card, .progress-step-num {
+      /* No will-change, no transform on these — they'd create stacking contexts */
+      isolation: auto;
+    }
+    /* Force chatbot widget above everything on this page */
+    #me-chat-widget {
+      z-index: 2147483647 !important;
+    }
+    #me-chat-window {
+      z-index: 2147483647 !important;
+    }
+    #me-chat-toggle {
+      z-index: 2147483647 !important;
+    }
+
     @media (max-width: 480px) {
       .product-tiles { grid-template-columns: repeat(2, 1fr); }
     }
