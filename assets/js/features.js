@@ -1,26 +1,36 @@
 /**
  * MyEnroller Global Features
  * 1. Brand Theme Picker  — shown when arriving from an external site
- * 2. Exit Experience Survey — shown when leaving to external site or closing tab
+ * 2. Exit Experience Survey — shown when leaving to an external site or closing tab
  */
 (function () {
   'use strict';
 
-  var SITE_HOST = window.location.hostname; // e.g. "mjohnsonwellabe.github.io"
+  var SITE_HOST    = window.location.hostname;
+  var SITE_PATH    = window.location.pathname.split('/').slice(0, 2).join('/'); // e.g. "/MyEnroller"
+
+  // True if href goes to a different host entirely, OR same host but different repo path
+  function isExternalUrl(href) {
+    if (!href || href === '#' || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return false;
+    try {
+      var url = new URL(href, window.location.href);
+      // Different host = definitely external
+      if (url.hostname !== SITE_HOST) return true;
+      // Same github.io host but different repo = external
+      if (SITE_PATH.length > 1 && url.pathname.indexOf(SITE_PATH) !== 0) return true;
+      return false;
+    } catch (e) { return false; }
+  }
 
   function isExternalReferrer() {
     try {
       if (!document.referrer || document.referrer === '') return true;
       var ref = new URL(document.referrer);
-      return ref.hostname !== SITE_HOST;
+      if (ref.hostname !== SITE_HOST) return true;
+      // Same github.io host but different repo path = external referrer
+      if (SITE_PATH.length > 1 && ref.pathname.indexOf(SITE_PATH) !== 0) return true;
+      return false;
     } catch (e) { return true; }
-  }
-
-  function isExternalUrl(href) {
-    try {
-      var url = new URL(href, window.location.href);
-      return url.hostname !== SITE_HOST;
-    } catch (e) { return false; }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -59,7 +69,6 @@
     localStorage.setItem(THEME_KEY, themeId);
   }
 
-  // Apply saved theme immediately to prevent flash
   var savedThemeId = localStorage.getItem(THEME_KEY);
   if (savedThemeId) applyTheme(savedThemeId);
 
@@ -72,25 +81,24 @@
     if (document.getElementById('me-picker-style')) return;
     var s = document.createElement('style');
     s.id = 'me-picker-style';
+    // NOTE: No backdrop-filter (breaks iOS touch), no transform in animation (creates stacking context)
+    // Use -webkit-overflow-scrolling and explicit touch-action for mobile
     s.textContent = [
-      '#me-theme-overlay{position:fixed;inset:0;background:rgba(11,31,74,0.72);z-index:2147483640;display:flex;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(3px);}',
-      '#me-theme-modal{background:#fff;border-radius:20px;padding:2.5rem;max-width:560px;width:100%;box-shadow:0 24px 80px rgba(11,31,74,0.35);animation:meIn 0.3s ease;}',
-      '@keyframes meIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}',
-      '#me-theme-modal h2{font-family:"Playfair Display",Georgia,serif;font-size:1.55rem;font-weight:700;color:#0B1F4A;margin:0 0 0.35rem;}',
-      '#me-theme-modal .tm-sub{font-size:0.88rem;color:#718096;margin:0 0 1.6rem;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
-      '.me-theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:1.6rem;}',
-      '.me-theme-tile{border:2px solid #E2E8F0;border-radius:12px;padding:1.1rem 1rem;cursor:pointer;transition:all 0.2s;background:#fff;text-align:left;}',
-      '.me-theme-tile:hover{border-color:#00B5C8;box-shadow:0 4px 14px rgba(0,181,200,0.18);}',
-      '.me-theme-tile.selected{border-color:#0B1F4A;box-shadow:0 0 0 3px rgba(11,31,74,0.12);}',
-      '.tm-swatches{display:flex;gap:6px;margin-bottom:0.55rem;}',
-      '.tm-swatch{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,0.8);box-shadow:0 1px 4px rgba(0,0,0,0.14);}',
-      '.tm-name{font-weight:700;font-size:0.9rem;color:#1A202C;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
-      '.tm-desc{font-size:0.76rem;color:#718096;margin-top:2px;font-family:"Source Sans 3","Segoe UI",sans-serif;line-height:1.35;}',
-      '#me-picker-confirm{width:100%;padding:0.82rem;background:#0B1F4A;color:#fff;border:none;border-radius:10px;font-size:0.96rem;font-weight:700;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;transition:background 0.2s;}',
-      '#me-picker-confirm:hover{background:#163066;}',
-      '.tm-skip{display:block;text-align:center;margin-top:0.85rem;font-size:0.8rem;color:#A0AEC0;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
-      '.tm-skip:hover{color:#718096;}',
-      '@media(max-width:480px){.me-theme-grid{grid-template-columns:1fr;}#me-theme-modal{padding:1.75rem;}}',
+      '#me-theme-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(11,31,74,0.78);z-index:2147483640;display:flex;align-items:center;justify-content:center;padding:1rem;-webkit-overflow-scrolling:touch;overflow-y:auto;}',
+      '#me-theme-modal{background:#fff;border-radius:20px;padding:2rem;max-width:520px;width:100%;box-shadow:0 24px 80px rgba(11,31,74,0.35);position:relative;z-index:2147483641;-webkit-tap-highlight-color:transparent;}',
+      '#me-theme-modal h2{font-family:"Playfair Display",Georgia,serif;font-size:1.45rem;font-weight:700;color:#0B1F4A;margin:0 0 0.3rem;}',
+      '#me-theme-modal .tm-sub{font-size:0.86rem;color:#718096;margin:0 0 1.4rem;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
+      '.me-theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.4rem;}',
+      /* Tiles: use -webkit-tap for mobile, cursor:pointer, touch-action:manipulation stops delay */
+      '.me-theme-tile{border:2px solid #E2E8F0;border-radius:12px;padding:1rem;cursor:pointer;background:#fff;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,181,200,0.15);user-select:none;-webkit-user-select:none;}',
+      '.me-theme-tile.selected{border-color:#0B1F4A;background:#F0F4FF;}',
+      '.tm-swatches{display:flex;gap:5px;margin-bottom:0.5rem;}',
+      '.tm-swatch{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,0.8);box-shadow:0 1px 4px rgba(0,0,0,0.14);flex-shrink:0;}',
+      '.tm-name{font-weight:700;font-size:0.88rem;color:#1A202C;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
+      '.tm-desc{font-size:0.74rem;color:#718096;margin-top:2px;font-family:"Source Sans 3","Segoe UI",sans-serif;line-height:1.3;}',
+      '#me-picker-confirm{width:100%;padding:0.85rem;background:#0B1F4A;color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:block;}',
+      '.tm-skip{display:block;text-align:center;margin-top:0.85rem;padding:0.5rem;font-size:0.8rem;color:#A0AEC0;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}',
+      '@media(max-width:480px){.me-theme-grid{grid-template-columns:1fr;}#me-theme-modal{padding:1.5rem;border-radius:16px;}}',
     ].join('');
     document.head.appendChild(s);
   }
@@ -117,6 +125,21 @@
 
     var selectedId = savedThemeId || 'myenroller';
 
+    function addTouchAndClick(el, handler) {
+      // Use touchend for snappy mobile response, click as fallback
+      var touched = false;
+      el.addEventListener('touchend', function (e) {
+        e.preventDefault(); // prevent ghost click
+        touched = true;
+        handler();
+        setTimeout(function () { touched = false; }, 400);
+      }, { passive: false });
+      el.addEventListener('click', function (e) {
+        if (touched) return;
+        handler();
+      });
+    }
+
     Object.keys(THEMES).forEach(function (id) {
       var t = THEMES[id];
       var tile = document.createElement('div');
@@ -138,20 +161,24 @@
       ds.textContent = t.description;
 
       tile.appendChild(sw); tile.appendChild(nm); tile.appendChild(ds);
-      tile.addEventListener('click', function () {
-        document.querySelectorAll('.me-theme-tile').forEach(function (tt) { tt.classList.remove('selected'); });
+
+      addTouchAndClick(tile, function () {
+        modal.querySelectorAll('.me-theme-tile').forEach(function (tt) { tt.classList.remove('selected'); });
         tile.classList.add('selected');
         selectedId = id;
         applyTheme(id);
         updateThemeBtn();
       });
+
       grid.appendChild(tile);
     });
 
     var confirmBtn = document.createElement('button');
     confirmBtn.id = 'me-picker-confirm';
+    confirmBtn.type = 'button';
     confirmBtn.textContent = 'Apply Branding';
-    confirmBtn.addEventListener('click', function () {
+
+    addTouchAndClick(confirmBtn, function () {
       applyTheme(selectedId);
       overlay.remove();
       pickerOpen = false;
@@ -162,7 +189,8 @@
     var skip = document.createElement('span');
     skip.className = 'tm-skip';
     skip.textContent = 'Skip — use default branding';
-    skip.addEventListener('click', function () {
+
+    addTouchAndClick(skip, function () {
       applyTheme('myenroller');
       overlay.remove();
       pickerOpen = false;
@@ -176,16 +204,14 @@
     document.body.appendChild(overlay);
   }
 
-  // Show picker only when arriving from an external site
   function maybeShowPicker() {
     if (isExternalReferrer()) {
-      // Small delay so page renders first
-      setTimeout(function () { buildThemePicker(); }, 400);
+      setTimeout(function () { buildThemePicker(); }, 500);
     }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // THEME TOGGLE BUTTON (bottom-left, always visible)
+  // THEME TOGGLE BUTTON
   // ─────────────────────────────────────────────────────────────────────────
   var themeBtn = null;
 
@@ -195,10 +221,10 @@
     var t = THEMES[tid];
     themeBtn.innerHTML = '';
     var sw = document.createElement('div');
-    sw.style.cssText = 'display:flex;gap:3px;';
+    sw.style.cssText = 'display:flex;gap:3px;flex-shrink:0;';
     [t.swatch1, t.swatch2].forEach(function (c) {
       var dot = document.createElement('div');
-      dot.style.cssText = 'width:12px;height:12px;border-radius:50%;background:' + c + ';';
+      dot.style.cssText = 'width:12px;height:12px;border-radius:50%;background:' + c + ';flex-shrink:0;';
       sw.appendChild(dot);
     });
     var lbl = document.createElement('span');
@@ -208,13 +234,25 @@
 
   function buildThemeToggle() {
     var s = document.createElement('style');
-    s.textContent = '#me-theme-btn{position:fixed;bottom:24px;left:24px;z-index:2147483638;background:#fff;border:1.5px solid #E2E8F0;border-radius:30px;padding:6px 14px 6px 8px;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;font-size:0.78rem;font-weight:600;color:#4A5568;box-shadow:0 2px 12px rgba(11,31,74,0.12);transition:box-shadow 0.2s;}#me-theme-btn:hover{box-shadow:0 4px 18px rgba(11,31,74,0.2);}';
+    s.textContent = '#me-theme-btn{position:fixed;bottom:24px;left:24px;z-index:2147483638;background:#fff;border:1.5px solid #E2E8F0;border-radius:30px;padding:6px 14px 6px 8px;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;font-size:0.78rem;font-weight:600;color:#4A5568;box-shadow:0 2px 12px rgba(11,31,74,0.12);touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}';
     document.head.appendChild(s);
 
     themeBtn = document.createElement('div');
     themeBtn.id = 'me-theme-btn';
     themeBtn.title = 'Change branding theme';
-    themeBtn.addEventListener('click', function () { buildThemePicker(updateThemeBtn); });
+
+    var tBtnTouched = false;
+    themeBtn.addEventListener('touchend', function (e) {
+      e.preventDefault();
+      tBtnTouched = true;
+      buildThemePicker(updateThemeBtn);
+      setTimeout(function () { tBtnTouched = false; }, 400);
+    }, { passive: false });
+    themeBtn.addEventListener('click', function () {
+      if (tBtnTouched) return;
+      buildThemePicker(updateThemeBtn);
+    });
+
     updateThemeBtn();
     document.body.appendChild(themeBtn);
   }
@@ -229,26 +267,22 @@
     var s = document.createElement('style');
     s.id = 'me-survey-style';
     s.textContent = [
-      '#me-survey-overlay{position:fixed;inset:0;background:rgba(11,31,74,0.65);z-index:2147483641;display:flex;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(3px);}',
-      '#me-survey-modal{background:#fff;border-radius:20px;padding:2.5rem 2rem 2rem;max-width:400px;width:100%;box-shadow:0 24px 80px rgba(11,31,74,0.35);text-align:center;animation:meIn 0.3s ease;}',
+      '#me-survey-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(11,31,74,0.65);z-index:2147483641;display:flex;align-items:center;justify-content:center;padding:1.5rem;}',
+      '#me-survey-modal{background:#fff;border-radius:20px;padding:2.5rem 2rem 2rem;max-width:400px;width:100%;box-shadow:0 24px 80px rgba(11,31,74,0.35);text-align:center;position:relative;z-index:2147483642;}',
       '#me-survey-modal h3{font-family:"Playfair Display",Georgia,serif;font-size:1.35rem;font-weight:700;color:#0B1F4A;margin:0 0 0.35rem;}',
       '#me-survey-modal .sv-sub{font-size:0.86rem;color:#718096;margin:0 0 1.4rem;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
-      '.me-faces{display:flex;justify-content:center;gap:0.55rem;margin-bottom:1.4rem;}',
-      '.me-face{width:50px;height:50px;border-radius:50%;border:2px solid #E2E8F0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.55rem;transition:border-color 0.18s,box-shadow 0.18s;background:#fff;}',
-      '.me-face:hover{border-color:#00B5C8;}',
-      '.me-face.selected{border-color:#0B1F4A;box-shadow:0 0 0 3px rgba(11,31,74,0.14);}',
-      '#me-sv-submit{width:100%;padding:0.78rem;background:#0B1F4A;color:#fff;border:none;border-radius:10px;font-size:0.93rem;font-weight:700;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;transition:background 0.2s;margin-bottom:0.7rem;}',
-      '#me-sv-submit:hover{background:#163066;}',
+      '.me-faces{display:flex;justify-content:center;gap:0.6rem;margin-bottom:1.4rem;flex-wrap:wrap;}',
+      '.me-face{width:52px;height:52px;border-radius:50%;border:2px solid #E2E8F0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:#fff;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}',
+      '.me-face.selected{border-color:#0B1F4A;box-shadow:0 0 0 3px rgba(11,31,74,0.14);background:#F0F4FF;}',
+      '#me-sv-submit{width:100%;padding:0.8rem;background:#0B1F4A;color:#fff;border:none;border-radius:10px;font-size:0.93rem;font-weight:700;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;margin-bottom:0.75rem;display:block;touch-action:manipulation;}',
       '#me-sv-submit:disabled{background:#CBD5E0;cursor:not-allowed;}',
-      '.sv-skip{font-size:0.8rem;color:#A0AEC0;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;}',
-      '.sv-skip:hover{color:#718096;}',
+      '.sv-skip{font-size:0.8rem;color:#A0AEC0;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;display:block;padding:0.4rem;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}',
     ].join('');
     document.head.appendChild(s);
   }
 
   function buildExitSurvey(afterClose) {
     if (surveyShown) { if (afterClose) afterClose(); return; }
-    // Don't re-show within same session
     if (sessionStorage.getItem('me_survey_done')) { if (afterClose) afterClose(); return; }
     surveyShown = true;
     injectSurveyStyles();
@@ -266,6 +300,7 @@
 
     var facesWrap = document.createElement('div');
     facesWrap.className = 'me-faces';
+
     var FACES = [
       {e:'😞',l:'Very dissatisfied',v:1},
       {e:'😕',l:'Dissatisfied',v:2},
@@ -274,11 +309,27 @@
       {e:'😄',l:'Very satisfied',v:5}
     ];
     var rating = null;
+    var submitBtn = document.createElement('button');
+    submitBtn.id = 'me-sv-submit';
+    submitBtn.type = 'button';
+    submitBtn.textContent = 'Submit';
+    submitBtn.disabled = true;
 
     FACES.forEach(function (opt) {
       var f = document.createElement('div');
       f.className = 'me-face'; f.title = opt.l; f.textContent = opt.e;
+      var fTouched = false;
+      f.addEventListener('touchend', function (e) {
+        e.preventDefault();
+        fTouched = true;
+        facesWrap.querySelectorAll('.me-face').forEach(function (x) { x.classList.remove('selected'); });
+        f.classList.add('selected');
+        rating = opt.v;
+        submitBtn.disabled = false;
+        setTimeout(function () { fTouched = false; }, 400);
+      }, { passive: false });
       f.addEventListener('click', function () {
+        if (fTouched) return;
         facesWrap.querySelectorAll('.me-face').forEach(function (x) { x.classList.remove('selected'); });
         f.classList.add('selected');
         rating = opt.v;
@@ -287,12 +338,7 @@
       facesWrap.appendChild(f);
     });
 
-    var submitBtn = document.createElement('button');
-    submitBtn.id = 'me-sv-submit';
-    submitBtn.textContent = 'Submit';
-    submitBtn.disabled = true;
-
-    function close(proceed) {
+    function closeSurvey(proceed) {
       sessionStorage.setItem('me_survey_done', 'true');
       overlay.remove();
       surveyShown = false;
@@ -300,19 +346,19 @@
     }
 
     submitBtn.addEventListener('click', function () {
-      // Log rating (wire to analytics endpoint in production)
       console.log('MyEnroller exit survey rating:', rating);
-      // Show thank-you briefly
       modal.innerHTML = '';
       modal.style.padding = '2.5rem 2rem';
-      modal.innerHTML = '<div style="font-size:2.5rem;margin-bottom:0.75rem;">🙏</div><h3 style="font-family:Playfair Display,Georgia,serif;font-size:1.35rem;font-weight:700;color:#0B1F4A;margin:0 0 0.5rem;">Thank you!</h3><p style="font-size:0.88rem;color:#718096;font-family:Source Sans 3,Segoe UI,sans-serif;margin:0;">We appreciate your feedback.</p>';
-      setTimeout(function () { close(true); }, 1800);
+      modal.innerHTML = '<div style="font-size:2.5rem;margin-bottom:0.75rem;">🙏</div>' +
+        '<h3 style="font-family:Playfair Display,Georgia,serif;font-size:1.35rem;font-weight:700;color:#0B1F4A;margin:0 0 0.5rem;">Thank you!</h3>' +
+        '<p style="font-size:0.88rem;color:#718096;font-family:Source Sans 3,Segoe UI,sans-serif;margin:0;">We appreciate your feedback.</p>';
+      setTimeout(function () { closeSurvey(true); }, 1800);
     });
 
     var skipLink = document.createElement('div');
     skipLink.className = 'sv-skip';
     skipLink.textContent = 'No thanks';
-    skipLink.addEventListener('click', function () { close(true); });
+    skipLink.addEventListener('click', function () { closeSurvey(true); });
 
     modal.appendChild(h3); modal.appendChild(sub); modal.appendChild(facesWrap);
     modal.appendChild(submitBtn); modal.appendChild(skipLink);
@@ -321,47 +367,51 @@
   }
 
   function initExitSurvey() {
-    // 1. Intercept clicks on external links — show survey, then navigate after
+    // ── TRIGGER 1: External link clicks ──────────────────────────────────────
+    // Capture phase so we catch clicks before the browser navigates
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a');
       if (!a || !a.href) return;
-      if (!isExternalUrl(a.href)) return; // internal link — let it go
+      if (a.getAttribute('href') === '#') return;
+      if (!isExternalUrl(a.href)) return;
       e.preventDefault();
+      e.stopPropagation();
       var dest = a.href;
-      buildExitSurvey(function () { window.location.href = dest; });
+      buildExitSurvey(function () {
+        window.location.href = dest;
+      });
     }, true);
 
-    // 2. Tab/window close — use beforeunload
-    // We can't show a custom modal on beforeunload (browser blocks it),
-    // but we CAN store a flag and show it on the NEXT visit.
-    // Instead, use the pagehide event which fires reliably on tab close AND navigation.
-    // We show the survey via a brief window — if navigating internally pagehide fires
-    // but we skip it since destination is same-origin.
-    window.addEventListener('pagehide', function (e) {
-      // e.persisted = true means page going into bfcache (back-forward), not closing
-      // We can't show a modal at pagehide, so mark a flag for next visit is not ideal.
-      // The practical approach: use visibilitychange for tab-switch/close detection.
-    });
-
-    // 3. visibilitychange — fires when user switches tabs or closes tab
-    // This is the most reliable cross-browser signal for "leaving" without navigation
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') {
-        // Can't show modal when page is hidden — log for analytics instead
-        // In production: send a beacon here
-        // navigator.sendBeacon('/api/exit', JSON.stringify({page: location.href}));
-      }
-    });
-
-    // 4. Mouse leaving viewport through TOP edge only — reliable exit intent
-    document.addEventListener('mouseleave', function (e) {
-      // Only fire if mouse leaves through top of page (exit intent)
-      // clientY <= 5 catches real exits; ignore sideways/bottom exits
-      if (e.clientY > 5) return;
-      // Only fire if not already shown this session
+    // ── TRIGGER 2: Exit intent — mouse leaving through top of viewport ────────
+    // Attach to documentElement (html tag), NOT document — that's why it wasn't firing
+    document.documentElement.addEventListener('mouseleave', function (e) {
+      if (e.clientY > 10) return; // only top-edge exits
       if (sessionStorage.getItem('me_survey_done')) return;
       if (surveyShown) return;
-      buildExitSurvey(null); // no afterClose needed — user is exiting
+      // Don't fire if leaving just entered (rapid mouse out on page load)
+      if (performance.now() < 3000) return;
+      buildExitSurvey(null);
+    });
+
+    // ── TRIGGER 3: Mobile — visibilitychange to hidden after enough time on site
+    var timeOnSite = Date.now();
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState !== 'hidden') return;
+      if (sessionStorage.getItem('me_survey_done')) return;
+      if (surveyShown) return;
+      // Only fire if user spent at least 8 seconds on site (not a quick bounce)
+      if (Date.now() - timeOnSite < 8000) return;
+      // Store intent flag — show survey on next visibility restore (if they come back)
+      sessionStorage.setItem('me_survey_intent', 'true');
+    });
+
+    // If they switched tabs and came back, show it now
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState !== 'visible') return;
+      if (!sessionStorage.getItem('me_survey_intent')) return;
+      if (sessionStorage.getItem('me_survey_done')) return;
+      sessionStorage.removeItem('me_survey_intent');
+      setTimeout(function () { buildExitSurvey(null); }, 300);
     });
   }
 
