@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MyEnroller – The Leading E-App & Underwriting Workflow Software</title>
+  <title>Apptelligent – The Leading E-App & Underwriting Workflow Software</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -123,7 +123,8 @@
     /* ── Mission / Vision cards ── */
     .mv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem; }
     .mv-card { background:var(--white); border-radius:14px; border-top:3px solid var(--aqua); padding:2rem 1.75rem; box-shadow:0 2px 12px rgba(11,31,74,0.07); }
-    .mv-card .ico { font-size:1.6rem; margin-bottom:0.8rem; }
+    .mv-card .ico { margin-bottom:1rem; line-height:0; }
+    .mv-card .ico svg { display:block; }
     .mv-card h3 { font-size:1.12rem; color:var(--navy); margin-bottom:0.55rem; }
     .mv-card p { color:var(--gray-600); font-size:0.93rem; margin:0; line-height:1.65; }
 
@@ -325,7 +326,7 @@
 
 <!-- ══════════════ NAV ══════════════ -->
 <nav id="top-nav">
-  <a class="top-nav-brand" href="index.html">My<span>Enroller</span></a>
+  <a class="top-nav-brand" href="index.html">App<span>telligent</span></a>
 
   <ul class="top-nav-links" id="nav-ul">
     <li><a href="pages/about.html">About Us</a></li>
@@ -350,12 +351,12 @@
       </button>
       <div class="nav-dropdown" id="drop-tools">
         <a class="dd-all" href="pages/tools.html">All Tools</a>
-        <a href="pages/activity-map.html">Activity Map</a>
-        <a href="pages/my-easy-match.html">My Easy Match</a>
-        <a href="pages/messaging.html">MyEnroller Messaging</a>
-        <a href="pages/incentives.html">Instant Incentives</a>
-        <a href="pages/app-scanning.html">Application Scanning</a>
-        <a href="pages/lead-gen.html">Lead Gen Tools</a>
+        <a href="pages/activity-map.html">Apptelligent Pulse</a>
+        <a href="pages/my-easy-match.html">MatchIQ</a>
+        <a href="pages/messaging.html">Apptelligent Link</a>
+        <a href="pages/incentives.html">Apptelligent SPark</a>
+        <a href="pages/app-scanning.html">ScanIQ</a>
+        <a href="pages/lead-gen.html">Apptelligent LeadFlow</a>
       </div>
     </li>
 
@@ -381,12 +382,12 @@
   <a class="m-link" href="pages/ancillary-health.html">Ancillary Health</a>
   <div class="m-sec">Our Tools</div>
   <a class="m-link" href="pages/tools.html">All Tools</a>
-  <a class="m-link" href="pages/activity-map.html">Activity Map</a>
-  <a class="m-link" href="pages/my-easy-match.html">My Easy Match</a>
-  <a class="m-link" href="pages/messaging.html">MyEnroller Messaging</a>
-  <a class="m-link" href="pages/incentives.html">Instant Incentives</a>
-  <a class="m-link" href="pages/app-scanning.html">Application Scanning</a>
-  <a class="m-link" href="pages/lead-gen.html">Lead Gen Tools</a>
+  <a class="m-link" href="pages/activity-map.html">Apptelligent Pulse</a>
+  <a class="m-link" href="pages/my-easy-match.html">MatchIQ</a>
+  <a class="m-link" href="pages/messaging.html">Apptelligent Link</a>
+  <a class="m-link" href="pages/incentives.html">Apptelligent SPark</a>
+  <a class="m-link" href="pages/app-scanning.html">ScanIQ</a>
+  <a class="m-link" href="pages/lead-gen.html">Apptelligent LeadFlow</a>
   <a class="m-link" href="pages/see-it-in-action.html">See It in Action</a>
   <a class="m-link" href="pages/join-the-team.html">Join the Team</a>
   <a class="m-link" href="pages/contact.html" style="color:var(--aqua);font-weight:700;">Contact Us</a>
@@ -395,14 +396,14 @@
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero">
   <div class="hero-slides">
-    <div class="hero-slide active"><img src="assets/images/MyEnrollerSS1.jpg" alt="MyEnroller workflow" /></div>
-    <div class="hero-slide"><img src="assets/images/MyEnrollerSS2.jpg" alt="MyEnroller dashboard" /></div>
-    <div class="hero-slide"><img src="assets/images/MyEnrollerSS3.jpg" alt="MyEnroller underwriting" /></div>
+    <div class="hero-slide active"><img src="assets/images/ApptelligentSS1.jpg" alt="Apptelligent Orchestrator workflow" /></div>
+    <div class="hero-slide"><img src="assets/images/ApptelligentSS2.jpg" alt="Apptelligent dashboard" /></div>
+    <div class="hero-slide"><img src="assets/images/ApptelligentSS3.jpg" alt="Apptelligent underwriting" /></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Built by Carriers, for Carriers</div>
-    <h1>The Leading E-App &amp; Underwriting Workflow Software for Health and Life Carriers</h1>
+    <h1>The Leading Enrollment &amp; Underwriting Workflow Software for Health and Life Carriers</h1>
     <p>Modern enrollment, real-time underwriting decisioning, and data visibility — in one carrier-designed platform.</p>
     <div class="hero-btns">
       <a class="btn btn-primary" href="pages/contact.html">Request a Demo</a>
@@ -424,19 +425,41 @@
     <div class="bar"></div>
     <div class="mv-grid">
       <div class="mv-card">
-        <div class="ico">🎯</div>
+        <div class="ico">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="#E8F8FA"/>
+            <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" stroke="#0B1F4A" stroke-width="1.5" fill="none"/>
+            <path d="M16 9v2M16 21v2M9 16H7M25 16h-2" stroke="#0B1F4A" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="3.5" fill="#00B5C8"/>
+            <path d="M20.5 11.5l-3 4-4 3 3-4 4-3z" fill="#0B1F4A"/>
+          </svg>
+        </div>
         <h3>Our Mission</h3>
-        <p>MyEnroller's mission is to create the best insurance buying and engagement experiences in the market — for both consumers and agents — by delivering fast, intuitive technology solutions that help clients grow.</p>
+        <p>Apptelligent's mission is to make the insurance application process more intelligent — for carriers, agents, and consumers — by delivering configurable enrollment and decisioning technology that helps clients grow faster with better outcomes.</p>
       </div>
       <div class="mv-card">
-        <div class="ico">🔭</div>
+        <div class="ico">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="#E8F8FA"/>
+            <path d="M5 22h22" stroke="#0B1F4A" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M5 16c3-4 6-6 11-6s8 2 11 6" stroke="#00B5C8" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <circle cx="16" cy="16" r="2.5" fill="#0B1F4A"/>
+            <path d="M16 10V7M22 12l2-2M10 12L8 10" stroke="#0B1F4A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>Our Vision</h3>
         <p>Our vision is to become the trusted platform partner for modern insurance buying and underwriting — recognized for speed, flexibility, and results — while reshaping how carriers go to market in a digital-first world.</p>
       </div>
       <div class="mv-card">
-        <div class="ico">⚡</div>
+        <div class="ico">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="#E8F8FA"/>
+            <path d="M16 5L7 9v7c0 5 3.9 9.7 9 11 5.1-1.3 9-6 9-11V9L16 5z" stroke="#0B1F4A" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <path d="M11.5 16.5l3 3 6-6" stroke="#00B5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <h3>Our Proven Advantage</h3>
-        <p>MyEnroller was built by career carrier operators who understand the real constraints of underwriting, distribution, and operations. Our first client more than doubled sales year over year by removing friction at the point of sale.</p>
+        <p>Apptelligent was built by career carrier operators who understand the real constraints of underwriting, distribution, and operations. Our first client more than doubled sales year over year by removing friction at the point of sale through intelligent application workflows.</p>
       </div>
     </div>
 
@@ -699,21 +722,21 @@
 
       <div class="faq-card" id="fq1">
         <button class="faq-trigger" onclick="toggleFaq('fq1')">
-          What is MyEnroller?
+          What is Apptelligent Orchestrator?
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>MyEnroller is a configurable buying and underwriting platform built to help carriers move faster, convert more business, and make better decisions at the point of sale. It combines modern enrollment, real-time underwriting decisioning, and data visibility into a single, carrier-designed platform — without adding operational complexity.</p>
+          <p>Apptelligent Orchestrator is a configurable enrollment and underwriting workflow engine that helps carriers move faster, convert more business, and make better decisions at the point of sale. It combines intelligent application intake, real-time underwriting decisioning, and data visibility into a single, carrier-designed platform — without adding operational complexity.</p>
         </div>
       </div>
 
       <div class="faq-card" id="fq2">
         <button class="faq-trigger" onclick="toggleFaq('fq2')">
-          Who is MyEnroller for?
+          Who is Apptelligent Orchestrator for?
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>MyEnroller is built for carriers and distributors who want speed without sacrificing control. It's ideal for organizations looking to modernize their buying experience, improve agent satisfaction, increase placement quality, and iterate faster — without rebuilding core systems.</p>
+          <p>Apptelligent Orchestrator is built for carriers and distributors who want speed without sacrificing control. It's ideal for organizations looking to modernize their buying experience, improve agent satisfaction, increase placement quality, and iterate faster — without rebuilding core systems.</p>
         </div>
       </div>
 
@@ -723,7 +746,7 @@
           <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>Yes. MyEnroller is fully configurable to your underwriting philosophy, rules, and risk tolerances. You control what decisions are made, when they're made, and how they're applied — ensuring speed happens within clear, carrier-defined guardrails.</p>
+          <p>Yes. Apptelligent is fully configurable to your underwriting philosophy, rules, and risk tolerances. You control what decisions are made, when they're made, and how they're applied — ensuring speed happens within clear, carrier-defined guardrails.</p>
         </div>
       </div>
 
@@ -751,7 +774,7 @@
 <section class="sec sec-navy" style="text-align:center;">
   <div class="wrap">
     <span class="eyebrow" style="color:var(--aqua);">Get in Touch</span>
-    <h2 class="sec-h2" style="color:var(--white);">Ready to See MyEnroller in Action?</h2>
+    <h2 class="sec-h2" style="color:var(--white);">Ready to See Apptelligent Orchestrator in Action?</h2>
     <div class="bar"></div>
     <p style="color:rgba(255,255,255,0.72);max-width:540px;margin:0 auto 2rem;">Whether you're evaluating platforms or ready to move, we'd love to connect.</p>
 
@@ -776,8 +799,8 @@
 <footer id="site-footer">
   <div class="ft-inner">
     <div>
-      <div class="ft-brand">My<span>Enroller</span></div>
-      <p class="ft-tagline">The leading e-app and underwriting workflow software for life and health carriers.</p>
+      <div class="ft-brand">App<span>telligent</span></div>
+      <p class="ft-tagline">Making the insurance application process more intelligent for carriers, agents, and consumers.</p>
     </div>
     <div class="ft-col">
       <h5>Products</h5>
@@ -792,12 +815,12 @@
     <div class="ft-col">
       <h5>Tools</h5>
       <ul>
-        <li><a href="pages/activity-map.html">Activity Map</a></li>
-        <li><a href="pages/my-easy-match.html">My Easy Match</a></li>
+        <li><a href="pages/activity-map.html">Apptelligent Pulse</a></li>
+        <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
         <li><a href="pages/messaging.html">Messaging</a></li>
-        <li><a href="pages/incentives.html">Instant Incentives</a></li>
-        <li><a href="pages/app-scanning.html">App Scanning</a></li>
-        <li><a href="pages/lead-gen.html">Lead Gen</a></li>
+        <li><a href="pages/incentives.html">Apptelligent SPark</a></li>
+        <li><a href="pages/app-scanning.html">ScanIQ</a></li>
+        <li><a href="pages/lead-gen.html">Apptelligent LeadFlow</a></li>
       </ul>
     </div>
     <div class="ft-col">
@@ -810,7 +833,7 @@
       </ul>
     </div>
   </div>
-  <div class="ft-bottom">&copy; <span id="fy"></span> MyEnroller. All rights reserved.</div>
+  <div class="ft-bottom">&copy; <span id="fy"></span> Apptelligent Insurance Solutions. All rights reserved.</div>
 </footer>
 
 <!-- ══════════════ SCRIPTS ══════════════ -->

@@ -8,7 +8,7 @@ const NAV_HTML = `
   <div id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
-  <a class="nav-brand" href="../index.html">My<span>Enroller</span></a>
+  <a class="nav-brand" href="../index.html">App<span>telligent</span></a>
   <a class="btn btn-primary nav-cta" href="../pages/contact.html">Contact Us</a>
 </nav>
 <div id="sidebar">
@@ -29,12 +29,12 @@ const NAV_HTML = `
       <span>Our Tools <span class="arrow">›</span></span>
       <ul class="sidebar-submenu">
         <li><a href="../pages/tools.html">All Tools</a></li>
-        <li><a href="../pages/activity-map.html">Activity Map</a></li>
-        <li><a href="../pages/my-easy-match.html">My Easy Match</a></li>
-        <li><a href="../pages/messaging.html">MyEnroller Messaging</a></li>
-        <li><a href="../pages/incentives.html">Instant Incentives</a></li>
-        <li><a href="../pages/app-scanning.html">Application Scanning</a></li>
-        <li><a href="../pages/lead-gen.html">Lead Gen Tools</a></li>
+        <li><a href="../pages/activity-map.html">Apptelligent Pulse</a></li>
+        <li><a href="../pages/my-easy-match.html">MatchIQ</a></li>
+        <li><a href="../pages/messaging.html">Apptelligent Link</a></li>
+        <li><a href="../pages/incentives.html">Apptelligent SPark</a></li>
+        <li><a href="../pages/app-scanning.html">ScanIQ</a></li>
+        <li><a href="../pages/lead-gen.html">Apptelligent LeadFlow</a></li>
       </ul>
     </li>
     <li><a href="../pages/contact.html">Contact Us</a></li>
@@ -49,9 +49,9 @@ const FOOTER_HTML = `
 <footer id="site-footer">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">My<span>Enroller</span></div>
+      <div class="footer-brand">App<span>telligent</span></div>
       <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:0.5rem;max-width:280px;">
-        The leading e-app and underwriting workflow software for life and health carriers.
+        Making the insurance application process more intelligent for carriers, agents, and consumers.
       </p>
     </div>
     <div>
@@ -67,12 +67,12 @@ const FOOTER_HTML = `
     <div>
       <h4>Tools</h4>
       <ul>
-        <li><a href="../pages/activity-map.html">Activity Map</a></li>
-        <li><a href="../pages/my-easy-match.html">My Easy Match</a></li>
+        <li><a href="../pages/activity-map.html">Apptelligent Pulse</a></li>
+        <li><a href="../pages/my-easy-match.html">MatchIQ</a></li>
         <li><a href="../pages/messaging.html">Messaging</a></li>
-        <li><a href="../pages/incentives.html">Instant Incentives</a></li>
-        <li><a href="../pages/app-scanning.html">App Scanning</a></li>
-        <li><a href="../pages/lead-gen.html">Lead Gen</a></li>
+        <li><a href="../pages/incentives.html">Apptelligent SPark</a></li>
+        <li><a href="../pages/app-scanning.html">ScanIQ</a></li>
+        <li><a href="../pages/lead-gen.html">Apptelligent LeadFlow</a></li>
       </ul>
     </div>
     <div>
@@ -86,7 +86,7 @@ const FOOTER_HTML = `
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> MyEnroller. All rights reserved.
+    &copy; <span id="footer-year"></span> Apptelligent Insurance Solutions. All rights reserved.
   </div>
 </footer>
 `;

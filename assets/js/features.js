@@ -27,7 +27,7 @@
   /* ── THEMES ─────────────────────────────────────────────────────────────── */
   var THEME_KEY = 'me_brand_theme';
   var THEMES = {
-    myenroller: { label:'MyEnroller',      description:'Navy & Aqua — the default brand palette',           swatch1:'#0B1F4A', swatch2:'#00B5C8', vars:{'--navy':'#0B1F4A','--navy-mid':'#163066','--navy-light':'#1e4080','--aqua':'#00B5C8','--aqua-light':'#33C8D9','--aqua-pale':'#E8F8FA'} },
+    myenroller: { label:'Apptelligent (Default)',      description:'Navy & Aqua — the default brand palette',           swatch1:'#0B1F4A', swatch2:'#00B5C8', vars:{'--navy':'#0B1F4A','--navy-mid':'#163066','--navy-light':'#1e4080','--aqua':'#00B5C8','--aqua-light':'#33C8D9','--aqua-pale':'#E8F8FA'} },
     broncos:    { label:'Denver Broncos',  description:'Orange & Navy — bold, energetic, championship-ready', swatch1:'#FB4F14', swatch2:'#002244', vars:{'--navy':'#002244','--navy-mid':'#00316A','--navy-light':'#004080','--aqua':'#FB4F14','--aqua-light':'#FF7043','--aqua-pale':'#FFF0EC'} },
     cubs:       { label:'Chicago Cubs',    description:'Royal Blue & Red — classic, storied, confident',     swatch1:'#0E3386', swatch2:'#CC3433', vars:{'--navy':'#0E3386','--navy-mid':'#1A3F99','--navy-light':'#2550B0','--aqua':'#CC3433','--aqua-light':'#E04848','--aqua-pale':'#FFF0F0'} },
     wellabe:    { label:'Wellabe',         description:'Gold & Charcoal — trusted, warm, established',       swatch1:'#1A1A2E', swatch2:'#E8A020', vars:{'--navy':'#1A1A2E','--navy-mid':'#252540','--navy-light':'#323255','--aqua':'#E8A020','--aqua-light':'#F0B840','--aqua-pale':'#FFF8E8'} }
