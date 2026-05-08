@@ -77,6 +77,7 @@
     }
     .nav-cta:hover { background:var(--aqua-light) !important; transform:translateY(-1px); }
 
+    @media (max-width: 700px) { .top-nav-tagline { display: none; } }
     /* Mobile toggle */
     #mobile-btn {
       display:none; flex-direction:column; gap:5px;
@@ -326,7 +327,10 @@
 
 <!-- ══════════════ NAV ══════════════ -->
 <nav id="top-nav">
-  <a class="top-nav-brand" href="index.html">App<span>telligent</span></a>
+  <a class="top-nav-brand-wrap" href="index.html" style="text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;line-height:1;margin-right:auto;">
+    <span class="top-nav-brand" style="font-family:var(--font-display);font-size:1.45rem;font-weight:700;color:var(--white);">App<span style="color:var(--aqua);">telligent</span></span>
+    <span class="top-nav-tagline" style="font-family:var(--font-body);font-size:0.65rem;color:rgba(255,255,255,0.62);font-weight:500;margin-top:3px;letter-spacing:0.02em;">Making the insurance application process more intelligent</span>
+  </a>
 
   <ul class="top-nav-links" id="nav-ul">
     <li><a href="pages/about.html">About Us</a></li>
@@ -421,7 +425,7 @@
 <section class="sec sec-alt">
   <div class="wrap">
     <span class="eyebrow">Who We Are</span>
-    <p style="text-align:center;font-size:1.05rem;color:var(--navy);font-weight:600;margin:0 auto 0.5rem;max-width:700px;font-family:var(--font-body);">Making the insurance application process more intelligent for carriers, agents, and consumers.</p>
+    <p style="text-align:center;font-size:1.05rem;color:var(--navy);font-weight:600;margin:0 auto 0.5rem;max-width:760px;font-family:var(--font-body);"><strong style="color:var(--aqua);">Apptelligent Insurance Solutions:</strong> Making the insurance application process more intelligent for carriers, agents, and consumers.</p>
     <h2 class="sec-h2">Purpose-Built for Modern Insurance</h2>
     <div class="bar"></div>
     <div class="mv-grid">

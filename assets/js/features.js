@@ -27,14 +27,14 @@
   /* ── THEMES ─────────────────────────────────────────────────────────────── */
   var THEME_KEY = 'me_brand_theme';
   var THEMES = {
-    myenroller: { label:'Apptelligent',      description:'Navy & Aqua — the default brand palette',           swatch1:'#0B1F4A', swatch2:'#00B5C8', vars:{'--navy':'#0B1F4A','--navy-mid':'#163066','--navy-light':'#1e4080','--aqua':'#00B5C8','--aqua-light':'#33C8D9','--aqua-pale':'#E8F8FA'} },
-    broncos:    { label:'Denver Broncos',  description:'Orange & Navy — bold, energetic, championship-ready', swatch1:'#FB4F14', swatch2:'#002244', vars:{'--navy':'#002244','--navy-mid':'#00316A','--navy-light':'#004080','--aqua':'#FB4F14','--aqua-light':'#FF7043','--aqua-pale':'#FFF0EC'} },
-    cubs:       { label:'Chicago Cubs',    description:'Royal Blue & Red — classic, storied, confident',     swatch1:'#0E3386', swatch2:'#CC3433', vars:{'--navy':'#0E3386','--navy-mid':'#1A3F99','--navy-light':'#2550B0','--aqua':'#CC3433','--aqua-light':'#E04848','--aqua-pale':'#FFF0F0'} },
-    wellabe:    { label:'Wellabe',         description:'Gold & Charcoal — trusted, warm, established',       swatch1:'#1A1A2E', swatch2:'#E8A020', vars:{'--navy':'#1A1A2E','--navy-mid':'#252540','--navy-light':'#323255','--aqua':'#E8A020','--aqua-light':'#F0B840','--aqua-pale':'#FFF8E8'} }
+    apptelligent: { label:'Apptelligent',     description:'Orange & Navy — bold, energetic, championship-ready', swatch1:'#FB4F14', swatch2:'#002244', vars:{'--navy':'#002244','--navy-mid':'#00316A','--navy-light':'#004080','--aqua':'#FB4F14','--aqua-light':'#FF7043','--aqua-pale':'#FFF0EC'} },
+    apptelligent2:{ label:'Apptelligent2',    description:'Navy & Aqua — the original brand palette',           swatch1:'#0B1F4A', swatch2:'#00B5C8', vars:{'--navy':'#0B1F4A','--navy-mid':'#163066','--navy-light':'#1e4080','--aqua':'#00B5C8','--aqua-light':'#33C8D9','--aqua-pale':'#E8F8FA'} },
+    cubs:         { label:'Chicago Cubs',     description:'Royal Blue & Red — classic, storied, confident',     swatch1:'#0E3386', swatch2:'#CC3433', vars:{'--navy':'#0E3386','--navy-mid':'#1A3F99','--navy-light':'#2550B0','--aqua':'#CC3433','--aqua-light':'#E04848','--aqua-pale':'#FFF0F0'} },
+    wellabe:      { label:'Wellabe',          description:'Gold & Charcoal — trusted, warm, established',       swatch1:'#1A1A2E', swatch2:'#E8A020', vars:{'--navy':'#1A1A2E','--navy-mid':'#252540','--navy-light':'#323255','--aqua':'#E8A020','--aqua-light':'#F0B840','--aqua-pale':'#FFF8E8'} }
   };
 
   function applyTheme(id) {
-    var t = THEMES[id] || THEMES.myenroller;
+    var t = THEMES[id] || THEMES.apptelligent;
     Object.keys(t.vars).forEach(function (v) { document.documentElement.style.setProperty(v, t.vars[v]); });
     localStorage.setItem(THEME_KEY, id);
   }
@@ -71,7 +71,7 @@
       document.head.appendChild(ps);
     }
 
-    var selectedId = savedThemeId || 'myenroller';
+    var selectedId = savedThemeId || 'apptelligent';
 
     /* Build DOM */
     var overlay = document.createElement('div');
@@ -126,7 +126,7 @@
     skip.textContent = 'Skip — use default branding';
     skip.addEventListener('pointerdown', function (e) {
       e.stopPropagation();
-      applyTheme('myenroller');
+      applyTheme('apptelligent');
       overlay.remove();
       pickerOpen = false;
       updateThemeBtn();
@@ -155,7 +155,7 @@
 
   function updateThemeBtn() {
     if (!themeBtn) return;
-    var tid = localStorage.getItem(THEME_KEY) || 'myenroller';
+    var tid = localStorage.getItem(THEME_KEY) || 'apptelligent';
     var t = THEMES[tid];
     themeBtn.innerHTML = '';
     var sw = document.createElement('div');

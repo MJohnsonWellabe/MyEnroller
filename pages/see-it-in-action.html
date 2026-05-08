@@ -434,7 +434,20 @@
       color: #4A5568;
       background: white;
       cursor: pointer;
-      transition: all 0.18s;
+      transition: background 0.18s, border-color 0.18s;
+      pointer-events: auto;
+      position: relative;
+      z-index: 5;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .demo-btn-back * {
+      pointer-events: none;
     }
     .demo-btn-back:hover { background: #F7FAFC; border-color: #A0AEC0; }
     .demo-btn-restart:hover { background: #E8F8FA; }
@@ -448,12 +461,30 @@
       font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background 0.2s, box-shadow 0.2s;
       letter-spacing: 0.02em;
+      pointer-events: auto;
+      position: relative;
+      z-index: 5;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .demo-btn-next * {
+      pointer-events: none;
     }
     .demo-btn-next:hover {
       background: #163066;
       box-shadow: 0 4px 16px rgba(11,31,74,0.3);
+    }
+    .demo-btn-next:active {
+      background: #0a1838;
     }
     .demo-btn-restart {
       padding: 0.65rem 1.4rem;
@@ -987,15 +1018,42 @@
   function makeNav(onBack, onNext, nextLabel) {
     var nav = el('div', { className: 'demo-nav' });
     if (onBack) {
-      var back = el('button', { className: 'demo-btn-back', textContent: '← Back' });
-      back.addEventListener('click', onBack);
+      var back = el('button', { className: 'demo-btn-back', type: 'button' });
+      back.textContent = '← Back';
+      var backTriggered = false;
+      back.addEventListener('pointerdown', function(e) {
+        e.preventDefault();
+        if (backTriggered) return;
+        backTriggered = true;
+        setTimeout(function() { onBack(); backTriggered = false; }, 50);
+      });
+      back.addEventListener('click', function(e) {
+        if (backTriggered) return;
+        backTriggered = true;
+        setTimeout(function() { onBack(); backTriggered = false; }, 50);
+      });
       nav.appendChild(back);
     } else {
       nav.appendChild(el('div')); // spacer
     }
     if (onNext) {
-      var next = el('button', { className: 'demo-btn-next', textContent: nextLabel || 'Continue →' });
-      next.addEventListener('click', onNext);
+      var next = el('button', { className: 'demo-btn-next', type: 'button' });
+      next.textContent = nextLabel || 'Continue →';
+      // Use pointerdown for fast/reliable response on all input types
+      var navTriggered = false;
+      next.addEventListener('pointerdown', function(e) {
+        e.preventDefault();
+        if (navTriggered) return;
+        navTriggered = true;
+        // small delay to allow visual feedback
+        setTimeout(function() { onNext(); navTriggered = false; }, 50);
+      });
+      // Click fallback if pointerdown doesn't fire (very old browsers)
+      next.addEventListener('click', function(e) {
+        if (navTriggered) return;
+        navTriggered = true;
+        setTimeout(function() { onNext(); navTriggered = false; }, 50);
+      });
       nav.appendChild(next);
     }
     return nav;

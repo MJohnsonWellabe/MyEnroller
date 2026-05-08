@@ -34,105 +34,190 @@
           </ul>
           <a class="btn btn-navy" href="contact.html" style="margin-top:1.5rem;">See It in Action</a>
         </div>
-        <div style="background:var(--navy);border-radius:var(--radius-lg);overflow:hidden;border:1px solid rgba(0,181,200,0.25);">
+        <div style="background:var(--navy);border-radius:var(--radius-lg);overflow:hidden;border:1px solid rgba(255,255,255,0.15);">
   <!-- Top bar -->
-  <div style="background:rgba(0,0,0,0.3);padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(0,181,200,0.15);">
+  <div style="background:rgba(0,0,0,0.3);padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);">
     <span style="color:var(--aqua);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;font-family:monospace;">APPTELLIGENT PULSE  ●  LIVE</span>
     <span style="color:rgba(255,255,255,0.5);font-size:0.72rem;font-family:monospace;">Today  05/08/2026  14:37 CST</span>
   </div>
   <!-- Map + sidebar -->
   <div style="display:flex;gap:0;">
     <!-- Map area -->
-    <div style="flex:1;position:relative;min-height:240px;padding:1rem;">
-      <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;opacity:0.9;">
-        <!-- US outline simplified -->
-        <path d="M60,80 L70,60 L90,55 L130,50 L160,48 L200,45 L240,44 L280,45 L320,48 L360,52 L400,60 L420,75 L430,95 L425,120 L415,140 L405,165 L390,180 L370,185 L350,185 L330,188 L310,195 L290,200 L270,195 L250,198 L230,200 L210,195 L190,190 L170,195 L155,210 L145,220 L140,215 L135,205 L125,195 L110,195 L95,185 L80,175 L70,160 L62,140 L58,120 L60,100 Z" fill="rgba(11,31,74,0.7)" stroke="rgba(0,181,200,0.4)" stroke-width="1.5"/>
-        <!-- State dividers (simplified) -->
-        <line x1="200" y1="44" x2="205" y2="160" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
-        <line x1="250" y1="44" x2="252" y2="170" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
-        <line x1="300" y1="46" x2="300" y2="165" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
-        <line x1="350" y1="50" x2="348" y2="160" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
-        <line x1="60" y1="120" x2="430" y2="118" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
-        <line x1="65" y1="155" x2="420" y2="153" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
-        <!-- Activity pins — aqua dots with pulse rings -->
-        <!-- IA cluster -->
-        <circle cx="248" cy="108" r="10" fill="rgba(0,181,200,0.15)" />
-        <circle cx="248" cy="108" r="5" fill="var(--aqua-light,#33C8D9)" opacity="0.9"/>
-        <circle cx="248" cy="108" r="2.5" fill="#fff"/>
-        <!-- TX cluster -->
-        <circle cx="255" cy="175" r="14" fill="rgba(0,181,200,0.12)"/>
-        <circle cx="255" cy="175" r="7" fill="var(--aqua,#00B5C8)" opacity="0.85"/>
-        <circle cx="255" cy="175" r="3" fill="#fff"/>
+    <div style="flex:1;position:relative;min-height:260px;padding:1rem 0.75rem;">
+      <svg viewBox="0 0 959 593" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+        <!-- US States — simplified accurate Albers projection paths -->
+        <g fill="rgba(11,31,74,0.5)" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-linejoin="round">
+          <!-- Washington -->
+          <path d="M137,90 L160,82 L185,80 L210,82 L215,105 L213,135 L195,142 L170,140 L150,135 L138,120 Z"/>
+          <!-- Oregon -->
+          <path d="M138,120 L150,135 L170,140 L195,142 L213,135 L215,160 L210,200 L188,210 L160,205 L138,195 L130,168 Z"/>
+          <!-- California -->
+          <path d="M130,168 L138,195 L160,205 L188,210 L195,250 L210,310 L225,360 L210,400 L185,420 L155,395 L130,340 L115,275 L120,215 Z"/>
+          <!-- Nevada -->
+          <path d="M210,200 L255,210 L260,250 L268,295 L265,335 L240,348 L225,360 L210,310 L195,250 Z"/>
+          <!-- Idaho -->
+          <path d="M215,105 L260,108 L275,135 L268,165 L265,195 L255,210 L213,200 L213,160 Z"/>
+          <!-- Montana -->
+          <path d="M260,108 L350,100 L390,98 L395,140 L385,175 L355,180 L320,180 L290,175 L275,160 L275,135 Z"/>
+          <!-- Wyoming -->
+          <path d="M275,160 L320,180 L355,180 L355,225 L335,235 L300,235 L275,232 L268,210 Z"/>
+          <!-- Utah -->
+          <path d="M255,210 L268,210 L275,232 L300,235 L300,290 L295,330 L268,335 L268,295 L260,250 Z"/>
+          <!-- Arizona -->
+          <path d="M265,335 L295,330 L335,335 L355,355 L360,415 L325,415 L290,415 L260,395 L240,360 Z"/>
+          <!-- Colorado -->
+          <path d="M335,235 L395,232 L405,275 L400,310 L380,320 L335,320 L300,320 L300,290 L300,235 Z"/>
+          <!-- New Mexico -->
+          <path d="M335,335 L380,320 L400,310 L430,308 L440,355 L435,400 L420,425 L385,425 L355,425 L355,355 Z"/>
+          <!-- North Dakota -->
+          <path d="M395,140 L455,138 L495,138 L500,175 L495,200 L450,205 L410,205 L385,175 Z"/>
+          <!-- South Dakota -->
+          <path d="M385,175 L410,205 L450,205 L495,200 L500,235 L495,265 L455,270 L410,265 L355,260 L355,225 Z"/>
+          <!-- Nebraska -->
+          <path d="M355,260 L410,265 L455,270 L495,265 L505,295 L500,315 L455,320 L410,318 L395,295 L380,285 L355,278 Z"/>
+          <!-- Kansas -->
+          <path d="M395,295 L410,318 L455,320 L500,315 L530,315 L535,355 L530,375 L490,378 L450,375 L405,375 L400,310 Z"/>
+          <!-- Oklahoma -->
+          <path d="M400,310 L405,375 L450,375 L490,378 L530,375 L555,375 L555,400 L530,425 L490,430 L455,430 L420,425 L405,400 L400,360 Z"/>
+          <!-- Texas -->
+          <path d="M405,400 L420,425 L455,430 L490,430 L530,425 L555,400 L575,420 L590,455 L600,505 L580,540 L555,560 L520,565 L490,555 L460,540 L425,520 L400,500 L385,475 L375,440 L385,425 Z"/>
+          <!-- Minnesota -->
+          <path d="M495,138 L540,135 L555,165 L555,195 L545,225 L520,235 L500,235 L500,175 Z"/>
+          <!-- Iowa -->
+          <path d="M495,265 L545,260 L575,260 L585,290 L578,310 L545,315 L505,318 L500,295 Z"/>
+          <!-- Missouri -->
+          <path d="M500,315 L545,315 L578,310 L595,320 L605,365 L600,400 L575,415 L550,415 L530,415 L530,375 L530,355 L535,330 Z"/>
+          <!-- Arkansas -->
+          <path d="M555,400 L575,415 L600,400 L615,415 L615,450 L600,475 L580,475 L560,470 L555,440 Z"/>
+          <!-- Louisiana -->
+          <path d="M555,440 L560,470 L580,475 L605,478 L625,490 L630,520 L605,540 L580,545 L555,540 L545,520 L555,490 Z"/>
+          <!-- Wisconsin -->
+          <path d="M555,165 L600,160 L625,180 L625,215 L615,238 L590,250 L575,260 L545,260 L545,225 L555,195 Z"/>
+          <!-- Illinois -->
+          <path d="M585,290 L615,288 L630,310 L640,355 L635,395 L625,415 L605,415 L600,400 L605,365 L595,320 L578,310 Z"/>
+          <!-- Indiana -->
+          <path d="M615,288 L645,285 L665,295 L665,335 L660,380 L640,395 L630,395 L630,355 L625,310 Z"/>
+          <!-- Michigan (LP) -->
+          <path d="M600,160 L645,155 L665,170 L675,200 L670,235 L660,255 L645,255 L625,238 L625,215 L625,180 Z"/>
+          <!-- Michigan (UP) -->
+          <path d="M555,160 L600,155 L630,150 L655,148 L658,170 L640,178 L600,180 L575,178 L555,165 Z"/>
+          <!-- Ohio -->
+          <path d="M665,295 L705,295 L725,310 L725,355 L715,385 L685,395 L665,395 L665,335 Z"/>
+          <!-- Kentucky -->
+          <path d="M615,395 L640,395 L685,395 L715,385 L730,395 L735,418 L720,425 L685,432 L645,435 L615,432 L605,415 Z"/>
+          <!-- Tennessee -->
+          <path d="M615,432 L645,435 L685,432 L720,425 L750,425 L770,438 L780,455 L745,455 L700,455 L660,455 L625,450 L615,450 Z"/>
+          <!-- Mississippi -->
+          <path d="M605,478 L625,490 L630,520 L625,550 L615,565 L600,565 L590,540 L590,510 L600,475 Z"/>
+          <!-- Alabama -->
+          <path d="M625,450 L660,455 L700,455 L705,490 L705,530 L690,560 L670,565 L645,560 L630,540 L625,510 L625,490 Z"/>
+          <!-- Georgia -->
+          <path d="M700,455 L745,455 L780,455 L785,485 L790,520 L775,555 L745,565 L720,565 L705,560 L705,530 L705,490 Z"/>
+          <!-- Florida -->
+          <path d="M705,530 L725,540 L755,545 L780,545 L795,540 L820,540 L835,545 L850,555 L860,575 L850,580 L820,575 L795,575 L770,575 L745,575 L720,565 L690,560 Z"/>
+          <!-- South Carolina -->
+          <path d="M745,455 L780,438 L800,445 L815,470 L820,495 L805,510 L785,510 L780,485 Z"/>
+          <!-- North Carolina -->
+          <path d="M730,395 L770,395 L820,395 L860,400 L880,420 L870,440 L840,445 L800,445 L780,438 L750,425 L735,418 Z"/>
+          <!-- Virginia -->
+          <path d="M730,355 L770,350 L820,355 L860,360 L880,375 L880,400 L860,400 L820,395 L770,395 L730,395 Z"/>
+          <!-- West Virginia -->
+          <path d="M725,310 L760,310 L780,330 L770,350 L730,355 L725,355 Z"/>
+          <!-- Pennsylvania -->
+          <path d="M725,275 L780,272 L820,275 L840,295 L830,320 L800,325 L760,325 L725,310 Z"/>
+          <!-- New York -->
+          <path d="M780,225 L820,220 L860,225 L878,250 L865,275 L840,295 L820,275 L780,272 L770,260 Z"/>
+          <!-- Maine -->
+          <path d="M895,180 L905,165 L912,200 L908,235 L893,250 L878,235 L880,205 Z"/>
+          <!-- New Hampshire -->
+          <path d="M880,205 L878,235 L893,250 L885,265 L875,260 L870,235 Z"/>
+          <!-- Vermont -->
+          <path d="M860,225 L878,235 L880,205 L870,200 L862,210 Z"/>
+          <!-- Massachusetts -->
+          <path d="M870,260 L885,265 L895,265 L900,275 L885,278 L865,278 Z"/>
+          <!-- Connecticut -->
+          <path d="M865,278 L885,278 L890,288 L880,293 L865,288 Z"/>
+          <!-- Rhode Island -->
+          <path d="M885,278 L895,278 L893,290 L885,288 Z"/>
+          <!-- New Jersey -->
+          <path d="M840,295 L855,295 L860,320 L853,335 L843,330 L840,310 Z"/>
+          <!-- Delaware -->
+          <path d="M855,310 L862,310 L863,328 L855,328 Z"/>
+          <!-- Maryland -->
+          <path d="M820,325 L860,325 L860,310 L855,310 L843,330 L820,335 Z"/>
+        </g>
+
+        <!-- Activity pins — aqua/orange dots over real states -->
+        <!-- IA -->
+        <g><circle cx="540" cy="290" r="14" fill="rgba(0,181,200,0.25)"/><circle cx="540" cy="290" r="9" fill="var(--aqua)" opacity="0.95"/><text x="540" y="294" text-anchor="middle" fill="white" font-size="11" font-family="monospace" font-weight="bold">47</text></g>
+        <!-- TX -->
+        <g><circle cx="490" cy="500" r="18" fill="rgba(0,181,200,0.22)"/><circle cx="490" cy="500" r="12" fill="var(--aqua)" opacity="0.95"/><text x="490" y="505" text-anchor="middle" fill="white" font-size="13" font-family="monospace" font-weight="bold">83</text></g>
         <!-- FL -->
-        <circle cx="370" cy="195" r="8" fill="rgba(0,181,200,0.12)"/>
-        <circle cx="370" cy="195" r="4" fill="var(--aqua,#00B5C8)" opacity="0.8"/>
-        <circle cx="370" cy="195" r="2" fill="#fff"/>
+        <g><circle cx="785" cy="555" r="13" fill="rgba(0,181,200,0.22)"/><circle cx="785" cy="555" r="8" fill="var(--aqua)" opacity="0.9"/><text x="785" y="559" text-anchor="middle" fill="white" font-size="10" font-family="monospace" font-weight="bold">29</text></g>
         <!-- OH -->
-        <circle cx="330" cy="105" r="9" fill="rgba(0,181,200,0.12)"/>
-        <circle cx="330" cy="105" r="4.5" fill="#33C8D9" opacity="0.85"/>
-        <circle cx="330" cy="105" r="2" fill="#fff"/>
-        <!-- AZ -->
-        <circle cx="155" cy="155" r="7" fill="rgba(0,181,200,0.1)"/>
-        <circle cx="155" cy="155" r="3.5" fill="#00B5C8" opacity="0.75"/>
-        <circle cx="155" cy="155" r="1.8" fill="#fff"/>
-        <!-- IL -->
-        <circle cx="285" cy="105" r="6" fill="rgba(0,181,200,0.1)"/>
-        <circle cx="285" cy="105" r="3" fill="#00B5C8" opacity="0.75"/>
-        <circle cx="285" cy="105" r="1.5" fill="#fff"/>
+        <g><circle cx="690" cy="345" r="14" fill="rgba(0,181,200,0.22)"/><circle cx="690" cy="345" r="9" fill="var(--aqua)" opacity="0.9"/><text x="690" y="349" text-anchor="middle" fill="white" font-size="11" font-family="monospace" font-weight="bold">34</text></g>
         <!-- GA -->
-        <circle cx="345" cy="158" r="7" fill="rgba(0,181,200,0.1)"/>
-        <circle cx="345" cy="158" r="3.5" fill="#33C8D9" opacity="0.75"/>
-        <circle cx="345" cy="158" r="1.8" fill="#fff"/>
+        <g><circle cx="745" cy="510" r="11" fill="rgba(0,181,200,0.18)"/><circle cx="745" cy="510" r="7" fill="var(--aqua-light)" opacity="0.85"/><text x="745" y="514" text-anchor="middle" fill="white" font-size="9" font-family="monospace" font-weight="bold">22</text></g>
+        <!-- AZ -->
+        <g><circle cx="305" cy="380" r="10" fill="rgba(0,181,200,0.18)"/><circle cx="305" cy="380" r="6" fill="var(--aqua)" opacity="0.8"/><text x="305" y="383" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">18</text></g>
+        <!-- IL -->
+        <g><circle cx="615" cy="350" r="9" fill="rgba(0,181,200,0.18)"/><circle cx="615" cy="350" r="5" fill="var(--aqua)" opacity="0.8"/><text x="615" y="353" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">15</text></g>
         <!-- PA -->
-        <circle cx="362" cy="88" r="6" fill="rgba(0,181,200,0.1)"/>
-        <circle cx="362" cy="88" r="3" fill="#00B5C8" opacity="0.7"/>
-        <circle cx="362" cy="88" r="1.5" fill="#fff"/>
+        <g><circle cx="785" cy="298" r="9" fill="rgba(0,181,200,0.16)"/><circle cx="785" cy="298" r="5" fill="var(--aqua-light)" opacity="0.75"/><text x="785" y="301" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">13</text></g>
         <!-- CO -->
-        <circle cx="193" cy="120" r="5" fill="rgba(0,181,200,0.1)"/>
-        <circle cx="193" cy="120" r="2.5" fill="#00B5C8" opacity="0.65"/>
-        <circle cx="193" cy="120" r="1.2" fill="#fff"/>
+        <g><circle cx="370" cy="280" r="8" fill="rgba(0,181,200,0.15)"/><circle cx="370" cy="280" r="4" fill="var(--aqua)" opacity="0.7"/></g>
         <!-- MN -->
-        <circle cx="258" cy="72" r="5" fill="rgba(0,181,200,0.1)"/>
-        <circle cx="258" cy="72" r="2.5" fill="#33C8D9" opacity="0.65"/>
-        <circle cx="258" cy="72" r="1.2" fill="#fff"/>
-        <!-- App count labels -->
-        <text x="248" y="97" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">47</text>
-        <text x="255" y="162" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">83</text>
-        <text x="370" y="183" text-anchor="middle" fill="white" font-size="7" font-family="monospace">29</text>
-        <text x="330" y="93" text-anchor="middle" fill="white" font-size="7" font-family="monospace">34</text>
+        <g><circle cx="525" cy="200" r="7" fill="rgba(0,181,200,0.15)"/><circle cx="525" cy="200" r="4" fill="var(--aqua-light)" opacity="0.7"/></g>
+        <!-- NC -->
+        <g><circle cx="800" cy="415" r="9" fill="rgba(0,181,200,0.16)"/><circle cx="800" cy="415" r="5" fill="var(--aqua)" opacity="0.75"/></g>
+
         <!-- Legend -->
-        <circle cx="72" cy="248" r="4" fill="#00B5C8" opacity="0.85"/>
-        <text x="80" y="252" fill="rgba(255,255,255,0.55)" font-size="8" font-family="monospace">Active submission cluster</text>
-        <circle cx="200" cy="248" r="2.5" fill="#33C8D9" opacity="0.65"/>
-        <text x="208" y="252" fill="rgba(255,255,255,0.55)" font-size="8" font-family="monospace">Low activity</text>
-        <text x="320" y="252" fill="rgba(255,255,255,0.4)" font-size="7" font-family="monospace">Numbers = apps today</text>
+        <g transform="translate(20,560)">
+          <circle cx="6" cy="6" r="5" fill="var(--aqua)" opacity="0.9"/>
+          <text x="18" y="10" fill="rgba(255,255,255,0.55)" font-size="11" font-family="monospace">Active submission cluster</text>
+          <circle cx="240" cy="6" r="3" fill="var(--aqua-light)" opacity="0.65"/>
+          <text x="252" y="10" fill="rgba(255,255,255,0.55)" font-size="11" font-family="monospace">Low activity</text>
+          <text x="500" y="10" fill="rgba(255,255,255,0.4)" font-size="10" font-family="monospace">Numbers = apps received today</text>
+        </g>
       </svg>
     </div>
     <!-- Right summary panel -->
-    <div style="width:160px;flex-shrink:0;padding:1rem 0.85rem;border-left:1px solid rgba(0,181,200,0.15);display:flex;flex-direction:column;gap:0.6rem;">
+    <div style="width:170px;flex-shrink:0;padding:1rem 0.85rem;border-left:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;gap:0.6rem;">
       <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;color:var(--aqua);text-transform:uppercase;font-family:monospace;margin-bottom:0.2rem;">Today's Summary</div>
       <div style="background:rgba(0,0,0,0.25);border-radius:6px;padding:0.55rem 0.7rem;">
         <div style="color:rgba(255,255,255,0.5);font-size:0.65rem;font-family:monospace;margin-bottom:2px;">Total Apps</div>
-        <div style="color:#fff;font-size:1.3rem;font-weight:700;font-family:monospace;line-height:1;">312</div>
+        <div style="color:#fff;font-size:1.35rem;font-weight:700;font-family:monospace;line-height:1;">312</div>
       </div>
       <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);font-family:monospace;font-weight:700;text-transform:uppercase;margin-top:0.2rem;">By Product</div>
       <div style="display:flex;flex-direction:column;gap:4px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Med Supp</span>
-          <span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">148</span>
-        </div>
+        <div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Med Supp</span><span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">148</span></div>
         <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:90%;height:100%;background:var(--aqua);border-radius:2px;"></div></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Final Exp</span>
-          <span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">94</span>
-        </div>
-        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:57%;height:100%;background:#33C8D9;border-radius:2px;"></div></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Preneed</span>
-          <span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">70</span>
-        </div>
-        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:43%;height:100%;background:#00B5C8;border-radius:2px;opacity:0.7;"></div></div>
+        <div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Final Exp</span><span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">94</span></div>
+        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:57%;height:100%;background:var(--aqua-light);border-radius:2px;"></div></div>
+        <div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Preneed</span><span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">70</span></div>
+        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:43%;height:100%;background:var(--aqua);border-radius:2px;opacity:0.7;"></div></div>
       </div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);font-family:monospace;font-weight:700;text-transform:uppercase;margin-top:0.3rem;">STP Rates</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">Med Supp</span><span style="color:var(--aqua);font-size:0.7rem;font-family:monospace;font-weight:700;">76%</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">Final Exp</span><span style="color:var(--aqua);font-size:0.7rem;font-family:monospace;font-weight:700;">62%</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">Preneed</span><span style="color:var(--aqua-light);font-size:0.7rem;font-family:monospace;font-weight:700;">81%</span></div>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom ticker bar -->
+  <div style="background:rgba(0,0,0,0.35);padding:0.45rem 1rem;border-top:1px solid rgba(255,255,255,0.1);overflow:hidden;white-space:nowrap;">
+    <span style="color:var(--aqua);font-size:0.65rem;font-family:monospace;font-weight:700;margin-right:1rem;">LIVE ACTIVITY ▶</span>
+    <span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">
+      14:37 · IA · Med Supp · STP Issue ✓ &nbsp;|&nbsp;
+      14:36 · TX · Final Expense · Graded · Pending &nbsp;|&nbsp;
+      14:35 · OH · Med Supp · STP Issue ✓ &nbsp;|&nbsp;
+      14:34 · FL · Preneed · STP Issue ✓ &nbsp;|&nbsp;
+      14:33 · IA · Med Supp · Agent Review &nbsp;|&nbsp;
+      14:32 · GA · Final Expense · STP Issue ✓
+    </span>
+  </div>
+</div>
       <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);font-family:monospace;font-weight:700;text-transform:uppercase;margin-top:0.3rem;">STP Rates</div>
       <div style="display:flex;flex-direction:column;gap:4px;">
         <div style="display:flex;justify-content:space-between;">
@@ -163,6 +248,12 @@
       14:31 · TX · Annuity · Pending Suitability
     </span>
   </div>
+</div>
+
+<div style="background:var(--aqua-pale);border-radius:var(--radius-lg);padding:2rem 1.5rem;margin-top:3rem;">
+  <h4 style="color:var(--navy);text-align:center;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin:0 0 0.5rem;">Apptelligent Pulse — Utilization in Production</h4>
+  
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;"><div style="text-align:center;padding:0.8rem 0.5rem;"><div style="font-family:'Playfair Display',Georgia,serif;font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1;">99.8%</div><div style="font-size:0.78rem;color:var(--gray-600);margin-top:0.4rem;line-height:1.35;">Uptime across all carrier deployments</div></div><div style="text-align:center;padding:0.8rem 0.5rem;"><div style="font-family:'Playfair Display',Georgia,serif;font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1;"><2s</div><div style="font-size:0.78rem;color:var(--gray-600);margin-top:0.4rem;line-height:1.35;">Average map refresh latency</div></div><div style="text-align:center;padding:0.8rem 0.5rem;"><div style="font-family:'Playfair Display',Georgia,serif;font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1;">76%</div><div style="font-size:0.78rem;color:var(--gray-600);margin-top:0.4rem;line-height:1.35;">Of carrier executives check Pulse daily</div></div><div style="text-align:center;padding:0.8rem 0.5rem;"><div style="font-family:'Playfair Display',Georgia,serif;font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1;">14×</div><div style="font-size:0.78rem;color:var(--gray-600);margin-top:0.4rem;line-height:1.35;">Faster issue identification vs static reporting</div></div></div>
 </div>
       </div>
     </div>
