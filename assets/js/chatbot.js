@@ -156,7 +156,10 @@ Your goal: Help serious carrier stakeholders quickly understand whether Apptelli
       z-index: 2147483647;
       font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
       font-size: 14px;
+      width: fit-content;
+      height: fit-content;
     }
+    /* display:none on hidden window means widget shrinks to toggle button only */
 
     /* Toggle button */
     #me-chat-toggle {
@@ -187,9 +190,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether Apptelli
       transition: opacity 0.22s ease, transform 0.22s ease;
     }
     #me-chat-window.hidden {
-      opacity: 0;
-      pointer-events: none;
-      visibility: hidden;
+      display: none !important;
     }
 
     /* Header */
@@ -398,8 +399,11 @@ Your goal: Help serious carrier stakeholders quickly understand whether Apptelli
     sessionStorage.setItem(STORAGE_KEY, open ? 'false' : 'true');
     if (open) {
       chatWindow.classList.remove('hidden');
+      widget.classList.remove('minimized');
     } else {
       chatWindow.classList.add('hidden');
+      // Add minimized class so the widget container stops blocking page clicks
+      widget.classList.add('minimized');
     }
   }
 
@@ -493,6 +497,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether Apptelli
   // Apply saved minimize state immediately (no flash)
   if (!isOpen) {
     chatWindow.classList.add('hidden');
+    widget.classList.add('minimized');
   }
   // Show greeting only on first visit (when not minimized from a previous page)
   setTimeout(function () {

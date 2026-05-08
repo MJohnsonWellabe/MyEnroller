@@ -156,11 +156,13 @@
     document.body.appendChild(overlay);
   }
 
+  var PICKER_SHOWN_KEY = 'me_picker_shown';
   function maybeShowPicker() {
-    // Show picker if: (a) no saved theme yet (first ever visit), OR
-    // (b) arriving from an external site
-    if (!savedThemeId || isExternalReferrer()) {
-      setTimeout(buildThemePicker, 500);
+    // Show picker if arriving from external site, regardless of saved theme
+    // Uses sessionStorage so it only pops once per browser session
+    if (isExternalReferrer() && !sessionStorage.getItem(PICKER_SHOWN_KEY)) {
+      sessionStorage.setItem(PICKER_SHOWN_KEY, '1');
+      setTimeout(buildThemePicker, 600);
     }
   }
 

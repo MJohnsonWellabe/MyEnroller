@@ -43,57 +43,57 @@
   <!-- Map + sidebar -->
   <div style="display:flex;gap:0;">
     <!-- Map area with real USA image + overlay pins -->
-    <div style="flex:1;position:relative;min-height:240px;overflow:hidden;">
-      <!-- Real USA map image from Wikimedia Commons (public domain) -->
+    <div style="flex:1;position:relative;min-height:240px;overflow:hidden;background:#1a2f4a;">
+      <!-- US map — Wikimedia Commons public domain, standard Albers flat projection -->
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/USA_orthographic.svg/1024px-USA_orthographic.svg.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/USA_Counties_with_FIPS_and_names.svg/1200px-USA_Counties_with_FIPS_and_names.svg.png"
         alt="United States map"
-        style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:0.75;filter:hue-rotate(185deg) saturate(0.6) brightness(0.5);"
-        onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Flag_of_the_United_States_%281912-1959%29.svg/320px-Flag_of_the_United_States_%281912-1959%29.svg.png';this.style.opacity='0.1';"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:0.4;filter:invert(1) hue-rotate(155deg) saturate(0.5) brightness(0.7);"
+        onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blank_US_Map_%28states_only%29.png/1200px-Blank_US_Map_%28states_only%29.png';this.style.opacity='0.35';"
       />
       <!-- Activity pins using absolute positioning (% based on US map bounds) -->
-      <!-- IA: ~53% from left, 40% from top -->
-      <div style="position:absolute;left:52%;top:38%;transform:translate(-50%,-50%);">
+      <!-- IA -->
+      <div style="position:absolute;left:47%;top:30%;transform:translate(-50%,-50%);">
         <div style="width:28px;height:28px;background:var(--aqua,#00B5C8);border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#002244;box-shadow:0 0 0 6px rgba(0,181,200,0.25);font-family:monospace;">47</div>
       </div>
-      <!-- TX: ~42% from left, 70% from top -->
-      <div style="position:absolute;left:41%;top:68%;transform:translate(-50%,-50%);">
+      <!-- TX -->
+      <div style="position:absolute;left:36%;top:62%;transform:translate(-50%,-50%);">
         <div style="width:34px;height:34px;background:var(--aqua,#00B5C8);border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#002244;box-shadow:0 0 0 8px rgba(0,181,200,0.2);font-family:monospace;">83</div>
       </div>
-      <!-- FL: ~79% from left, 78% from top -->
-      <div style="position:absolute;left:78%;top:77%;transform:translate(-50%,-50%);">
+      <!-- FL -->
+      <div style="position:absolute;left:65%;top:78%;transform:translate(-50%,-50%);">
         <div style="width:26px;height:26px;background:var(--aqua,#00B5C8);border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#002244;box-shadow:0 0 0 5px rgba(0,181,200,0.2);font-family:monospace;">29</div>
       </div>
-      <!-- OH: ~70% from left, 36% from top -->
-      <div style="position:absolute;left:70%;top:36%;transform:translate(-50%,-50%);">
+      <!-- OH -->
+      <div style="position:absolute;left:63%;top:30%;transform:translate(-50%,-50%);">
         <div style="width:26px;height:26px;background:var(--aqua,#00B5C8);border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#002244;box-shadow:0 0 0 5px rgba(0,181,200,0.2);font-family:monospace;">34</div>
       </div>
-      <!-- GA: ~72% from left, 62% from top -->
-      <div style="position:absolute;left:72%;top:61%;transform:translate(-50%,-50%);">
+      <!-- GA -->
+      <div style="position:absolute;left:64%;top:60%;transform:translate(-50%,-50%);">
         <div style="width:22px;height:22px;background:rgba(0,181,200,0.85);border-radius:50%;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:white;font-family:monospace;">22</div>
       </div>
-      <!-- IL: ~62% from left, 38% from top -->
-      <div style="position:absolute;left:61%;top:37%;transform:translate(-50%,-50%);">
+      <!-- IL -->
+      <div style="position:absolute;left:55%;top:32%;transform:translate(-50%,-50%);">
         <div style="width:22px;height:22px;background:rgba(0,181,200,0.85);border-radius:50%;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:white;font-family:monospace;">15</div>
       </div>
-      <!-- PA: ~76% from left, 28% from top -->
-      <div style="position:absolute;left:76%;top:27%;transform:translate(-50%,-50%);">
+      <!-- PA -->
+      <div style="position:absolute;left:70%;top:26%;transform:translate(-50%,-50%);">
         <div style="width:22px;height:22px;background:rgba(0,181,200,0.8);border-radius:50%;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:white;font-family:monospace;">13</div>
       </div>
-      <!-- AZ: ~25% from left, 60% from top -->
-      <div style="position:absolute;left:24%;top:59%;transform:translate(-50%,-50%);">
+      <!-- AZ -->
+      <div style="position:absolute;left:18%;top:50%;transform:translate(-50%,-50%);">
         <div style="width:20px;height:20px;background:rgba(0,181,200,0.75);border-radius:50%;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:white;font-family:monospace;">18</div>
       </div>
-      <!-- NC: ~74% from left, 48% from top -->
-      <div style="position:absolute;left:74%;top:47%;transform:translate(-50%,-50%);">
+      <!-- NC -->
+      <div style="position:absolute;left:70%;top:48%;transform:translate(-50%,-50%);">
         <div style="width:20px;height:20px;background:rgba(0,181,200,0.75);border-radius:50%;border:1.5px solid white;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:white;font-family:monospace;">11</div>
       </div>
-      <!-- MN: ~54% from left, 22% from top -->
-      <div style="position:absolute;left:53%;top:21%;transform:translate(-50%,-50%);">
+      <!-- MN -->
+      <div style="position:absolute;left:44%;top:16%;transform:translate(-50%,-50%);">
         <div style="width:18px;height:18px;background:rgba(0,181,200,0.65);border-radius:50%;border:1.5px solid white;font-family:monospace;"></div>
       </div>
-      <!-- CO: ~36% from left, 46% from top -->
-      <div style="position:absolute;left:36%;top:45%;transform:translate(-50%,-50%);">
+      <!-- CO -->
+      <div style="position:absolute;left:27%;top:36%;transform:translate(-50%,-50%);">
         <div style="width:18px;height:18px;background:rgba(0,181,200,0.65);border-radius:50%;border:1.5px solid white;font-family:monospace;"></div>
       </div>
       <!-- dark overlay for pin visibility -->
