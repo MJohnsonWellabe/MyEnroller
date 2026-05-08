@@ -34,12 +34,136 @@
           </ul>
           <a class="btn btn-navy" href="contact.html" style="margin-top:1.5rem;">See It in Action</a>
         </div>
-        <div style="background:var(--navy);border-radius:var(--radius-lg);padding:2.5rem;text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
-          <div style="font-size:4rem;">🗺️</div>
-          <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;max-width:220px;">
-            <strong style="color:var(--aqua);">PLACEHOLDER:</strong> Add Apptelligent Pulse screenshots or demo here.
-          </p>
+        <div style="background:var(--navy);border-radius:var(--radius-lg);overflow:hidden;border:1px solid rgba(0,181,200,0.25);">
+  <!-- Top bar -->
+  <div style="background:rgba(0,0,0,0.3);padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(0,181,200,0.15);">
+    <span style="color:var(--aqua);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;font-family:monospace;">APPTELLIGENT PULSE  ●  LIVE</span>
+    <span style="color:rgba(255,255,255,0.5);font-size:0.72rem;font-family:monospace;">Today  05/08/2026  14:37 CST</span>
+  </div>
+  <!-- Map + sidebar -->
+  <div style="display:flex;gap:0;">
+    <!-- Map area -->
+    <div style="flex:1;position:relative;min-height:240px;padding:1rem;">
+      <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;opacity:0.9;">
+        <!-- US outline simplified -->
+        <path d="M60,80 L70,60 L90,55 L130,50 L160,48 L200,45 L240,44 L280,45 L320,48 L360,52 L400,60 L420,75 L430,95 L425,120 L415,140 L405,165 L390,180 L370,185 L350,185 L330,188 L310,195 L290,200 L270,195 L250,198 L230,200 L210,195 L190,190 L170,195 L155,210 L145,220 L140,215 L135,205 L125,195 L110,195 L95,185 L80,175 L70,160 L62,140 L58,120 L60,100 Z" fill="rgba(11,31,74,0.7)" stroke="rgba(0,181,200,0.4)" stroke-width="1.5"/>
+        <!-- State dividers (simplified) -->
+        <line x1="200" y1="44" x2="205" y2="160" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
+        <line x1="250" y1="44" x2="252" y2="170" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
+        <line x1="300" y1="46" x2="300" y2="165" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
+        <line x1="350" y1="50" x2="348" y2="160" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
+        <line x1="60" y1="120" x2="430" y2="118" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
+        <line x1="65" y1="155" x2="420" y2="153" stroke="rgba(0,181,200,0.12)" stroke-width="0.5"/>
+        <!-- Activity pins — aqua dots with pulse rings -->
+        <!-- IA cluster -->
+        <circle cx="248" cy="108" r="10" fill="rgba(0,181,200,0.15)" />
+        <circle cx="248" cy="108" r="5" fill="var(--aqua-light,#33C8D9)" opacity="0.9"/>
+        <circle cx="248" cy="108" r="2.5" fill="#fff"/>
+        <!-- TX cluster -->
+        <circle cx="255" cy="175" r="14" fill="rgba(0,181,200,0.12)"/>
+        <circle cx="255" cy="175" r="7" fill="var(--aqua,#00B5C8)" opacity="0.85"/>
+        <circle cx="255" cy="175" r="3" fill="#fff"/>
+        <!-- FL -->
+        <circle cx="370" cy="195" r="8" fill="rgba(0,181,200,0.12)"/>
+        <circle cx="370" cy="195" r="4" fill="var(--aqua,#00B5C8)" opacity="0.8"/>
+        <circle cx="370" cy="195" r="2" fill="#fff"/>
+        <!-- OH -->
+        <circle cx="330" cy="105" r="9" fill="rgba(0,181,200,0.12)"/>
+        <circle cx="330" cy="105" r="4.5" fill="#33C8D9" opacity="0.85"/>
+        <circle cx="330" cy="105" r="2" fill="#fff"/>
+        <!-- AZ -->
+        <circle cx="155" cy="155" r="7" fill="rgba(0,181,200,0.1)"/>
+        <circle cx="155" cy="155" r="3.5" fill="#00B5C8" opacity="0.75"/>
+        <circle cx="155" cy="155" r="1.8" fill="#fff"/>
+        <!-- IL -->
+        <circle cx="285" cy="105" r="6" fill="rgba(0,181,200,0.1)"/>
+        <circle cx="285" cy="105" r="3" fill="#00B5C8" opacity="0.75"/>
+        <circle cx="285" cy="105" r="1.5" fill="#fff"/>
+        <!-- GA -->
+        <circle cx="345" cy="158" r="7" fill="rgba(0,181,200,0.1)"/>
+        <circle cx="345" cy="158" r="3.5" fill="#33C8D9" opacity="0.75"/>
+        <circle cx="345" cy="158" r="1.8" fill="#fff"/>
+        <!-- PA -->
+        <circle cx="362" cy="88" r="6" fill="rgba(0,181,200,0.1)"/>
+        <circle cx="362" cy="88" r="3" fill="#00B5C8" opacity="0.7"/>
+        <circle cx="362" cy="88" r="1.5" fill="#fff"/>
+        <!-- CO -->
+        <circle cx="193" cy="120" r="5" fill="rgba(0,181,200,0.1)"/>
+        <circle cx="193" cy="120" r="2.5" fill="#00B5C8" opacity="0.65"/>
+        <circle cx="193" cy="120" r="1.2" fill="#fff"/>
+        <!-- MN -->
+        <circle cx="258" cy="72" r="5" fill="rgba(0,181,200,0.1)"/>
+        <circle cx="258" cy="72" r="2.5" fill="#33C8D9" opacity="0.65"/>
+        <circle cx="258" cy="72" r="1.2" fill="#fff"/>
+        <!-- App count labels -->
+        <text x="248" y="97" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">47</text>
+        <text x="255" y="162" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="bold">83</text>
+        <text x="370" y="183" text-anchor="middle" fill="white" font-size="7" font-family="monospace">29</text>
+        <text x="330" y="93" text-anchor="middle" fill="white" font-size="7" font-family="monospace">34</text>
+        <!-- Legend -->
+        <circle cx="72" cy="248" r="4" fill="#00B5C8" opacity="0.85"/>
+        <text x="80" y="252" fill="rgba(255,255,255,0.55)" font-size="8" font-family="monospace">Active submission cluster</text>
+        <circle cx="200" cy="248" r="2.5" fill="#33C8D9" opacity="0.65"/>
+        <text x="208" y="252" fill="rgba(255,255,255,0.55)" font-size="8" font-family="monospace">Low activity</text>
+        <text x="320" y="252" fill="rgba(255,255,255,0.4)" font-size="7" font-family="monospace">Numbers = apps today</text>
+      </svg>
+    </div>
+    <!-- Right summary panel -->
+    <div style="width:160px;flex-shrink:0;padding:1rem 0.85rem;border-left:1px solid rgba(0,181,200,0.15);display:flex;flex-direction:column;gap:0.6rem;">
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;color:var(--aqua);text-transform:uppercase;font-family:monospace;margin-bottom:0.2rem;">Today's Summary</div>
+      <div style="background:rgba(0,0,0,0.25);border-radius:6px;padding:0.55rem 0.7rem;">
+        <div style="color:rgba(255,255,255,0.5);font-size:0.65rem;font-family:monospace;margin-bottom:2px;">Total Apps</div>
+        <div style="color:#fff;font-size:1.3rem;font-weight:700;font-family:monospace;line-height:1;">312</div>
+      </div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);font-family:monospace;font-weight:700;text-transform:uppercase;margin-top:0.2rem;">By Product</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Med Supp</span>
+          <span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">148</span>
         </div>
+        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:90%;height:100%;background:var(--aqua);border-radius:2px;"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Final Exp</span>
+          <span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">94</span>
+        </div>
+        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:57%;height:100%;background:#33C8D9;border-radius:2px;"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:rgba(255,255,255,0.6);font-size:0.65rem;font-family:monospace;">Preneed</span>
+          <span style="color:#fff;font-size:0.7rem;font-family:monospace;font-weight:700;">70</span>
+        </div>
+        <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"><div style="width:43%;height:100%;background:#00B5C8;border-radius:2px;opacity:0.7;"></div></div>
+      </div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.45);font-family:monospace;font-weight:700;text-transform:uppercase;margin-top:0.3rem;">STP Rates</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div style="display:flex;justify-content:space-between;">
+          <span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">Med Supp</span>
+          <span style="color:var(--aqua);font-size:0.7rem;font-family:monospace;font-weight:700;">76%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">Final Exp</span>
+          <span style="color:var(--aqua);font-size:0.7rem;font-family:monospace;font-weight:700;">62%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">Preneed</span>
+          <span style="color:#33C8D9;font-size:0.7rem;font-family:monospace;font-weight:700;">81%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom ticker bar -->
+  <div style="background:rgba(0,0,0,0.35);padding:0.45rem 1rem;border-top:1px solid rgba(0,181,200,0.15);overflow:hidden;white-space:nowrap;">
+    <span style="color:var(--aqua);font-size:0.65rem;font-family:monospace;font-weight:700;margin-right:1rem;">LIVE ACTIVITY ▶</span>
+    <span style="color:rgba(255,255,255,0.55);font-size:0.65rem;font-family:monospace;">
+      14:37 · IA · Med Supp · STP Issue ✓ &nbsp;|&nbsp;
+      14:36 · TX · Final Expense · Graded · Pending &nbsp;|&nbsp;
+      14:35 · OH · Med Supp · STP Issue ✓ &nbsp;|&nbsp;
+      14:34 · FL · Preneed · STP Issue ✓ &nbsp;|&nbsp;
+      14:33 · IA · Med Supp · Agent Review &nbsp;|&nbsp;
+      14:32 · GA · Final Expense · STP Issue ✓ &nbsp;|&nbsp;
+      14:31 · TX · Annuity · Pending Suitability
+    </span>
+  </div>
+</div>
       </div>
     </div>
   </section>

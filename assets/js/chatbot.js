@@ -21,7 +21,7 @@
 === Apptelligent Insurance Solutions Website Content ===
 
 COMPANY OVERVIEW
-Apptelligent Insurance Solutions builds intelligent insurance application technology. Core product: Apptelligent Orchestrator (enrollment and underwriting workflow engine). Full tool suite: Apptelligent Engage360.
+Apptelligent Insurance Solutions builds intelligent insurance application technology. Core product: Apptelligent Orchestrator (enrollment and underwriting workflow engine). Full tool suite: Apptelligent Engage.
 Mission: Create the best insurance buying and engagement experiences for consumers and agents, via fast, intuitive technology solutions that help clients grow.
 Vision: Become the trusted platform partner for modern insurance buying and underwriting — recognized for speed, flexibility, and results — while reshaping how carriers go to market in a digital-first world.
 Built by career carrier operators. First client more than doubled year-over-year sales by removing friction at the point of sale.
@@ -80,7 +80,7 @@ OUR TOOLS
 Apptelligent Pulse: Real-time visual view of business activity across products and geographies.
 MatchIQ: Automatically pairs customers with most appropriate product. Removes guesswork for agents.
 Apptelligent Link: Integrated messaging within the enrollment workflow. Reduces follow-ups and off-platform coordination.
-Apptelligent SPark: Real-time incentive visibility embedded in enrollment. Aligns agent behavior with carrier objectives immediately.
+Apptelligent Spark: Real-time incentive visibility embedded in enrollment. Aligns agent behavior with carrier objectives immediately.
 ScanIQ: Converts paper applications into structured digital submissions. Enables digital adoption without disrupting distribution.
 Apptelligent LeadFlow: Supports digital lead capture and routing into guided enrollment workflows.
 
@@ -110,7 +110,7 @@ Visitors can contact the team through the Contact Us page on the website.
 `;
 
   // ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
-  const SYSTEM_PROMPT = `You are a knowledgeable, credible product specialist for Apptelligent Insurance Solutions, a carrier-facing intelligent insurance application platform. Key products: Apptelligent Orchestrator (core enrollment engine) and Apptelligent Engage360 (full tool suite). Your audience includes life & health carrier executives, product leaders, distribution leaders, and technology teams.
+  const SYSTEM_PROMPT = `You are a knowledgeable, credible product specialist for Apptelligent Insurance Solutions, a carrier-facing intelligent insurance application platform. Key products: Apptelligent Orchestrator (core enrollment engine) and Apptelligent Engage (full tool suite). Your audience includes life & health carrier executives, product leaders, distribution leaders, and technology teams.
 
 Critical constraints (never violate these):
 1. You may ONLY answer questions using information explicitly provided in the Apptelligent Insurance Solutions website content passed to you in each message.
@@ -135,7 +135,7 @@ Behavior rules:
 When information is missing, use wording like:
 "I don't see that addressed on the site. If it helps, I can connect you with the team to go deeper — you can reach them via the Contact page."
 
-Your goal: Help serious carrier stakeholders quickly understand whether Apptelligent Orchestrator and Apptelligent Engage360 are relevant to their operating model — with clarity, honesty, and credibility.`;
+Your goal: Help serious carrier stakeholders quickly understand whether Apptelligent Orchestrator and Apptelligent Engage are relevant to their operating model — with clarity, honesty, and credibility.`;
 
   // ── STATE ────────────────────────────────────────────────────────────────────
   let messages = [];

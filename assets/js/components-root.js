@@ -28,7 +28,7 @@ const NAV_HTML = `
         <li><a href="pages/activity-map.html">Apptelligent Pulse</a></li>
         <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
         <li><a href="pages/messaging.html">Apptelligent Link</a></li>
-        <li><a href="pages/incentives.html">Apptelligent SPark</a></li>
+        <li><a href="pages/incentives.html">Apptelligent Spark</a></li>
         <li><a href="pages/app-scanning.html">ScanIQ</a></li>
         <li><a href="pages/lead-gen.html">Apptelligent LeadFlow</a></li>
       </ul>
@@ -66,7 +66,7 @@ const FOOTER_HTML = `
         <li><a href="pages/activity-map.html">Apptelligent Pulse</a></li>
         <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
         <li><a href="pages/messaging.html">Messaging</a></li>
-        <li><a href="pages/incentives.html">Apptelligent SPark</a></li>
+        <li><a href="pages/incentives.html">Apptelligent Spark</a></li>
         <li><a href="pages/app-scanning.html">ScanIQ</a></li>
         <li><a href="pages/lead-gen.html">Apptelligent LeadFlow</a></li>
       </ul>
