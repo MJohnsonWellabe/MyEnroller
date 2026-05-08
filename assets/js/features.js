@@ -40,6 +40,18 @@
   }
 
   var savedThemeId = localStorage.getItem(THEME_KEY);
+  // Migration: anyone who previously saved the old 'myenroller' theme ID
+  // gets moved to 'apptelligent2' (same navy/aqua palette, just renamed).
+  // Anyone whose saved ID doesn't exist in the current THEMES object falls back to default.
+  if (savedThemeId === 'myenroller') {
+    savedThemeId = 'apptelligent2';
+    localStorage.setItem(THEME_KEY, 'apptelligent2');
+  }
+  if (savedThemeId && !THEMES[savedThemeId]) {
+    // Unknown theme ID — clear it so the default Broncos/Apptelligent loads
+    savedThemeId = null;
+    localStorage.removeItem(THEME_KEY);
+  }
   if (savedThemeId) applyTheme(savedThemeId);
 
   /* ── THEME PICKER ───────────────────────────────────────────────────────── */
@@ -145,7 +157,9 @@
   }
 
   function maybeShowPicker() {
-    if (isExternalReferrer()) {
+    // Show picker if: (a) no saved theme yet (first ever visit), OR
+    // (b) arriving from an external site
+    if (!savedThemeId || isExternalReferrer()) {
       setTimeout(buildThemePicker, 500);
     }
   }
