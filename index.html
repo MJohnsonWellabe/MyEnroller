@@ -8,6 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
+    /* ── Force Pylaex palette regardless of theme picker ── */
+    :root {
+      --navy: #0B1C2C !important;
+      --navy-mid: #0C3B4F !important;
+      --aqua: #12B5CC !important;
+      --aqua-light: #2DC8DE !important;
+      --aqua-pale: #E6F9FC !important;
+      --gold: #C4881A;
+      --gold-lt: #D9A040;
+    }
     /* ── Top Nav ── */
     #top-nav {
       position: fixed; top:0; left:0; right:0; height:68px;
@@ -79,6 +89,8 @@
     .nav-cta:hover { background:#D9A040 !important; transform:translateY(-1px); }
 
     @media (max-width: 700px) { .top-nav-tagline { display: none; } }
+    /* Always show hamburger regardless of viewport */
+    #mobile-btn { display:flex !important; margin-left:0.5rem; }
     /* Mobile toggle */
     #mobile-btn {
       display:none; flex-direction:column; gap:5px;
@@ -114,13 +126,13 @@
     .hero-dot.active { background:var(--aqua); transform:scale(1.35); }
 
     /* ── Section helpers ── */
-    .sec { padding:5rem 2rem; }
+    .sec { padding:3.5rem 2rem; }
     .sec-alt { background:var(--gray-50); }
     .sec-navy { background:var(--navy); }
     .wrap { max-width:1140px; margin:0 auto; }
     .eyebrow { display:block; text-align:center; font-size:0.76rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--aqua); margin-bottom:0.4rem; }
     .sec-h2 { text-align:center; margin-bottom:0.75rem; }
-    .bar { width:46px; height:3px; background:var(--aqua); border-radius:2px; margin:0 auto 2.75rem; }
+    .bar { width:46px; height:3px; background:#C4881A; border-radius:2px; margin:0 auto 2rem; }
 
     /* ── Mission / Vision cards ── */
     .mv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem; }
@@ -129,6 +141,13 @@
     .mv-card .ico svg { display:block; }
     .mv-card h3 { font-size:1.12rem; color:var(--navy); margin-bottom:0.55rem; }
     .mv-card p { color:var(--gray-600); font-size:0.93rem; margin:0; line-height:1.65; }
+    /* Dark section overrides */
+    [style*="navy-mid"] .mv-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-top:3px solid #C4881A; }
+    [style*="navy-mid"] .mv-card h3 { color:var(--white); }
+    [style*="navy-mid"] .mv-card p { color:rgba(255,255,255,0.72); }
+    [style*="navy-mid"] .sec-h2 { color:var(--white); }
+    [style*="navy-mid"] .eyebrow { color:var(--aqua); }
+    [style*="navy-mid"] .proven-stats-label { color:var(--aqua); }
 
     /* ── Proven Results stats strip ── */
     .proven-stats {
@@ -246,6 +265,11 @@
     .case-tile .ct-tag { font-size:0.71rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--aqua); }
     .case-tile h3 { font-size:1rem; color:var(--navy); margin:0; line-height:1.35; }
     .case-tile .ct-arrow { margin-top:auto; padding-top:0.75rem; font-size:0.84rem; font-weight:600; color:var(--aqua); }
+    [style*="0C3B4F"] .case-tile { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-top:3px solid #C4881A; }
+    [style*="0C3B4F"] .case-tile h3 { color:var(--white); }
+    [style*="0C3B4F"] .case-tile .ct-tag { color:var(--aqua); }
+    [style*="0C3B4F"] .case-tile .ct-arrow { color:#C4881A; }
+    [style*="0C3B4F"] .sec-h2 { color:var(--white); }
 
     /* ── FAQ expanding cards ── */
     .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
@@ -303,9 +327,9 @@
     .ft-bottom { max-width:1140px; margin:1.5rem auto 0; text-align:center; font-size:0.81rem; color:rgba(255,255,255,0.33); }
 
     /* ── Responsive ── */
-    @media(max-width:960px){
+    @media(max-width:800px){
       .top-nav-links { display:none; }
-      #mobile-btn { display:flex; }
+      /* Keep hamburger always available alongside nav links */
       .mv-grid { grid-template-columns:1fr; }
       .pa-card { grid-template-columns:1fr; }
       .pa-tabs { flex-direction:row; overflow-x:auto; }
@@ -405,9 +429,9 @@
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Built by Carriers. Built for Carriers.</div>
-    <h1>The platform the incumbents don't want you to have.</h1>
-    <p>Real-time underwriting decisions. Straight-through processing. A policy decision in minutes, not days. Pylaex gives small and mid-size carriers the platform capability the big carriers built over decades — configured to how you operate, deployed in weeks.</p>
+    <div class="hero-eyebrow">Built by Carriers, for Carriers</div>
+    <h1>The Leading E-App &amp; Underwriting Platform for Health and Life Carriers</h1>
+    <p>Real-time underwriting decisions. Straight-through processing. A policy decision in minutes, not days — in one carrier-designed platform.</p>
     <div class="hero-btns">
       <a class="btn btn-primary" href="pages/contact.html">Request a Demo</a>
       <a class="btn btn-outline" href="pages/about.html">Our Story</a>
@@ -421,10 +445,10 @@
 </section>
 
 <!-- ══════════════ MISSION / VISION / ADVANTAGE ══════════════ -->
-<section class="sec sec-alt">
+<section class="sec" style="background:var(--navy-mid,#0C3B4F);">
   <div class="wrap">
-    <span class="eyebrow">Who We Are</span>
-    <p style="text-align:center;font-size:1.05rem;color:var(--navy);font-weight:600;margin:0 auto 0.5rem;max-width:760px;font-family:var(--font-body);"><strong style="color:var(--aqua);">PYLAEX:</strong> Compete like you're bigger than you are. for carriers, agents, and consumers.</p>
+    <span class="eyebrow" style="color:var(--aqua);">Who We Are</span>
+    <p style="text-align:center;font-size:1.05rem;color:var(--navy);font-weight:600;margin:0 auto 0.5rem;max-width:760px;font-family:var(--font-body);"><strong style="color:var(--aqua);">PYLAEX</strong> is a carrier platform company. We give small and mid-size carriers the technology the big carriers built over decades.</p>
     <h2 class="sec-h2">Purpose-Built for Modern Insurance</h2>
     <div class="bar"></div>
     <div class="mv-grid">
@@ -501,10 +525,10 @@
 </section>
 
 <!-- ══════════════ WHAT WE BRING TO MARKET (interactive card) ══════════════ -->
-<section class="sec">
+<section class="sec" style="background:var(--navy,#0B1C2C);">
   <div class="wrap">
-    <span class="eyebrow">Platform Advantage</span>
-    <h2 class="sec-h2">What We Bring to Market</h2>
+    <span class="eyebrow" style="color:var(--aqua);">Platform Advantage</span>
+    <h2 class="sec-h2" style="color:var(--white);">What We Bring to Market</h2>
     <div class="bar"></div>
 
     <div class="pa-card">
@@ -686,10 +710,10 @@
 </section>
 
 <!-- ══════════════ CASE STUDIES — single row of tiles ══════════════ -->
-<section class="sec sec-alt">
+<section class="sec" style="background:#0C3B4F;">
   <div class="wrap">
-    <span class="eyebrow">Proven Results</span>
-    <h2 class="sec-h2">Case Studies</h2>
+    <span class="eyebrow" style="color:var(--aqua);">Proven Results</span>
+    <h2 class="sec-h2" style="color:var(--white);">Case Studies</h2>
     <div class="bar"></div>
     <div class="case-row">
       <a class="case-tile" href="pages/case-study-stm.html">
@@ -717,7 +741,7 @@
 </section>
 
 <!-- ══════════════ FAQ — expanding cards ══════════════ -->
-<section class="sec">
+<section class="sec" style="background:var(--gray-50);">
   <div class="wrap" style="max-width:880px;">
     <span class="eyebrow">Questions &amp; Answers</span>
     <h2 class="sec-h2">Frequently Asked Questions</h2>
@@ -783,7 +807,7 @@
           What does Pylaex Engage include? <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>Pylaex Engage covers every touchpoint between carrier, agent, and applicant: consumer messaging, agent incentives (SPark), DTC capabilities, lead transfer and queue management (LeadFlow), intelligent product matching (MatchIQ), and application scanning (ScanIQ). One engagement suite, unified across the relationship.</p>
+          <p>Pylaex Engage covers every touchpoint between carrier, agent, and applicant: consumer messaging, agent incentives (Spark), DTC capabilities, lead transfer and queue management (LeadFlow), intelligent product matching (MatchIQ), and application scanning (ScanIQ). One engagement suite, unified across the relationship.</p>
         </div>
       </div>
 
