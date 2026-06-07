@@ -4,7 +4,7 @@ const NAV_HTML = `
   <div id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
-  <a class="nav-brand" href="index.html">App<span>telligent</span></a>
+  <a class="nav-brand" href="index.html">PYL<span class="brand-a">A</span>EX</a>
   <a class="btn btn-primary nav-cta" href="pages/contact.html">Contact Us</a>
 </nav>
 <div id="sidebar">
@@ -24,13 +24,13 @@ const NAV_HTML = `
     <li class="has-submenu">
       <span>Our Tools <span class="arrow">›</span></span>
       <ul class="sidebar-submenu">
-        <li><a href="pages/tools.html">Apptelligent Engage</a></li>
-        <li><a href="pages/activity-map.html">Apptelligent Pulse</a></li>
+        <li><a href="pages/tools.html">PYLAEX Engage</a></li>
+        <li><a href="pages/activity-map.html">PYLAEX Pulse</a></li>
         <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
-        <li><a href="pages/messaging.html">Apptelligent Link</a></li>
-        <li><a href="pages/incentives.html">Apptelligent Spark</a></li>
+        <li><a href="pages/messaging.html">PYLAEX Link</a></li>
+        <li><a href="pages/incentives.html">PYLAEX Spark</a></li>
         <li><a href="pages/app-scanning.html">ScanIQ</a></li>
-        <li><a href="pages/lead-gen.html">Apptelligent LeadFlow</a></li>
+        <li><a href="pages/lead-gen.html">PYLAEX LeadFlow</a></li>
       </ul>
     </li>
     <li><a href="pages/contact.html">Contact Us</a></li>
@@ -45,7 +45,7 @@ const FOOTER_HTML = `
 <footer id="site-footer">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">App<span>telligent</span></div>
+      <div class="footer-brand">PYL<span class="brand-a">A</span>EX</div>
       <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:0.5rem;max-width:280px;">
         Making the insurance application process more intelligent for carriers, agents, and consumers.
       </p>
@@ -63,12 +63,12 @@ const FOOTER_HTML = `
     <div>
       <h4>Tools</h4>
       <ul>
-        <li><a href="pages/activity-map.html">Apptelligent Pulse</a></li>
+        <li><a href="pages/activity-map.html">PYLAEX Pulse</a></li>
         <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
         <li><a href="pages/messaging.html">Messaging</a></li>
-        <li><a href="pages/incentives.html">Apptelligent Spark</a></li>
+        <li><a href="pages/incentives.html">PYLAEX Spark</a></li>
         <li><a href="pages/app-scanning.html">ScanIQ</a></li>
-        <li><a href="pages/lead-gen.html">Apptelligent LeadFlow</a></li>
+        <li><a href="pages/lead-gen.html">PYLAEX LeadFlow</a></li>
       </ul>
     </div>
     <div>
@@ -82,7 +82,7 @@ const FOOTER_HTML = `
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> Apptelligent Insurance Solutions. All rights reserved.
+    &copy; <span id="footer-year"></span> PYLAEX. All rights reserved.
   </div>
 </footer>
 `;

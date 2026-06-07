@@ -1,30 +1,35 @@
 /* ============================================================
-   Apptelligent Website – Global Stylesheet
-   Brand Colors: Navy (#0B1F4A) | Aqua (#00B5C8) | White (#FFFFFF)
+   PYLAEX Website – Global Stylesheet
+   Brand Colors: Ink (#0B1C2C) | Gate (#12B5CC) | Gold (#C4881A)
    ============================================================ */
 
 :root {
-  --navy: #0B1F4A;
-  --navy-mid: #163066;
-  --navy-light: #1e4080;
-  --aqua: #00B5C8;
-  --aqua-light: #33C8D9;
+  --navy: #0B1C2C;
+  --navy-mid: #0C3B4F;
+  --navy-light: #0C3B4F;
+  --aqua: #12B5CC;
+  --aqua-light: #2DC8DE;
   --aqua-pale: #E8F8FA;
+  --gold: #C4881A;
+  --gold-lt: #D9A040;
   --white: #FFFFFF;
   --gray-50: #F8FAFC;
   --gray-100: #EEF2F7;
   --gray-200: #D9E2EE;
   --gray-600: #4A5568;
   --gray-800: #1A202C;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
-  --shadow-sm: 0 2px 8px rgba(11,31,74,0.10);
-  --shadow-md: 0 6px 24px rgba(11,31,74,0.14);
-  --shadow-lg: 0 16px 48px rgba(11,31,74,0.18);
+  --font-display: 'EB Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --shadow-sm: 0 2px 8px rgba(11,28,44,0.10);
+  --shadow-md: 0 6px 24px rgba(11,28,44,0.14);
+  --shadow-lg: 0 16px 48px rgba(11,28,44,0.18);
   --radius: 10px;
   --radius-lg: 18px;
   --transition: all 0.25s ease;
 }
+
+/* ── Brand A accent (PYLAEX gold A in logo) ── */
+.brand-a { color: #C4881A !important; }
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -105,6 +110,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
   top: 0; left: 0; right: 0;
   z-index: 1000;
   background: var(--navy);
+  border-bottom: 2px solid #C4881A;
   box-shadow: var(--shadow-md);
   height: 68px;
   display: flex;
@@ -178,7 +184,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 .sidebar-menu > li > a:hover,
 .sidebar-menu > li > span:hover,
 .sidebar-menu > li > a.active {
-  background: rgba(0,181,200,0.12);
+  background: rgba(18,181,204,0.12);
   color: var(--aqua);
   border-left-color: var(--aqua);
 }
@@ -209,7 +215,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 
 /* ── Hero / Page Header ── */
 .page-header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0d3060 100%);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0A2840 100%);
   padding: 5rem 2rem 4rem;
   text-align: center;
   position: relative;
@@ -218,7 +224,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 .page-header::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(0,181,200,0.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 70% 50%, rgba(18,181,204,0.18) 0%, transparent 70%);
 }
 .page-header h1 { color: var(--white); position: relative; z-index: 1; }
 .page-header p {
@@ -526,7 +532,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 .form-group textarea:focus {
   outline: none;
   border-color: var(--aqua);
-  box-shadow: 0 0 0 3px rgba(0,181,200,0.15);
+  box-shadow: 0 0 0 3px rgba(18,181,204,0.15);
 }
 .form-group textarea { resize: vertical; min-height: 130px; }
 
@@ -586,7 +592,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 .slide-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
 .slide-tab.active {
   color: var(--aqua);
-  background: rgba(0,181,200,0.12);
+  background: rgba(18,181,204,0.12);
   border-left-color: var(--aqua);
 }
 .slides-content { padding: 2.5rem; }
@@ -642,7 +648,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 .modal-overlay {
   display: none;
   position: fixed; inset: 0;
-  background: rgba(11,31,74,0.6);
+  background: rgba(11,28,44,0.6);
   z-index: 2000;
   padding: 2rem;
   overflow-y: auto;
@@ -703,7 +709,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(120deg, rgba(11,31,74,0.92) 0%, rgba(11,31,74,0.72) 60%, rgba(0,181,200,0.25) 100%);
+  background: linear-gradient(120deg, rgba(11,28,44,0.92) 0%, rgba(11,28,44,0.72) 60%, rgba(18,181,204,0.25) 100%);
 }
 .hero-content {
   position: relative; z-index: 2;
@@ -759,7 +765,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
   background: rgba(255,255,255,0.07);
   border-radius: var(--radius);
   padding: 1.75rem 1.25rem;
-  border: 1px solid rgba(0,181,200,0.25);
+  border: 1px solid rgba(18,181,204,0.25);
 }
 .adv-item .adv-icon { font-size: 2rem; margin-bottom: 0.75rem; }
 .adv-item h4 { color: var(--aqua); margin-bottom: 0.5rem; }

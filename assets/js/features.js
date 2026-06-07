@@ -27,8 +27,8 @@
   /* ── THEMES ─────────────────────────────────────────────────────────────── */
   var THEME_KEY = 'me_brand_theme';
   var THEMES = {
-    apptelligent: { label:'Apptelligent',     description:'Orange & Navy — bold, energetic, championship-ready', swatch1:'#FB4F14', swatch2:'#002244', vars:{'--navy':'#002244','--navy-mid':'#00316A','--navy-light':'#004080','--aqua':'#FB4F14','--aqua-light':'#FF7043','--aqua-pale':'#FFF0EC'} },
-    apptelligent2:{ label:'Apptelligent2',    description:'Navy & Aqua — the original brand palette',           swatch1:'#0B1F4A', swatch2:'#00B5C8', vars:{'--navy':'#0B1F4A','--navy-mid':'#163066','--navy-light':'#1e4080','--aqua':'#00B5C8','--aqua-light':'#33C8D9','--aqua-pale':'#E8F8FA'} },
+    apptelligent: { label:'PYLAEX',     description:'Orange & Navy — bold, energetic, championship-ready', swatch1:'#FB4F14', swatch2:'#002244', vars:{'--navy':'#002244','--navy-mid':'#00316A','--navy-light':'#004080','--aqua':'#FB4F14','--aqua-light':'#FF7043','--aqua-pale':'#FFF0EC'} },
+    apptelligent2:{ label:'PYLAEX2',    description:'Navy & Aqua — the original brand palette',           swatch1:'#0B1C2C', swatch2:'#12B5CC', vars:{'--navy':'#0B1C2C','--navy-mid':'#0C3B4F','--navy-light':'#0C3B4F','--aqua':'#12B5CC','--aqua-light':'#2DC8DE','--aqua-pale':'#E6F9FC'} },
     cubs:         { label:'Chicago Cubs',     description:'Royal Blue & Red — classic, storied, confident',     swatch1:'#0E3386', swatch2:'#CC3433', vars:{'--navy':'#0E3386','--navy-mid':'#1A3F99','--navy-light':'#2550B0','--aqua':'#CC3433','--aqua-light':'#E04848','--aqua-pale':'#FFF0F0'} },
     wellabe:      { label:'Wellabe',          description:'Gold & Charcoal — trusted, warm, established',       swatch1:'#1A1A2E', swatch2:'#E8A020', vars:{'--navy':'#1A1A2E','--navy-mid':'#252540','--navy-light':'#323255','--aqua':'#E8A020','--aqua-light':'#F0B840','--aqua-pale':'#FFF8E8'} }
   };
@@ -48,7 +48,7 @@
     localStorage.setItem(THEME_KEY, 'apptelligent2');
   }
   if (savedThemeId && !THEMES[savedThemeId]) {
-    // Unknown theme ID — clear it so the default Broncos/Apptelligent loads
+    // Unknown theme ID — clear it so the default Broncos/PYLAEX loads
     savedThemeId = null;
     localStorage.removeItem(THEME_KEY);
   }
@@ -68,11 +68,11 @@
       ps.textContent =
         '#me-to{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(11,31,74,0.80);z-index:2147483640;display:flex;align-items:center;justify-content:center;padding:1rem;overflow-y:auto;}' +
         '#me-tm{background:#fff;border-radius:18px;padding:1.75rem;max-width:500px;width:100%;position:relative;z-index:2147483641;}' +
-        '#me-tm h2{font-family:"Playfair Display",Georgia,serif;font-size:1.4rem;font-weight:700;color:#0B1F4A;margin:0 0 0.25rem;}' +
+        '#me-tm h2{font-family:"EB Garamond",Georgia,serif;font-size:1.4rem;font-weight:700;color:#0B1C2C;margin:0 0 0.25rem;}' +
         '#me-tm .tm-s{font-size:0.84rem;color:#718096;margin:0 0 1.25rem;font-family:inherit;}' +
         '.me-tg{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:1.25rem;}' +
         '.me-tt{border:2px solid #D1D9E6;border-radius:12px;padding:0.9rem;background:#fff;text-align:left;cursor:pointer;}' +
-        '.me-tt.sel{border-color:#0B1F4A;background:#EEF2FF;}' +
+        '.me-tt.sel{border-color:#0B1C2C;background:#EEF2FF;}' +
         '.me-sw{display:flex;gap:5px;margin-bottom:0.45rem;}' +
         '.me-sd{width:22px;height:22px;border-radius:50%;flex-shrink:0;}' +
         '.me-tn{font-weight:700;font-size:0.87rem;color:#1A202C;font-family:inherit;}' +
@@ -187,7 +187,7 @@
 
   function buildThemeToggle() {
     var s = document.createElement('style');
-    s.textContent = '#me-tb{position:fixed;bottom:24px;left:24px;z-index:2147483638;background:#fff;border:1.5px solid #E2E8F0;border-radius:30px;padding:6px 14px 6px 8px;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:"Source Sans 3","Segoe UI",sans-serif;font-size:0.78rem;font-weight:600;color:#4A5568;box-shadow:0 2px 12px rgba(11,31,74,0.12);touch-action:manipulation;user-select:none;-webkit-user-select:none;}';
+    s.textContent = '#me-tb{position:fixed;bottom:24px;left:24px;z-index:2147483638;background:#fff;border:1.5px solid #E2E8F0;border-radius:30px;padding:6px 14px 6px 8px;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:"DM Sans","Segoe UI",sans-serif;font-size:0.78rem;font-weight:600;color:#4A5568;box-shadow:0 2px 12px rgba(11,31,74,0.12);touch-action:manipulation;user-select:none;-webkit-user-select:none;}';
     document.head.appendChild(s);
     themeBtn = document.createElement('div');
     themeBtn.id = 'me-tb';
