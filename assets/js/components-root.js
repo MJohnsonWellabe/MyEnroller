@@ -24,13 +24,12 @@ const NAV_HTML = `
     <li class="has-submenu">
       <span>Our Tools <span class="arrow">›</span></span>
       <ul class="sidebar-submenu">
-        <li><a href="pages/tools.html">PYLAEX Engage</a></li>
-        <li><a href="pages/activity-map.html">PYLAEX Pulse</a></li>
-        <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
-        <li><a href="pages/messaging.html">PYLAEX Link</a></li>
-        <li><a href="pages/incentives.html">PYLAEX Spark</a></li>
-        <li><a href="pages/app-scanning.html">ScanIQ</a></li>
-        <li><a href="pages/lead-gen.html">PYLAEX LeadFlow</a></li>
+        <li><a href="pages/tools.html">All Tools</a></li>
+        <li><a href="pages/products.html">Pylaex Orchestrator</a></li>
+        <li><a href="pages/tools.html#enroller">Pylaex Enroller</a></li>
+        <li><a href="pages/activity-map.html">Pylaex Pulse</a></li>
+        <li><a href="pages/tools.html#engage">Pylaex Engage</a></li>
+        <li><a href="pages/tools.html#launchpad">Pylaex Launchpad</a></li>
       </ul>
     </li>
     <li><a href="pages/contact.html">Contact Us</a></li>
@@ -47,7 +46,7 @@ const FOOTER_HTML = `
     <div>
       <div class="footer-brand">PYL<span class="brand-a">A</span>EX</div>
       <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:0.5rem;max-width:280px;">
-        Making the insurance application process more intelligent for carriers, agents, and consumers.
+        The platform the incumbents don't want you to have.
       </p>
     </div>
     <div>
@@ -63,12 +62,11 @@ const FOOTER_HTML = `
     <div>
       <h4>Tools</h4>
       <ul>
-        <li><a href="pages/activity-map.html">PYLAEX Pulse</a></li>
-        <li><a href="pages/my-easy-match.html">MatchIQ</a></li>
-        <li><a href="pages/messaging.html">Messaging</a></li>
-        <li><a href="pages/incentives.html">PYLAEX Spark</a></li>
-        <li><a href="pages/app-scanning.html">ScanIQ</a></li>
-        <li><a href="pages/lead-gen.html">PYLAEX LeadFlow</a></li>
+        <li><a href="pages/products.html">Pylaex Orchestrator</a></li>
+        <li><a href="pages/tools.html#enroller">Pylaex Enroller</a></li>
+        <li><a href="pages/activity-map.html">Pylaex Pulse</a></li>
+        <li><a href="pages/tools.html#engage">Pylaex Engage</a></li>
+        <li><a href="pages/tools.html#launchpad">Pylaex Launchpad</a></li>
       </ul>
     </div>
     <div>

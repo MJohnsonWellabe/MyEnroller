@@ -15,6 +15,7 @@
       display: flex; align-items: center;
       padding: 0 2.5rem; z-index: 1000;
       box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+      border-bottom: 2px solid #C4881A;
     }
     .top-nav-brand {
       font-family: var(--font-display);
@@ -71,11 +72,11 @@
     /* CTA button in nav */
     .nav-cta {
       padding:0.45rem 1.15rem !important;
-      background:var(--aqua) !important;
-      color:var(--navy) !important; font-weight:700 !important;
+      background:#C4881A !important;
+      color:#0B1C2C !important; font-weight:700 !important;
       border-radius:6px; margin-left:0.5rem;
     }
-    .nav-cta:hover { background:var(--aqua-light) !important; transform:translateY(-1px); }
+    .nav-cta:hover { background:#D9A040 !important; transform:translateY(-1px); }
 
     @media (max-width: 700px) { .top-nav-tagline { display: none; } }
     /* Mobile toggle */
@@ -329,7 +330,7 @@
 <nav id="top-nav">
   <a class="top-nav-brand-wrap" href="index.html" style="text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;line-height:1;margin-right:auto;">
     <span class="top-nav-brand" style="font-family:var(--font-display);font-size:1.45rem;font-weight:700;color:var(--white);">PYL<span class="brand-a">A</span>EX</span>
-    <span class="top-nav-tagline" style="font-family:var(--font-body);font-size:0.65rem;color:rgba(255,255,255,0.62);font-weight:500;margin-top:3px;letter-spacing:0.02em;">Making the insurance application process more intelligent</span>
+    <span class="top-nav-tagline" style="font-family:var(--font-body);font-size:0.65rem;color:rgba(255,255,255,0.62);font-weight:500;margin-top:3px;letter-spacing:0.02em;">Compete like you're bigger than you are.</span>
   </a>
 
   <ul class="top-nav-links" id="nav-ul">
@@ -354,13 +355,12 @@
         Our Tools <span class="chevron">▾</span>
       </button>
       <div class="nav-dropdown" id="drop-tools">
-        <a class="dd-all" href="pages/tools.html">PYLAEX Engage</a>
-        <a href="pages/activity-map.html">PYLAEX Pulse</a>
-        <a href="pages/my-easy-match.html">MatchIQ</a>
-        <a href="pages/messaging.html">PYLAEX Link</a>
-        <a href="pages/incentives.html">PYLAEX Spark</a>
-        <a href="pages/app-scanning.html">ScanIQ</a>
-        <a href="pages/lead-gen.html">PYLAEX LeadFlow</a>
+        <a class="dd-all" href="pages/tools.html">Platform Suite</a>
+        <a href="pages/products.html">Pylaex Orchestrator</a>
+        <a href="pages/tools.html#enroller">Pylaex Enroller</a>
+        <a href="pages/activity-map.html">Pylaex Pulse</a>
+        <a href="pages/tools.html#engage">Pylaex Engage</a>
+        <a href="pages/tools.html#launchpad">Pylaex Launchpad</a>
       </div>
     </li>
 
@@ -384,14 +384,13 @@
   <a class="m-link" href="pages/final-expense.html">Final Expense</a>
   <a class="m-link" href="pages/annuity.html">Annuity</a>
   <a class="m-link" href="pages/ancillary-health.html">Ancillary Health</a>
-  <div class="m-sec">Our Tools</div>
-  <a class="m-link" href="pages/tools.html">PYLAEX Engage</a>
-  <a class="m-link" href="pages/activity-map.html">PYLAEX Pulse</a>
-  <a class="m-link" href="pages/my-easy-match.html">MatchIQ</a>
-  <a class="m-link" href="pages/messaging.html">PYLAEX Link</a>
-  <a class="m-link" href="pages/incentives.html">PYLAEX Spark</a>
-  <a class="m-link" href="pages/app-scanning.html">ScanIQ</a>
-  <a class="m-link" href="pages/lead-gen.html">PYLAEX LeadFlow</a>
+  <div class="m-sec">Platform Suite</div>
+  <a class="m-link" href="pages/tools.html">All Products</a>
+  <a class="m-link" href="pages/products.html">Pylaex Orchestrator</a>
+  <a class="m-link" href="pages/tools.html#enroller">Pylaex Enroller</a>
+  <a class="m-link" href="pages/activity-map.html">Pylaex Pulse</a>
+  <a class="m-link" href="pages/tools.html#engage">Pylaex Engage</a>
+  <a class="m-link" href="pages/tools.html#launchpad">Pylaex Launchpad</a>
   <a class="m-link" href="pages/see-it-in-action.html">See It in Action</a>
   <a class="m-link" href="pages/join-the-team.html">Join the Team</a>
   <a class="m-link" href="pages/contact.html" style="color:var(--aqua);font-weight:700;">Contact Us</a>
@@ -406,9 +405,9 @@
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Built by Carriers, for Carriers</div>
-    <h1>The Leading Enrollment &amp; Underwriting Workflow Software for Health and Life Carriers</h1>
-    <p>Modern enrollment, real-time underwriting decisioning, and data visibility — in one carrier-designed platform.</p>
+    <div class="hero-eyebrow">Built by Carriers. Built for Carriers.</div>
+    <h1>The platform the incumbents don't want you to have.</h1>
+    <p>Real-time underwriting decisions. Straight-through processing. A policy decision in minutes, not days. Pylaex gives small and mid-size carriers the platform capability the big carriers built over decades — configured to how you operate, deployed in weeks.</p>
     <div class="hero-btns">
       <a class="btn btn-primary" href="pages/contact.html">Request a Demo</a>
       <a class="btn btn-outline" href="pages/about.html">Our Story</a>
@@ -425,7 +424,7 @@
 <section class="sec sec-alt">
   <div class="wrap">
     <span class="eyebrow">Who We Are</span>
-    <p style="text-align:center;font-size:1.05rem;color:var(--navy);font-weight:600;margin:0 auto 0.5rem;max-width:760px;font-family:var(--font-body);"><strong style="color:var(--aqua);">PYLAEX:</strong> Making the insurance application process more intelligent for carriers, agents, and consumers.</p>
+    <p style="text-align:center;font-size:1.05rem;color:var(--navy);font-weight:600;margin:0 auto 0.5rem;max-width:760px;font-family:var(--font-body);"><strong style="color:var(--aqua);">PYLAEX:</strong> Compete like you're bigger than you are. for carriers, agents, and consumers.</p>
     <h2 class="sec-h2">Purpose-Built for Modern Insurance</h2>
     <div class="bar"></div>
     <div class="mv-grid">
@@ -523,7 +522,7 @@
 
         <!-- BUSINESS STRATEGY -->
         <div class="pa-panel active" id="pa0">
-          <div class="pe">Long-Term Vision</div>
+          <div class="pe">How Pylaex Serves Carriers</div>
           <h3>Business Strategy</h3>
           <div class="pa-accordion">
             <div class="pa-item">
@@ -555,7 +554,7 @@
 
         <!-- TECHNOLOGY -->
         <div class="pa-panel" id="pa1">
-          <div class="pe">Long-Term Vision</div>
+          <div class="pe">Pylaex Orchestrator — The Configurability Engine</div>
           <h3>Technology</h3>
           <div class="pa-accordion">
             <div class="pa-item">
@@ -587,7 +586,7 @@
 
         <!-- PRODUCT -->
         <div class="pa-panel" id="pa2">
-          <div class="pe">Long-Term Vision</div>
+          <div class="pe">Pylaex Enroller — The Enrollment Platform</div>
           <h3>Product</h3>
           <div class="pa-accordion">
             <div class="pa-item">
@@ -619,7 +618,7 @@
 
         <!-- SALES & UNDERWRITING -->
         <div class="pa-panel" id="pa3">
-          <div class="pe">Long-Term Vision</div>
+          <div class="pe">Pylaex Pulse — Analytics &amp; Dashboards</div>
           <h3>Sales &amp; Underwriting</h3>
           <div class="pa-accordion">
             <div class="pa-item">
@@ -651,7 +650,7 @@
 
         <!-- AGENT EXPERIENCE -->
         <div class="pa-panel" id="pa4">
-          <div class="pe">Long-Term Vision</div>
+          <div class="pe">Pylaex Engage — Consumer &amp; Agent Engagement</div>
           <h3>Agent Experience</h3>
           <div class="pa-accordion">
             <div class="pa-item">
@@ -727,47 +726,73 @@
 
       <div class="faq-card" id="fq1">
         <button class="faq-trigger" onclick="toggleFaq('fq1')">
-          What is PYLAEX Orchestrator?
-          <span class="faq-plus">+</span>
+          What is the Pylaex platform? <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>PYLAEX Orchestrator is a configurable enrollment and underwriting workflow engine that helps carriers move faster, convert more business, and make better decisions at the point of sale. It combines intelligent application intake, real-time underwriting decisioning, and data visibility into a single, carrier-designed platform — without adding operational complexity.</p>
+          <p>Pylaex is a carrier platform company. Our suite — Orchestrator, Enroller, Pulse, Engage, and Launchpad — gives small and mid-size carriers the technology the big carriers built over decades. Real-time underwriting decisions. Straight-through processing. Analytics that show exactly how you're competing. Configured to how you operate, deployed in weeks.</p>
         </div>
       </div>
 
       <div class="faq-card" id="fq2">
         <button class="faq-trigger" onclick="toggleFaq('fq2')">
-          Who is PYLAEX Orchestrator for?
-          <span class="faq-plus">+</span>
+          Who is Pylaex built for? <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>PYLAEX Orchestrator is built for carriers and distributors who want speed without sacrificing control. It's ideal for organizations looking to modernize their buying experience, improve agent satisfaction, increase placement quality, and iterate faster — without rebuilding core systems.</p>
+          <p>Pylaex is purpose-built for small and mid-size insurance carriers — the disruptors, the up-and-comers, the carriers who compete on capability instead of scale. If your technology is holding you back from the speed, quality, and agent experience your competitors have, that's exactly who we built this for.</p>
         </div>
       </div>
 
       <div class="faq-card" id="fq3">
         <button class="faq-trigger" onclick="toggleFaq('fq3')">
-          Will I control my underwriting decisions?
-          <span class="faq-plus">+</span>
+          Will I control my underwriting decisions? <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <p>Yes. PYLAEX is fully configurable to your underwriting philosophy, rules, and risk tolerances. You control what decisions are made, when they're made, and how they're applied — ensuring speed happens within clear, carrier-defined guardrails.</p>
+          <p>Yes — completely. Pylaex Orchestrator is the configurability engine. Your underwriting philosophy, your rules, your product structure. You decide what decisions are made, when they're made, and how they're applied. Speed happens within your guardrails, not around them.</p>
         </div>
       </div>
 
       <div class="faq-card" id="fq4">
         <button class="faq-trigger" onclick="toggleFaq('fq4')">
-          What are the key benefits?
-          <span class="faq-plus">+</span>
+          What does Pylaex Enroller do? <span class="faq-plus">+</span>
         </button>
         <div class="faq-body">
-          <ul>
-            <li>Faster time to market through configuration, not custom builds</li>
-            <li>Improved agent experience and higher engagement</li>
-            <li>Better quality of business through earlier decisioning</li>
-            <li>Real-time visibility into submissions and outcomes</li>
-            <li>A platform built by carrier operators — not generic insurtech vendors</li>
-          </ul>
+          <p>Pylaex Enroller is the guided, intelligent interface agents use from first question to issued policy. It's the evolution of MyEnroller — configurable, carrier-branded, and built to make agents faster and more effective in the field. The close is in the room. Enroller makes sure nothing gets in the way of it.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq5">
+        <button class="faq-trigger" onclick="toggleFaq('fq5')">
+          What is Pylaex Pulse? <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>Pylaex Pulse is executive-level intelligence. Activity maps, agent engagement metrics, placement rate trends, pipeline health, and straight-through processing ratios — exactly how your carrier is competing, in real time. Built for the people who need to make decisions, not just watch dashboards.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq6">
+        <button class="faq-trigger" onclick="toggleFaq('fq6')">
+          How long does implementation take? <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>Pylaex Launchpad is our carrier implementation system — configuration, training, and go-live infrastructure that takes carriers from signed contract to live production in weeks, not months. We've launched carriers before. We have the playbook. Configured for you means exactly that.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq7">
+        <button class="faq-trigger" onclick="toggleFaq('fq7')">
+          What does Pylaex Engage include? <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>Pylaex Engage covers every touchpoint between carrier, agent, and applicant: consumer messaging, agent incentives (SPark), DTC capabilities, lead transfer and queue management (LeadFlow), intelligent product matching (MatchIQ), and application scanning (ScanIQ). One engagement suite, unified across the relationship.</p>
+        </div>
+      </div>
+
+      <div class="faq-card" id="fq8">
+        <button class="faq-trigger" onclick="toggleFaq('fq8')">
+          What makes Pylaex different from other insurtech platforms? <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-body">
+          <p>We built this from inside a carrier. Our founders ran underwriting, distribution, and actuarial operations. We felt the exact pain this platform solves. The result is a system that reflects carrier reality — not a technology company's theory of what insurance should look like. We've been the carrier. We know what you need.</p>
         </div>
       </div>
 
@@ -805,7 +830,7 @@
   <div class="ft-inner">
     <div>
       <div class="ft-brand">PYL<span class="brand-a">A</span>EX</div>
-      <p class="ft-tagline">Making the insurance application process more intelligent for carriers, agents, and consumers.</p>
+      <p class="ft-tagline">Compete like you're bigger than you are. for carriers, agents, and consumers.</p>
     </div>
     <div class="ft-col">
       <h5>Products</h5>
