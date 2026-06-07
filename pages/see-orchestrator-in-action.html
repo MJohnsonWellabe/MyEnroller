@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>See Orchestrator in Action – PYLAEX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* Orchestrator wireframe UI */
+    .orch-demo { background:var(--navy); border-radius:16px; overflow:hidden; border:1px solid rgba(18,181,204,.2); }
+    .orch-toolbar { background:#0C3B4F; padding:.75rem 1.5rem; display:flex; align-items:center; gap:1rem; border-bottom:1px solid rgba(255,255,255,.08); }
+    .orch-toolbar-title { font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--white); flex:1; }
+    .orch-badge { font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .65rem; border-radius:999px; background:rgba(196,136,26,.2); color:#C4881A; border:1px solid rgba(196,136,26,.4); }
+    .orch-main { display:grid; grid-template-columns:260px 1fr; min-height:480px; }
+    .orch-sidebar { background:rgba(0,0,0,.25); border-right:1px solid rgba(255,255,255,.08); padding:1rem 0; }
+    .orch-sidebar-label { font-size:.67rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--aqua); padding:.75rem 1.25rem .35rem; }
+    .orch-block {
+      display:flex; align-items:center; gap:.75rem; padding:.65rem 1.25rem;
+      cursor:grab; border-radius:6px; margin:.25rem .75rem;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+      transition:background .18s, border-color .18s;
+      user-select:none;
+    }
+    .orch-block:hover { background:rgba(196,136,26,.12); border-color:rgba(196,136,26,.3); }
+    .orch-block.dragging { opacity:.5; border-style:dashed; }
+    .orch-block-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .orch-block-label { font-size:.82rem; color:rgba(255,255,255,.82); font-weight:500; }
+    .orch-canvas { padding:1.5rem; display:flex; flex-direction:column; gap:.75rem; }
+    .orch-canvas-label { font-size:.67rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:.25rem; }
+    .orch-screen {
+      background:rgba(255,255,255,.06); border:2px solid rgba(255,255,255,.1);
+      border-radius:10px; padding:1rem 1.25rem;
+      cursor:move; transition:border-color .2s; position:relative;
+    }
+    .orch-screen:hover { border-color:rgba(196,136,26,.5); }
+    .orch-screen.active-drop { border-color:#C4881A; background:rgba(196,136,26,.08); }
+    .orch-screen-num {
+      position:absolute; top:.65rem; right:.75rem;
+      font-size:.65rem; font-weight:700; color:rgba(255,255,255,.3);
+      font-family:monospace;
+    }
+    .orch-screen-title { font-size:.88rem; font-weight:700; color:var(--white); margin-bottom:.35rem; }
+    .orch-screen-meta { font-size:.75rem; color:rgba(255,255,255,.5); display:flex; gap:.75rem; flex-wrap:wrap; }
+    .orch-tag { font-size:.65rem; padding:.12rem .5rem; border-radius:4px; font-weight:700; }
+    .orch-tag-api { background:rgba(18,181,204,.15); color:var(--aqua); }
+    .orch-tag-q { background:rgba(196,136,26,.15); color:#C4881A; }
+    .orch-tag-rule { background:rgba(255,255,255,.1); color:rgba(255,255,255,.6); }
+    .orch-drop-zone {
+      border:2px dashed rgba(255,255,255,.15); border-radius:10px;
+      padding:1rem; text-align:center;
+      color:rgba(255,255,255,.3); font-size:.8rem;
+    }
+    .orch-controls { background:#0C3B4F; padding:.85rem 1.5rem; display:flex; align-items:center; gap:1rem; border-top:1px solid rgba(255,255,255,.08); }
+    .orch-btn { padding:.42rem 1rem; border-radius:6px; font-size:.78rem; font-weight:700; cursor:pointer; border:none; font-family:var(--font-body); transition:all .18s; }
+    .orch-btn-primary { background:#C4881A; color:#0B1C2C; }
+    .orch-btn-primary:hover { background:#D9A040; }
+    .orch-btn-outline { background:transparent; color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.2); }
+    .orch-btn-outline:hover { border-color:var(--aqua); color:var(--aqua); }
+    .orch-status { margin-left:auto; font-size:.75rem; color:rgba(255,255,255,.45); }
+
+    /* API config panel */
+    .api-panel { background:rgba(18,181,204,.06); border:1px solid rgba(18,181,204,.2); border-radius:8px; padding:1rem; margin-top:.75rem; font-size:.8rem; }
+    .api-panel-title { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--aqua); margin-bottom:.5rem; }
+    .api-toggle { display:flex; align-items:center; justify-content:space-between; margin-bottom:.35rem; color:rgba(255,255,255,.75); }
+    .toggle-switch { width:32px; height:18px; background:rgba(255,255,255,.15); border-radius:9px; position:relative; cursor:pointer; }
+    .toggle-switch.on { background:#C4881A; }
+    .toggle-knob { position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%; background:white; transition:left .18s; }
+    .toggle-switch.on .toggle-knob { left:16px; }
+
+    .step-callout { background:rgba(196,136,26,.1); border-left:3px solid #C4881A; border-radius:0 8px 8px 0; padding:1rem 1.25rem; }
+    .step-callout-num { font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#C4881A; margin-bottom:.3rem; }
+    .step-callout p { color:rgba(255,255,255,.8); font-size:.88rem; margin:0; line-height:1.6; }
+    @media(max-width:768px){ .orch-main { grid-template-columns:1fr; } .orch-sidebar { display:none; } }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="page-content">
+  <div class="page-header">
+    <div class="breadcrumb"><a href="../index.html">Home</a> &rsaquo; <a href="tools.html">Platform Suite</a> &rsaquo; Pylaex Orchestrator</div>
+    <h1>See Orchestrator in Action</h1>
+    <p class="page-subtitle">The Configurability Engine</p>
+    <p>Your screens. Your questions. Your rules. Your API calls. Orchestrator puts carrier operations in control — no code, no IT queue, no waiting.</p>
+  </div>
+
+  <section class="section" style="background:#0C3B4F;">
+    <div class="container">
+      <div class="section-title">
+        <span class="eyebrow" style="color:var(--aqua);">How Orchestrator Works</span>
+        <h2 style="color:var(--white);">You configure. Enroller executes.</h2>
+        <div class="divider-aqua" style="background:#C4881A;"></div>
+        <p style="color:rgba(255,255,255,.75);max-width:680px;margin:0 auto;">Orchestrator is the layer behind Pylaex Enroller. Everything your agents see and every decision made during enrollment starts here — with choices your team makes, not an IT release cycle.</p>
+      </div>
+
+      <div class="grid-2" style="gap:1.5rem;margin-bottom:2.5rem;">
+        <div class="step-callout">
+          <div class="step-callout-num">What you control</div>
+          <p>Screen order and layout. Which questions appear and when. Where to call external APIs and which ones. Underwriting logic — approve, decline, refer, reflexive. Product rules and rate tables. What data gets passed downstream to your PAS.</p>
+        </div>
+        <div class="step-callout">
+          <div class="step-callout-num">What you don't need</div>
+          <p>An engineering ticket. A release cycle. A developer on the call. A change management process that takes 90 days. An IT queue. A testing sprint. Orchestrator changes are live when you promote them — from sandbox to production in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--navy);">
+    <div class="container">
+      <div class="section-title">
+        <span class="eyebrow" style="color:var(--aqua);">Interactive Demo</span>
+        <h2 style="color:var(--white);">Configure a product flow</h2>
+        <div class="divider-aqua" style="background:#C4881A;"></div>
+        <p style="color:rgba(255,255,255,.7);max-width:600px;margin:0 auto 2rem;">This is a representative view of the Orchestrator configuration studio. Drag blocks to reorder screens. Toggle API calls on or off. Add or remove questions. What you see here is what your agents experience in Enroller.</p>
+      </div>
+
+      <div class="orch-demo">
+        <div class="orch-toolbar">
+          <div class="orch-toolbar-title">Product Flow — Medicare Supplement Plan G</div>
+          <div class="orch-badge">Sandbox</div>
+        </div>
+        <div class="orch-main">
+          <!-- Left: Block Library -->
+          <div class="orch-sidebar">
+            <div class="orch-sidebar-label">Screen Library</div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#12B5CC;"></div>
+              <div class="orch-block-label">Applicant Basics</div>
+            </div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#C4881A;"></div>
+              <div class="orch-block-label">Tobacco Use</div>
+            </div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#12B5CC;"></div>
+              <div class="orch-block-label">Prescription History</div>
+            </div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#C4881A;"></div>
+              <div class="orch-block-label">Health History</div>
+            </div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#12B5CC;"></div>
+              <div class="orch-block-label">Reflexive Questions</div>
+            </div>
+            <div class="orch-sidebar-label" style="margin-top:1rem;">API Calls</div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#2DC8DE;"></div>
+              <div class="orch-block-label">Rx Check (external)</div>
+            </div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#2DC8DE;"></div>
+              <div class="orch-block-label">MVR Lookup</div>
+            </div>
+            <div class="orch-block" draggable="true" ondragstart="orchDrag(this)">
+              <div class="orch-block-dot" style="background:#2DC8DE;"></div>
+              <div class="orch-block-label">PAS Eligibility</div>
+            </div>
+          </div>
+
+          <!-- Right: Canvas -->
+          <div class="orch-canvas">
+            <div class="orch-canvas-label">Current Flow — drag to reorder</div>
+
+            <div class="orch-screen" draggable="true">
+              <div class="orch-screen-num">Screen 1</div>
+              <div class="orch-screen-title">Applicant Information</div>
+              <div class="orch-screen-meta">
+                <span class="orch-tag orch-tag-q">6 questions</span>
+                <span class="orch-tag orch-tag-rule">Required</span>
+              </div>
+            </div>
+
+            <div class="orch-screen" draggable="true">
+              <div class="orch-screen-num">Screen 2</div>
+              <div class="orch-screen-title">Eligibility &amp; Enrollment Type</div>
+              <div class="orch-screen-meta">
+                <span class="orch-tag orch-tag-q">3 questions</span>
+                <span class="orch-tag orch-tag-rule">Branching logic</span>
+                <span class="orch-tag orch-tag-api">Triggers UW decision</span>
+              </div>
+            </div>
+
+            <div class="orch-screen" draggable="true" id="rxScreen">
+              <div class="orch-screen-num">Screen 3</div>
+              <div class="orch-screen-title">Prescription History</div>
+              <div class="orch-screen-meta">
+                <span class="orch-tag orch-tag-q">Dynamic questions</span>
+                <span class="orch-tag orch-tag-api">Rx API call</span>
+              </div>
+              <div class="api-panel">
+                <div class="api-panel-title">API Configuration</div>
+                <div class="api-toggle">
+                  <span>Call external Rx database</span>
+                  <div class="toggle-switch on" onclick="this.classList.toggle('on');this.querySelector('.toggle-knob').style.left=this.classList.contains('on')?'16px':'2px'"><div class="toggle-knob"></div></div>
+                </div>
+                <div class="api-toggle">
+                  <span>Use result to pre-fill questions</span>
+                  <div class="toggle-switch on" onclick="this.classList.toggle('on');this.querySelector('.toggle-knob').style.left=this.classList.contains('on')?'16px':'2px'"><div class="toggle-knob"></div></div>
+                </div>
+                <div class="api-toggle">
+                  <span>Bypass for GI applicants</span>
+                  <div class="toggle-switch" onclick="this.classList.toggle('on');this.querySelector('.toggle-knob').style.left=this.classList.contains('on')?'16px':'2px'"><div class="toggle-knob"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="orch-screen" draggable="true">
+              <div class="orch-screen-num">Screen 4</div>
+              <div class="orch-screen-title">Health Questions</div>
+              <div class="orch-screen-meta">
+                <span class="orch-tag orch-tag-q">12 questions</span>
+                <span class="orch-tag orch-tag-rule">Reflexive on Yes</span>
+              </div>
+            </div>
+
+            <div class="orch-drop-zone" ondragover="event.preventDefault()" ondrop="orchDrop(event)">
+              + Drop a screen or API call here to add it to the flow
+            </div>
+          </div>
+        </div>
+        <div class="orch-controls">
+          <button class="orch-btn orch-btn-outline" onclick="alert('Preview mode — opens Enroller with this configuration in a test window.')">Preview in Enroller</button>
+          <button class="orch-btn orch-btn-outline" onclick="alert('Runs validation checks on rules, required fields, and API call sequences.')">Validate</button>
+          <button class="orch-btn orch-btn-primary" onclick="alert('Promotes this configuration from Sandbox to Production. Changes are live immediately.')">Promote to Production</button>
+          <div class="orch-status">Last saved: just now &nbsp;&bull;&nbsp; 4 screens configured</div>
+        </div>
+      </div>
+
+      <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.4);margin-top:.75rem;">Representative wireframe — contact us for a live demo of the production Orchestrator studio.</p>
+    </div>
+  </section>
+
+  <section class="section" style="background:#0C3B4F;">
+    <div class="container">
+      <h2 style="color:var(--white);text-align:center;margin-bottom:2rem;">What you can configure without touching code</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Screen Order &amp; Layout</h3>
+          <p>Drag and drop screens to change the order agents see them. Add, remove, or reorder questions within any screen. Changes reflect in Enroller immediately after promotion.</p>
+        </div>
+        <div class="card">
+          <h3>Questions &amp; Branching</h3>
+          <p>Choose which questions appear and under what conditions. Set reflexive logic — if an applicant answers Yes to X, automatically show questions Y and Z. Carrier-controlled, no code required.</p>
+        </div>
+        <div class="card">
+          <h3>API Calls</h3>
+          <p>Turn external data calls on or off per product, per state, or per eligibility type. Choose when to call an API, what to do with the result, and when to bypass it entirely.</p>
+        </div>
+        <div class="card">
+          <h3>Underwriting Logic</h3>
+          <p>Configure approve, decline, refer, and table-rating outcomes based on any combination of applicant responses, API results, and product rules. All decisions are auditable and logged.</p>
+        </div>
+        <div class="card">
+          <h3>Product Rules</h3>
+          <p>Rate tables, eligibility windows, benefit amounts, and coverage tiers — all configurable without a release cycle. Update a rate and promote it in minutes, not weeks.</p>
+        </div>
+        <div class="card">
+          <h3>Sandbox &amp; Promotion</h3>
+          <p>Every change happens in sandbox first. Validate, preview in Enroller, and promote to production when ready. No IT handoff. No change management process. Your team owns it.</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem;">
+        <a href="contact.html" class="btn btn-primary">Request a Live Demo</a>
+        <a href="see-it-in-action.html" class="btn btn-navy" style="margin-left:1rem;">See Enroller in Action</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script>
+var dragging = null;
+function orchDrag(el){ dragging = el; el.classList.add('dragging'); }
+document.addEventListener('dragend', function(){ if(dragging){ dragging.classList.remove('dragging'); dragging=null; } });
+function orchDrop(e){
+  e.preventDefault();
+  if(dragging){
+    var zone = e.currentTarget;
+    zone.insertAdjacentHTML('beforebegin','<div class="orch-screen" draggable="true"><div class="orch-screen-num">Screen +</div><div class="orch-screen-title">'+dragging.querySelector('.orch-block-label').textContent+'</div><div class="orch-screen-meta"><span class="orch-tag orch-tag-q">Configuring...</span></div></div>');
+    dragging.classList.remove('dragging'); dragging=null;
+  }
+}
+</script>
+</body>
+</html>

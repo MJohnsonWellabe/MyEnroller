@@ -507,7 +507,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
   // ── IN-CHAT EXPERIENCE SURVEY (60 seconds after page load) ──────────────────
   // Fires once per session. If chatbot is minimized, opens it first.
   var SURVEY_SESSION_KEY = 'me_chat_survey_done';
-  if (!sessionStorage.getItem(SURVEY_SESSION_KEY)) {
+  if (!sessionStorage.getItem(SURVEY_SESSION_KEY) && !localStorage.getItem(SURVEY_SESSION_KEY)) {
     setTimeout(function () {
       // Don't show if user is already mid-conversation
       if (messages.length > 1) return;
@@ -545,7 +545,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
         btn.addEventListener('pointerdown', function (e) {
           e.stopPropagation();
           // Mark done so it never shows again this session
-          sessionStorage.setItem(SURVEY_SESSION_KEY, 'true');
+          sessionStorage.setItem(SURVEY_SESSION_KEY, 'true'); localStorage.setItem(SURVEY_SESSION_KEY, 'true');
           // Log rating
           console.log('ME chat survey rating:', opt.v);
           // Remove survey bubble and replace with thank-you
@@ -560,7 +560,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
       messagesEl.appendChild(surveyDiv);
       scrollToBottom();
 
-    }, 60000); // 60 seconds
+    }, 60000); // 60 seconds — fires once ever (localStorage persists)
   }
 
 })();

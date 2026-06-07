@@ -173,7 +173,8 @@ const NAV_HTML = `
         <a href="../pages/tools.html">Pylaex Launchpad</a>
       </div>
     </li>
-    <li><a href="../pages/see-it-in-action.html">See It in Action</a></li>
+    <li><a href="../pages/case-study-growth.html">Case Studies</a>
+    <a href="../pages/see-it-in-action.html">See It in Action</a></li>
     <li><a href="../pages/join-the-team.html">Join the Team</a></li>
   </ul>
 
@@ -199,10 +200,17 @@ const NAV_HTML = `
       <ul class="sidebar-submenu">
         <li><a href="../pages/tools.html">Full Platform Suite</a></li>
         <li><a href="../pages/products.html">Pylaex Orchestrator</a></li>
+        <li><a href="../pages/see-orchestrator-in-action.html" style="padding-left:2.5rem;font-size:.85rem;opacity:.8;">&#8627; See Orchestrator in Action</a></li>
         <li><a href="../pages/tools.html">Pylaex Enroller</a></li>
+        <li><a href="../pages/see-it-in-action.html" style="padding-left:2.5rem;font-size:.85rem;opacity:.8;">&#8627; See Enroller in Action</a></li>
         <li><a href="../pages/activity-map.html">Pylaex Pulse</a></li>
         <li><a href="../pages/tools.html">Pylaex Engage</a></li>
         <li><a href="../pages/tools.html">Pylaex Launchpad</a></li>
+      </ul>
+    </li>
+    <li class="has-submenu">
+      <span>Engage Tools <span class="arrow">&#8250;</span></span>
+      <ul class="sidebar-submenu">
         <li><a href="../pages/my-easy-match.html">MatchIQ</a></li>
         <li><a href="../pages/messaging.html">Pylaex Link</a></li>
         <li><a href="../pages/incentives.html">Pylaex Spark</a></li>
@@ -210,7 +218,8 @@ const NAV_HTML = `
         <li><a href="../pages/lead-gen.html">Pylaex LeadFlow</a></li>
       </ul>
     </li>
-    <li><a href="../pages/see-it-in-action.html">See It in Action</a></li>
+    <li><a href="../pages/case-study-growth.html">Case Studies</a>
+    <a href="../pages/see-it-in-action.html">See It in Action</a></li>
     <li><a href="../pages/join-the-team.html">Join the Team</a></li>
     <li><a href="../pages/contact.html" style="color:#C4881A;font-weight:700;">Contact Us</a></li>
   </ul>
@@ -224,7 +233,7 @@ const FOOTER_HTML = `
     <div>
       <div class="footer-brand">PYL<span class="brand-a">A</span>EX</div>
       <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:0.5rem;max-width:280px;">
-        The platform the incumbents don't want you to have.
+        The platform the incumbents don't want you to have. Compete like you're bigger than you are.
       </p>
     </div>
     <div>
@@ -252,7 +261,8 @@ const FOOTER_HTML = `
       <ul>
         <li><a href="../pages/about.html">About Us</a></li>
         <li><a href="../pages/contact.html">Contact Us</a></li>
-        <li><a href="../pages/see-it-in-action.html">See It in Action</a></li>
+        <li><a href="../pages/case-study-growth.html">Case Studies</a>
+    <a href="../pages/see-it-in-action.html">See It in Action</a></li>
         <li><a href="../pages/join-the-team.html">Join the Team</a></li>
       </ul>
     </div>
