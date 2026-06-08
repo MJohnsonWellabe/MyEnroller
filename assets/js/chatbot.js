@@ -510,7 +510,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
   if (!sessionStorage.getItem(SURVEY_SESSION_KEY) && !localStorage.getItem(SURVEY_SESSION_KEY)) {
     setTimeout(function () {
       // Don't show if user is already mid-conversation
-      if (messages.length > 1) return;
+      if (messages.length > 1) { localStorage.setItem(SURVEY_SESSION_KEY, 'true'); return; }
 
       // Open chatbot if minimized
       if (!isOpen) setOpen(true);
@@ -555,6 +555,8 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
         facesRow.appendChild(btn);
       });
 
+      // Mark as shown immediately — prevents re-trigger on page nav
+      sessionStorage.setItem(SURVEY_SESSION_KEY, 'true'); localStorage.setItem(SURVEY_SESSION_KEY, 'true');
       surveyDiv.appendChild(question);
       surveyDiv.appendChild(facesRow);
       messagesEl.appendChild(surveyDiv);

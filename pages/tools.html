@@ -168,7 +168,7 @@
         <div class="product-banner">
           <div class="prod-label">Consumer &amp; Agent Engagement Suite</div>
           <h2 id="engage">Pylaex Engage</h2>
-          <p>Every touchpoint between carrier, agent, and applicant &mdash; unified in one engagement suite. Consumer messaging, agent incentives, DTC capabilities, lead routing, and more.</p>
+          <p>Every touchpoint between carrier, agent, and applicant &mdash; unified in one engagement suite. Agent messaging and communication tools, agent incentives, DTC capabilities, lead routing, and more.</p>
         </div>
         <div class="product-body">
           <p style="color:var(--gray-600);max-width:780px;margin-bottom:1.5rem;">Pylaex Engage is the suite of tools that connects the front of your distribution operation. While Orchestrator and Enroller handle the application and decisioning, Engage handles everything that surrounds and supports it &mdash; getting consumers into the funnel, keeping agents engaged, and making the whole system work together.</p>
@@ -238,6 +238,22 @@
 <div id="footer-placeholder"></div>
 <script src="../assets/js/components.js"></script>
 <script>
+// Handle ?tab=X from sidebar nav links
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var tab = params.get('tab');
+  if(tab){
+    var panel = document.getElementById('panel-'+tab);
+    var btn = document.querySelector('.suite-tab[onclick*="''+tab+''"]');
+    if(panel && btn){
+      document.querySelectorAll('.suite-panel').forEach(function(p){p.classList.remove('active');});
+      document.querySelectorAll('.suite-tab').forEach(function(t){t.classList.remove('active');});
+      panel.classList.add('active');
+      btn.classList.add('active');
+    }
+  }
+})();
+
 function showSuite(id,btn){
   document.querySelectorAll('.suite-panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.suite-tab').forEach(function(t){t.classList.remove('active');});

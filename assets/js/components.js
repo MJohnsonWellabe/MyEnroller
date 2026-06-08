@@ -1,4 +1,4 @@
-/* components.js — PYLAEX subpage nav + footer */
+/* components.js — Pylaex subpage nav + footer */
 
 const NAV_HTML = `
 <style>
@@ -199,25 +199,21 @@ const NAV_HTML = `
       <span>Platform Suite <span class="arrow">&#8250;</span></span>
       <ul class="sidebar-submenu">
         <li><a href="../pages/tools.html">Full Platform Suite</a></li>
-        <li><a href="../pages/products.html">Pylaex Orchestrator</a></li>
-        <li><a href="../pages/see-orchestrator-in-action.html" style="padding-left:2.5rem;font-size:.85rem;opacity:.8;">&#8627; See Orchestrator in Action</a></li>
-        <li><a href="../pages/tools.html">Pylaex Enroller</a></li>
-        <li><a href="../pages/see-it-in-action.html" style="padding-left:2.5rem;font-size:.85rem;opacity:.8;">&#8627; See Enroller in Action</a></li>
-        <li><a href="../pages/activity-map.html">Pylaex Pulse</a></li>
-        <li><a href="../pages/tools.html">Pylaex Engage</a></li>
-        <li><a href="../pages/tools.html">Pylaex Launchpad</a></li>
+        <li><a href="../pages/tools.html?tab=orchestrator">Pylaex Orchestrator</a></li>
+        <li><a href="../pages/see-orchestrator-in-action.html" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; See Orchestrator in Action</a></li>
+        <li><a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a></li>
+        <li><a href="../pages/see-it-in-action.html" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; See Enroller in Action</a></li>
+        <li><a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a></li>
+        <li><a href="../pages/tools.html?tab=engage">Pylaex Engage</a></li>
+        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; MatchIQ</a></li>
+        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; Pylaex Link</a></li>
+        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; Pylaex Spark</a></li>
+        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; ScanIQ</a></li>
+        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; Pylaex LeadFlow</a></li>
+        <li><a href="../pages/tools.html?tab=launchpad">Pylaex Launchpad</a></li>
       </ul>
     </li>
-    <li class="has-submenu">
-      <span>Engage Tools <span class="arrow">&#8250;</span></span>
-      <ul class="sidebar-submenu">
-        <li><a href="../pages/my-easy-match.html">MatchIQ</a></li>
-        <li><a href="../pages/messaging.html">Pylaex Link</a></li>
-        <li><a href="../pages/incentives.html">Pylaex Spark</a></li>
-        <li><a href="../pages/app-scanning.html">ScanIQ</a></li>
-        <li><a href="../pages/lead-gen.html">Pylaex LeadFlow</a></li>
-      </ul>
-    </li>
+
     <li><a href="../pages/case-study-growth.html">Case Studies</a>
     <a href="../pages/see-it-in-action.html">See It in Action</a></li>
     <li><a href="../pages/join-the-team.html">Join the Team</a></li>
@@ -268,7 +264,7 @@ const FOOTER_HTML = `
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> PYLAEX. All rights reserved.
+    &copy; <span id="footer-year"></span> Pylaex. All rights reserved.
   </div>
 </footer>
 `;
