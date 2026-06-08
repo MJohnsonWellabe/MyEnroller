@@ -1,305 +1,269 @@
-/* components.js — Pylaex subpage nav + footer */
+/* components.js — Pylaex subpage nav + footer
+   Injected into every /pages/ subpage via nav-placeholder / footer-placeholder divs
+*/
 
-const NAV_HTML = `
-<style>
-  /* Force Pylaex palette on all subpages */
-  :root {
-    --navy: #0B1C2C !important;
-    --navy-mid: #0C3B4F !important;
-    --aqua: #12B5CC !important;
-    --aqua-light: #2DC8DE !important;
-    --aqua-pale: #E6F9FC !important;
-    --gold: #C4881A;
-    --gold-lt: #D9A040;
-  }
-  /* Top nav */
-  #site-nav {
-    position:fixed; top:0; left:0; right:0; height:68px;
-    background:var(--navy); z-index:1000;
-    display:flex; align-items:center; padding:0 2rem; gap:1rem;
-    box-shadow:0 2px 16px rgba(0,0,0,0.3);
-    border-bottom:2px solid #C4881A;
-  }
-  .nav-brand {
-    font-family:'EB Garamond',Georgia,serif;
-    font-size:1.45rem; font-weight:700;
-    color:#fff; text-decoration:none; margin-right:auto;
-    letter-spacing:0.01em;
-  }
-  .nav-brand .brand-a { color:#C4881A; }
-  .nav-tagline {
-    font-family:'DM Sans',system-ui,sans-serif;
-    font-size:0.62rem; color:rgba(255,255,255,0.55);
-    display:block; margin-top:2px; letter-spacing:0.02em;
-  }
-  /* Top nav dropdown links */
-  .top-links {
-    display:flex; align-items:center; gap:0.1rem;
-    list-style:none; margin:0; padding:0;
-  }
-  .top-links > li { position:relative; }
-  .top-links > li > a,
-  .top-links > li > button {
-    display:flex; align-items:center; gap:0.3rem;
-    padding:0.5rem 0.8rem;
-    color:rgba(255,255,255,0.82);
-    font-family:'DM Sans',system-ui,sans-serif; font-size:0.87rem; font-weight:500;
-    background:none; border:none; cursor:pointer;
-    border-radius:6px; white-space:nowrap;
-    transition:background 0.18s, color 0.18s;
-  }
-  .top-links > li > a:hover,
-  .top-links > li > button:hover { background:rgba(255,255,255,0.1); color:#fff; }
-  .tl-chevron { font-size:0.55rem; opacity:0.65; transition:transform 0.2s; }
-  .top-links li.tl-open > button .tl-chevron { transform:rotate(180deg); }
-  /* Dropdown */
-  .tl-drop {
-    display:none; position:absolute; top:calc(100% + 6px); right:0;
-    min-width:210px; background:#fff;
-    border-radius:10px; border:1px solid #D9E2EE;
-    box-shadow:0 8px 32px rgba(11,28,44,0.18);
-    padding:0.4rem 0; z-index:2000;
-  }
-  .tl-drop.open { display:block; animation:tlDrop 0.18s ease; }
-  @keyframes tlDrop { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:none} }
-  .tl-drop a {
-    display:block; padding:0.58rem 1.15rem;
-    font-size:0.86rem; color:#0B1C2C; font-weight:500;
-    font-family:'DM Sans',system-ui,sans-serif;
-    transition:background 0.15s, color 0.15s;
-  }
-  .tl-drop a:hover { background:#E6F9FC; color:#0B7A8C; }
-  .tl-drop a.tl-all { font-weight:700; border-bottom:1px solid #D9E2EE; margin-bottom:0.2rem; padding-bottom:0.7rem; }
-  /* CTA */
-  .nav-cta-top {
-    padding:0.42rem 1.1rem !important;
-    background:#C4881A !important;
-    color:#0B1C2C !important; font-weight:700 !important;
-    border-radius:6px; margin-left:0.25rem; white-space:nowrap;
-    font-family:'DM Sans',system-ui,sans-serif; font-size:0.87rem;
-    text-decoration:none; transition:background 0.18s;
-  }
-  .nav-cta-top:hover { background:#D9A040 !important; color:#0B1C2C !important; }
-  /* Hamburger (always visible, opens sidebar) */
-  #hamburger {
-    width:40px; height:40px; display:flex; flex-direction:column;
-    justify-content:center; gap:6px; cursor:pointer; flex-shrink:0; order:-1;
-  }
-  #hamburger span { display:block; height:2px; background:#fff; border-radius:2px; transition:all 0.25s; }
-  #hamburger.open span:nth-child(1){ transform:translateY(8px) rotate(45deg); }
-  #hamburger.open span:nth-child(2){ opacity:0; }
-  #hamburger.open span:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
-  /* Sidebar */
-  #sidebar {
-    position:fixed; top:68px; left:-320px; width:300px; bottom:0;
-    background:#0C3B4F; z-index:999; overflow-y:auto;
-    transition:left 0.3s ease; padding:1.5rem 0;
-  }
-  #sidebar.open { left:0; }
-  #sidebar-overlay {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,0.45); z-index:998; top:68px;
-  }
-  #sidebar-overlay.open { display:block; }
-  .sidebar-menu { list-style:none; padding:0; }
-  .sidebar-menu li { position:relative; }
-  .sidebar-menu > li > a,
-  .sidebar-menu > li > span {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0.85rem 1.5rem;
-    color:rgba(255,255,255,0.88);
-    font-weight:500; font-size:0.97rem;
-    transition:all 0.2s; cursor:pointer;
-    border-left:3px solid transparent;
-    font-family:'DM Sans',system-ui,sans-serif;
-  }
-  .sidebar-menu > li > a:hover,
-  .sidebar-menu > li > span:hover,
-  .sidebar-menu > li > a.active {
-    background:rgba(196,136,26,0.12); color:#C4881A; border-left-color:#C4881A;
-  }
-  .sidebar-menu .arrow { font-size:0.7rem; transition:transform 0.2s; }
-  .sidebar-menu li.open .arrow { transform:rotate(90deg); }
-  .sidebar-submenu {
-    list-style:none; max-height:0; overflow:hidden;
-    transition:max-height 0.3s ease; background:rgba(0,0,0,0.2);
-  }
-  .sidebar-submenu.open { max-height:400px; }
-  .sidebar-submenu li a {
-    display:block; padding:0.6rem 1.5rem 0.6rem 2.5rem;
-    color:rgba(255,255,255,0.72); font-size:0.9rem;
-    font-family:'DM Sans',system-ui,sans-serif;
-    transition:color 0.18s;
-  }
-  .sidebar-submenu li a:hover { color:#C4881A; }
-  /* Hide top links at narrow widths */
-  @media(max-width:820px){ .top-links { display:none; } .nav-cta-top { display:none; } }
-</style>
+var NAV_HTML = [
+'<style>',
+'  :root {',
+'    --navy:#0B1C2C!important; --navy-mid:#0C3B4F!important;',
+'    --aqua:#12B5CC!important; --aqua-light:#2DC8DE!important;',
+'    --aqua-pale:#E6F9FC!important; --gold:#C4881A; --gold-lt:#D9A040;',
+'  }',
+'  #site-nav {',
+'    position:fixed;top:0;left:0;right:0;height:68px;',
+'    background:#0B1C2C;z-index:1000;',
+'    display:flex;align-items:center;padding:0 1.75rem;gap:.75rem;',
+'    box-shadow:0 2px 16px rgba(0,0,0,.3);border-bottom:2px solid #C4881A;',
+'  }',
+'  .nav-brand{font-family:"EB Garamond",Georgia,serif;font-size:1.45rem;font-weight:700;color:#fff;text-decoration:none;display:flex;flex-direction:column;line-height:1.1;}',
+'  .nav-brand .brand-a{color:#C4881A;}',
+'  .nav-tagline{font-size:.6rem;color:rgba(255,255,255,.5);letter-spacing:.02em;font-family:"DM Sans",system-ui,sans-serif;margin-top:2px;}',
+'  .nav-spacer{flex:1;}',
+'  /* Top link row */',
+'  .tl-nav{display:flex;align-items:center;gap:.1rem;list-style:none;margin:0;padding:0;}',
+'  .tl-nav>li{position:relative;}',
+'  .tl-nav>li>a,.tl-nav>li>button{display:flex;align-items:center;gap:.25rem;padding:.48rem .8rem;color:rgba(255,255,255,.82);font-family:"DM Sans",system-ui,sans-serif;font-size:.86rem;font-weight:500;background:none;border:none;cursor:pointer;border-radius:6px;white-space:nowrap;transition:background .18s,color .18s;}',
+'  .tl-nav>li>a:hover,.tl-nav>li>button:hover{background:rgba(255,255,255,.1);color:#fff;}',
+'  .tlchev{font-size:.55rem;opacity:.6;transition:transform .2s;}',
+'  .tl-nav li.tlo>.tlchev{transform:rotate(180deg);}',
+'  /* Dropdown */',
+'  .tl-dd{display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:220px;background:#fff;border-radius:10px;border:1px solid #D9E2EE;box-shadow:0 8px 32px rgba(11,28,44,.18);padding:.35rem 0;z-index:2000;}',
+'  .tl-dd.open{display:block;animation:tldrop .18s ease;}',
+'  @keyframes tldrop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}',
+'  .tl-dd a{display:block;padding:.55rem 1.1rem;font-size:.85rem;color:#0B1C2C;font-weight:500;font-family:"DM Sans",system-ui,sans-serif;transition:background .15s,color .15s;text-decoration:none;}',
+'  .tl-dd a:hover{background:#E6F9FC;color:#0B7A8C;}',
+'  .tl-dd a.dd-head{font-weight:700;border-bottom:1px solid #D9E2EE;margin-bottom:.2rem;padding-bottom:.65rem;}',
+'  .tl-dd .dd-sub{padding-left:1.75rem;font-size:.8rem;color:#4A6070;}',
+'  .tl-dd .dd-sub:hover{color:#0B7A8C;}',
+'  /* CTA */',
+'  .nav-cta-btn{padding:.42rem 1.1rem;background:#C4881A;color:#0B1C2C!important;font-weight:700;border-radius:6px;margin-left:.25rem;white-space:nowrap;font-family:"DM Sans",system-ui,sans-serif;font-size:.86rem;text-decoration:none;transition:background .18s;flex-shrink:0;}',
+'  .nav-cta-btn:hover{background:#D9A040;}',
+'  /* Hamburger */',
+'  #hamburger{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;flex-shrink:0;}',
+'  #hamburger span{display:block;height:2px;background:#fff;border-radius:2px;transition:all .25s;}',
+'  #hamburger.open span:nth-child(1){transform:translateY(8px) rotate(45deg);}',
+'  #hamburger.open span:nth-child(2){opacity:0;}',
+'  #hamburger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}',
+'  /* Sidebar */',
+'  #sidebar{position:fixed;top:68px;left:-310px;width:290px;bottom:0;background:#0C3B4F;z-index:999;overflow-y:auto;transition:left .28s ease;padding:1rem 0;}',
+'  #sidebar.open{left:0;}',
+'  #sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:998;top:68px;}',
+'  #sidebar-overlay.open{display:block;}',
+'  .sb-menu{list-style:none;padding:0;margin:0;}',
+'  .sb-menu li{position:relative;}',
+'  .sb-link,.sb-toggle{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.4rem;color:rgba(255,255,255,.85);font-weight:500;font-size:.93rem;border-left:3px solid transparent;transition:all .18s;cursor:pointer;font-family:"DM Sans",system-ui,sans-serif;text-decoration:none;width:100%;background:none;border-top:none;border-right:none;border-bottom:none;text-align:left;}',
+'  .sb-link:hover,.sb-toggle:hover{background:rgba(196,136,26,.1);color:#C4881A;border-left-color:#C4881A;}',
+'  .sb-link.active{color:#C4881A;border-left-color:#C4881A;background:rgba(196,136,26,.08);}',
+'  .sb-arr{font-size:.65rem;transition:transform .2s;opacity:.6;}',
+'  li.sbopen .sb-arr{transform:rotate(90deg);}',
+'  /* Submenu */',
+'  .sb-sub{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s ease;background:rgba(0,0,0,.18);}',
+'  li.sbopen .sb-sub{max-height:600px;}',
+'  .sb-sub li a{display:block;padding:.55rem 1.4rem .55rem 2.2rem;color:rgba(255,255,255,.7);font-size:.88rem;font-family:"DM Sans",system-ui,sans-serif;transition:color .15s;text-decoration:none;}',
+'  .sb-sub li a:hover{color:#C4881A;}',
+'  .sb-sub li a.sb-indent{padding-left:3rem;font-size:.8rem;opacity:.75;}',
+'  .sb-sub li a.sb-indent:hover{opacity:1;color:#C4881A;}',
+'  @media(max-width:820px){.tl-nav{display:none;}.nav-cta-btn{display:none;}}',
+'</style>',
 
-<nav id="site-nav">
-  <div id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
-    <span></span><span></span><span></span>
-  </div>
-  <a class="nav-brand" href="../index.html">
-    PYL<span class="brand-a">A</span>EX
-    <span class="nav-tagline">Compete like you're bigger than you are.</span>
-  </a>
+'<nav id="site-nav">',
+'  <div id="hamburger" aria-label="Toggle menu" tabindex="0">',
+'    <span></span><span></span><span></span>',
+'  </div>',
+'  <a class="nav-brand" href="../index.html">',
+'    PYL<span class="brand-a">A</span>EX',
+'    <span class="nav-tagline">Compete like you\'re bigger than you are.</span>',
+'  </a>',
+'  <span class="nav-spacer"></span>',
+'  <ul class="tl-nav" id="tl-nav">',
+'    <li><a href="../pages/about.html">About</a></li>',
+'    <li id="tl-p">',
+'      <button onclick="tlOpen(\'tl-p\',\'dd-p\')">Products <span class="tlchev">&#9662;</span></button>',
+'      <div class="tl-dd" id="dd-p">',
+'        <a class="dd-head" href="../pages/products.html">All Products</a>',
+'        <a href="../pages/medicare-supplement.html">Medicare Supplement</a>',
+'        <a href="../pages/preneed.html">Preneed</a>',
+'        <a href="../pages/final-expense.html">Final Expense</a>',
+'        <a href="../pages/annuity.html">Annuity</a>',
+'        <a href="../pages/ancillary-health.html">Ancillary Health</a>',
+'      </div>',
+'    </li>',
+'    <li id="tl-t">',
+'      <button onclick="tlOpen(\'tl-t\',\'dd-t\')">Platform <span class="tlchev">&#9662;</span></button>',
+'      <div class="tl-dd" id="dd-t">',
+'        <a class="dd-head" href="../pages/tools.html">Platform Suite</a>',
+'        <a href="../pages/tools.html?tab=orchestrator">Pylaex Orchestrator</a>',
+'        <a class="dd-sub" href="../pages/see-orchestrator-in-action.html">&#8627; See Orchestrator in Action</a>',
+'        <a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a>',
+'        <a class="dd-sub" href="../pages/see-it-in-action.html">&#8627; See Enroller in Action</a>',
+'        <a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a>',
+'        <a class="dd-sub" href="../pages/pulse-dashboard.html">&#8627; Executive Dashboard</a>',
+'        <a href="../pages/tools.html?tab=engage">Pylaex Engage</a>',
+'        <a href="../pages/tools.html?tab=launchpad">Pylaex Launchpad</a>',
+'      </div>',
+'    </li>',
+'    <li id="tl-c">',
+'      <button onclick="tlOpen(\'tl-c\',\'dd-c\')">Case Studies <span class="tlchev">&#9662;</span></button>',
+'      <div class="tl-dd" id="dd-c">',
+'        <a class="dd-head" href="../pages/case-study-growth.html">All Case Studies</a>',
+'        <a href="../pages/case-study-stm.html">Time to Market</a>',
+'        <a href="../pages/case-study-growth.html">Business Growth</a>',
+'        <a href="../pages/case-study-qob.html">Quality of Business</a>',
+'        <a href="../pages/case-study-satisfaction.html">Agent Satisfaction</a>',
+'      </div>',
+'    </li>',
+'    <li><a href="../pages/join-the-team.html">Join the Team</a></li>',
+'  </ul>',
+'  <a class="nav-cta-btn" href="../pages/contact.html">Contact Us</a>',
+'</nav>',
 
-  <ul class="top-links" id="tl-ul">
-    <li><a href="../pages/about.html">About</a></li>
-    <li id="tl-products">
-      <button onclick="tlDrop('tl-products','tl-drop-products')">
-        Products <span class="tl-chevron">&#9662;</span>
-      </button>
-      <div class="tl-drop" id="tl-drop-products">
-        <a class="tl-all" href="../pages/products.html">All Products</a>
-        <a href="../pages/medicare-supplement.html">Medicare Supplement</a>
-        <a href="../pages/preneed.html">Preneed</a>
-        <a href="../pages/final-expense.html">Final Expense</a>
-        <a href="../pages/annuity.html">Annuity</a>
-        <a href="../pages/ancillary-health.html">Ancillary Health</a>
-      </div>
-    </li>
-    <li id="tl-tools">
-      <button onclick="tlDrop('tl-tools','tl-drop-tools')">
-        Platform <span class="tl-chevron">&#9662;</span>
-      </button>
-      <div class="tl-drop" id="tl-drop-tools">
-        <a class="tl-all" href="../pages/tools.html">Platform Suite</a>
-        <a href="../pages/products.html">Pylaex Orchestrator</a>
-        <a href="../pages/tools.html">Pylaex Enroller</a>
-        <a href="../pages/activity-map.html">Pylaex Pulse</a>
-        <a href="../pages/tools.html">Pylaex Engage</a>
-        <a href="../pages/tools.html">Pylaex Launchpad</a>
-      </div>
-    </li>
-    <li><a href="../pages/case-study-growth.html">Case Studies</a>
-    <a href="../pages/see-it-in-action.html">See It in Action</a></li>
-    <li><a href="../pages/join-the-team.html">Join the Team</a></li>
-  </ul>
+'<div id="sidebar">',
+'  <ul class="sb-menu">',
+'    <li><a class="sb-link" href="../pages/about.html">About Us</a></li>',
+'    <li>',
+'      <button class="sb-toggle" onclick="sbToggle(this)">Our Products <span class="sb-arr">&#8250;</span></button>',
+'      <ul class="sb-sub">',
+'        <li><a href="../pages/products.html">All Products</a></li>',
+'        <li><a href="../pages/medicare-supplement.html">Medicare Supplement</a></li>',
+'        <li><a href="../pages/preneed.html">Preneed</a></li>',
+'        <li><a href="../pages/final-expense.html">Final Expense</a></li>',
+'        <li><a href="../pages/annuity.html">Annuity</a></li>',
+'        <li><a href="../pages/ancillary-health.html">Ancillary Health</a></li>',
+'      </ul>',
+'    </li>',
+'    <li>',
+'      <button class="sb-toggle" onclick="sbToggle(this)">Platform Suite <span class="sb-arr">&#8250;</span></button>',
+'      <ul class="sb-sub">',
+'        <li><a href="../pages/tools.html">Full Platform Suite</a></li>',
+'        <li><a href="../pages/tools.html?tab=orchestrator">Pylaex Orchestrator</a></li>',
+'        <li><a class="sb-indent" href="../pages/see-orchestrator-in-action.html">&#8627; See Orchestrator in Action</a></li>',
+'        <li><a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a></li>',
+'        <li><a class="sb-indent" href="../pages/see-it-in-action.html">&#8627; See Enroller in Action</a></li>',
+'        <li><a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a></li>',
+'        <li><a class="sb-indent" href="../pages/pulse-dashboard.html">&#8627; Executive Dashboard</a></li>',
+'        <li><a href="../pages/tools.html?tab=engage">Pylaex Engage</a></li>',
+'        <li><a class="sb-indent" href="../pages/my-easy-match.html">&#8627; MatchIQ</a></li>',
+'        <li><a class="sb-indent" href="../pages/messaging.html">&#8627; Pylaex Link</a></li>',
+'        <li><a class="sb-indent" href="../pages/incentives.html">&#8627; Pylaex Spark</a></li>',
+'        <li><a class="sb-indent" href="../pages/app-scanning.html">&#8627; ScanIQ</a></li>',
+'        <li><a class="sb-indent" href="../pages/lead-gen.html">&#8627; Pylaex LeadFlow</a></li>',
+'        <li><a href="../pages/tools.html?tab=launchpad">Pylaex Launchpad</a></li>',
+'      </ul>',
+'    </li>',
+'    <li>',
+'      <button class="sb-toggle" onclick="sbToggle(this)">Case Studies <span class="sb-arr">&#8250;</span></button>',
+'      <ul class="sb-sub">',
+'        <li><a href="../pages/case-study-stm.html">Time to Market</a></li>',
+'        <li><a href="../pages/case-study-growth.html">Business Growth</a></li>',
+'        <li><a href="../pages/case-study-qob.html">Quality of Business</a></li>',
+'        <li><a href="../pages/case-study-satisfaction.html">Agent Satisfaction</a></li>',
+'      </ul>',
+'    </li>',
+'    <li><a class="sb-link" href="../pages/join-the-team.html">Join the Team</a></li>',
+'    <li><a class="sb-link" href="../pages/contact.html" style="color:#C4881A;font-weight:700;">Contact Us</a></li>',
+'  </ul>',
+'</div>',
+'<div id="sidebar-overlay"></div>'
+].join('\n');
 
-  <a class="nav-cta-top" href="../pages/contact.html">Contact Us</a>
-</nav>
-
-<div id="sidebar">
-  <ul class="sidebar-menu">
-    <li><a href="../pages/about.html">About Us</a></li>
-    <li class="has-submenu">
-      <span>Our Products <span class="arrow">&#8250;</span></span>
-      <ul class="sidebar-submenu">
-        <li><a href="../pages/products.html">All Products</a></li>
-        <li><a href="../pages/medicare-supplement.html">Medicare Supplement</a></li>
-        <li><a href="../pages/preneed.html">Preneed</a></li>
-        <li><a href="../pages/final-expense.html">Final Expense</a></li>
-        <li><a href="../pages/annuity.html">Annuity</a></li>
-        <li><a href="../pages/ancillary-health.html">Ancillary Health</a></li>
-      </ul>
-    </li>
-    <li class="has-submenu">
-      <span>Platform Suite <span class="arrow">&#8250;</span></span>
-      <ul class="sidebar-submenu">
-        <li><a href="../pages/tools.html">Full Platform Suite</a></li>
-        <li><a href="../pages/tools.html?tab=orchestrator">Pylaex Orchestrator</a></li>
-        <li><a href="../pages/see-orchestrator-in-action.html" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; See Orchestrator in Action</a></li>
-        <li><a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a></li>
-        <li><a href="../pages/see-it-in-action.html" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; See Enroller in Action</a></li>
-        <li><a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a></li>
-        <li><a href="../pages/tools.html?tab=engage">Pylaex Engage</a></li>
-        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; MatchIQ</a></li>
-        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; Pylaex Link</a></li>
-        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; Pylaex Spark</a></li>
-        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; ScanIQ</a></li>
-        <li><a href="../pages/tools.html?tab=engage" style="padding-left:2.5rem;font-size:.82rem;opacity:.75;">&#8627; Pylaex LeadFlow</a></li>
-        <li><a href="../pages/tools.html?tab=launchpad">Pylaex Launchpad</a></li>
-      </ul>
-    </li>
-
-    <li><a href="../pages/case-study-growth.html">Case Studies</a>
-    <a href="../pages/see-it-in-action.html">See It in Action</a></li>
-    <li><a href="../pages/join-the-team.html">Join the Team</a></li>
-    <li><a href="../pages/contact.html" style="color:#C4881A;font-weight:700;">Contact Us</a></li>
-  </ul>
-</div>
-<div id="sidebar-overlay"></div>
-`;
-
-const FOOTER_HTML = `
-<footer id="site-footer">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand">PYL<span class="brand-a">A</span>EX</div>
-      <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:0.5rem;max-width:280px;">
-        The platform the incumbents don't want you to have. Compete like you're bigger than you are.
-      </p>
-    </div>
-    <div>
-      <h4>Products</h4>
-      <ul>
-        <li><a href="../pages/medicare-supplement.html">Medicare Supplement</a></li>
-        <li><a href="../pages/preneed.html">Preneed</a></li>
-        <li><a href="../pages/final-expense.html">Final Expense</a></li>
-        <li><a href="../pages/annuity.html">Annuity</a></li>
-        <li><a href="../pages/ancillary-health.html">Ancillary Health</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Platform</h4>
-      <ul>
-        <li><a href="../pages/products.html">Pylaex Orchestrator</a></li>
-        <li><a href="../pages/tools.html">Pylaex Enroller</a></li>
-        <li><a href="../pages/activity-map.html">Pylaex Pulse</a></li>
-        <li><a href="../pages/tools.html">Pylaex Engage</a></li>
-        <li><a href="../pages/tools.html">Pylaex Launchpad</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Company</h4>
-      <ul>
-        <li><a href="../pages/about.html">About Us</a></li>
-        <li><a href="../pages/contact.html">Contact Us</a></li>
-        <li><a href="../pages/case-study-growth.html">Case Studies</a>
-    <a href="../pages/see-it-in-action.html">See It in Action</a></li>
-        <li><a href="../pages/join-the-team.html">Join the Team</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> Pylaex. All rights reserved.
-  </div>
-</footer>
-`;
+var FOOTER_HTML = [
+'<footer id="site-footer">',
+'  <div class="footer-grid">',
+'    <div>',
+'      <div class="footer-brand">PYL<span class="brand-a">A</span>EX</div>',
+'      <p style="color:rgba(255,255,255,.58);font-size:.87rem;margin-top:.5rem;max-width:260px;line-height:1.55;">',
+'        The platform the incumbents don\'t want you to have.',
+'      </p>',
+'    </div>',
+'    <div>',
+'      <h4>Products</h4>',
+'      <ul>',
+'        <li><a href="../pages/medicare-supplement.html">Medicare Supplement</a></li>',
+'        <li><a href="../pages/preneed.html">Preneed</a></li>',
+'        <li><a href="../pages/final-expense.html">Final Expense</a></li>',
+'        <li><a href="../pages/annuity.html">Annuity</a></li>',
+'        <li><a href="../pages/ancillary-health.html">Ancillary Health</a></li>',
+'      </ul>',
+'    </div>',
+'    <div>',
+'      <h4>Platform</h4>',
+'      <ul>',
+'        <li><a href="../pages/tools.html?tab=orchestrator">Pylaex Orchestrator</a></li>',
+'        <li><a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a></li>',
+'        <li><a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a></li>',
+'        <li><a href="../pages/tools.html?tab=engage">Pylaex Engage</a></li>',
+'        <li><a href="../pages/tools.html?tab=launchpad">Pylaex Launchpad</a></li>',
+'      </ul>',
+'    </div>',
+'    <div>',
+'      <h4>Company</h4>',
+'      <ul>',
+'        <li><a href="../pages/about.html">About Us</a></li>',
+'        <li><a href="../pages/case-study-growth.html">Case Studies</a></li>',
+'        <li><a href="../pages/join-the-team.html">Join the Team</a></li>',
+'        <li><a href="../pages/contact.html">Contact Us</a></li>',
+'      </ul>',
+'    </div>',
+'  </div>',
+'  <div class="footer-bottom">&copy; <span id="footer-year"></span> Pylaex. All rights reserved.</div>',
+'</footer>'
+].join('\n');
 
 document.getElementById('nav-placeholder').innerHTML = NAV_HTML;
 document.getElementById('footer-placeholder').innerHTML = FOOTER_HTML;
 document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-// Top nav dropdown behavior
-function tlDrop(liId, dropId) {
-  var allLis = document.querySelectorAll('#tl-ul li');
-  var allDrops = document.querySelectorAll('.tl-drop');
-  var targetLi = document.getElementById(liId);
-  var targetDrop = document.getElementById(dropId);
-  var isOpen = targetDrop.classList.contains('open');
-  allLis.forEach(function(l){ l.classList.remove('tl-open'); });
-  allDrops.forEach(function(d){ d.classList.remove('open'); });
-  if (!isOpen) { targetLi.classList.add('tl-open'); targetDrop.classList.add('open'); }
-}
+/* ── Top dropdown ── */
+window.tlOpen = function(liId, ddId) {
+  var all = document.querySelectorAll('.tl-nav li');
+  var allDd = document.querySelectorAll('.tl-dd');
+  var li = document.getElementById(liId);
+  var dd = document.getElementById(ddId);
+  var wasOpen = dd.classList.contains('open');
+  all.forEach(function(l){ l.classList.remove('tlo'); });
+  allDd.forEach(function(d){ d.classList.remove('open'); });
+  if (!wasOpen) { li.classList.add('tlo'); dd.classList.add('open'); }
+};
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('#tl-ul')) {
-    document.querySelectorAll('.tl-drop').forEach(function(d){ d.classList.remove('open'); });
-    document.querySelectorAll('#tl-ul li').forEach(function(l){ l.classList.remove('tl-open'); });
+  if (!e.target.closest('#tl-nav')) {
+    document.querySelectorAll('.tl-dd').forEach(function(d){ d.classList.remove('open'); });
+    document.querySelectorAll('.tl-nav li').forEach(function(l){ l.classList.remove('tlo'); });
   }
 });
 
-// Load nav behavior script
-const s = document.createElement('script');
-s.src = '../assets/js/nav.js';
-document.body.appendChild(s);
+/* ── Sidebar toggle ── */
+window.sbToggle = function(btn) {
+  var li = btn.parentElement;
+  var sub = li.querySelector('.sb-sub');
+  var isOpen = li.classList.contains('sbopen');
+  /* close all */
+  document.querySelectorAll('.sb-menu li.sbopen').forEach(function(l){
+    l.classList.remove('sbopen');
+  });
+  if (!isOpen) li.classList.add('sbopen');
+};
 
-const cb = document.createElement("script");
-cb.src = "../assets/js/chatbot.js";
-document.body.appendChild(cb);
+/* ── Hamburger ── */
+var _ham = document.getElementById('hamburger');
+var _sb  = document.getElementById('sidebar');
+var _ov  = document.getElementById('sidebar-overlay');
+function _toggleSB() {
+  _ham.classList.toggle('open');
+  _sb.classList.toggle('open');
+  _ov.classList.toggle('open');
+}
+if (_ham) _ham.addEventListener('click', _toggleSB);
+if (_ov)  _ov.addEventListener('click', _toggleSB);
+if (_ham) _ham.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') _toggleSB(); });
 
-const ft = document.createElement("script");
-ft.src = "../assets/js/features.js";
-document.body.appendChild(ft);
+/* ── Mark active link ── */
+var _path = window.location.pathname.split('/').pop();
+document.querySelectorAll('.sb-menu a').forEach(function(a) {
+  var href = a.getAttribute('href') || '';
+  if (href.split('/').pop().split('?')[0] === _path) a.classList.add('active');
+});
+
+/* ── Load extra scripts ── */
+['../assets/js/nav.js','../assets/js/chatbot.js','../assets/js/features.js'].forEach(function(src){
+  var s = document.createElement('script'); s.src = src; document.body.appendChild(s);
+});

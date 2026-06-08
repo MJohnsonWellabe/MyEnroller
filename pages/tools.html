@@ -157,7 +157,8 @@
             </div>
           </div>
           <div style="text-align:center;margin-top:1rem;">
-            <a href="activity-map.html" class="btn btn-navy">View the Activity Map &rarr;</a>
+            <a href="activity-map.html" class="btn btn-navy">Activity Map &rarr;</a>
+          <a href="pulse-dashboard.html" class="btn btn-navy" style="margin-left:.75rem;">Executive Dashboard &rarr;</a>
             <a href="contact.html" class="btn btn-primary" style="margin-left:1rem;">Request a Demo</a>
           </div>
         </div>
@@ -238,22 +239,6 @@
 <div id="footer-placeholder"></div>
 <script src="../assets/js/components.js"></script>
 <script>
-// Handle ?tab=X from sidebar nav links
-(function(){
-  var params = new URLSearchParams(window.location.search);
-  var tab = params.get('tab');
-  if(tab){
-    var panel = document.getElementById('panel-'+tab);
-    var btn = document.querySelector('.suite-tab[onclick*="''+tab+''"]');
-    if(panel && btn){
-      document.querySelectorAll('.suite-panel').forEach(function(p){p.classList.remove('active');});
-      document.querySelectorAll('.suite-tab').forEach(function(t){t.classList.remove('active');});
-      panel.classList.add('active');
-      btn.classList.add('active');
-    }
-  }
-})();
-
 function showSuite(id,btn){
   document.querySelectorAll('.suite-panel').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.suite-tab').forEach(function(t){t.classList.remove('active');});
@@ -261,6 +246,30 @@ function showSuite(id,btn){
   btn.classList.add('active');
   window.scrollTo({top:document.querySelector('.suite-tabs').offsetTop-80,behavior:'smooth'});
 }
+</script>
+
+<script>
+(function(){
+  function activateTab(id) {
+    var panel = document.getElementById('panel-'+id);
+    var tabs = document.querySelectorAll('.suite-tab');
+    var matchBtn = null;
+    tabs.forEach(function(t){ if(t.getAttribute('onclick') && t.getAttribute('onclick').indexOf("'"+id+"'") !== -1) matchBtn = t; });
+    if (!panel) return;
+    document.querySelectorAll('.suite-panel').forEach(function(p){ p.classList.remove('active'); });
+    tabs.forEach(function(t){ t.classList.remove('active'); });
+    panel.classList.add('active');
+    if (matchBtn) matchBtn.classList.add('active');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  var tab = new URLSearchParams(window.location.search).get('tab');
+  if (tab) activateTab(tab);
+  // Also handle hash links for backward compat
+  if (window.location.hash) {
+    var h = window.location.hash.replace('#','');
+    if (document.getElementById('panel-'+h)) activateTab(h);
+  }
+})();
 </script>
 </body>
 </html>

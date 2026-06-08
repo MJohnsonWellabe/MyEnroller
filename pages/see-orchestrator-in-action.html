@@ -166,30 +166,30 @@
         <div class="studio-body">
           <!-- Block Library -->
           <div class="block-lib">
-            <div class="lib-label">Add a Screen</div>
-            <div class="lib-item" draggable="true" data-type="Suitability Check" data-color="#C4881A">
-              <div class="lib-dot" style="background:#C4881A;"></div><div class="lib-name">Suitability Check</div>
+            <div class="osc-lib-label">Add a Screen</div>
+            <div class="osc-lib-item" draggable="true" data-type="Suitability Check" data-color="#C4881A">
+              <div class="osc-lib-dot" style="background:#C4881A;"></div><div class="osc-lib-name">Suitability Check</div>
             </div>
-            <div class="lib-item" draggable="true" data-type="Coverage Selection" data-color="#12B5CC">
-              <div class="lib-dot" style="background:#12B5CC;"></div><div class="lib-name">Coverage Selection</div>
+            <div class="osc-lib-item" draggable="true" data-type="Coverage Selection" data-color="#12B5CC">
+              <div class="osc-lib-dot" style="background:#12B5CC;"></div><div class="osc-lib-name">Coverage Selection</div>
             </div>
-            <div class="lib-item" draggable="true" data-type="Beneficiary Info" data-color="#12B5CC">
-              <div class="lib-dot" style="background:#12B5CC;"></div><div class="lib-name">Beneficiary Info</div>
+            <div class="osc-lib-item" draggable="true" data-type="Beneficiary Info" data-color="#12B5CC">
+              <div class="osc-lib-dot" style="background:#12B5CC;"></div><div class="osc-lib-name">Beneficiary Info</div>
             </div>
-            <div class="lib-item" draggable="true" data-type="Payment Setup" data-color="#C4881A">
-              <div class="lib-dot" style="background:#C4881A;"></div><div class="lib-name">Payment Setup</div>
+            <div class="osc-lib-item" draggable="true" data-type="Payment Setup" data-color="#C4881A">
+              <div class="osc-lib-dot" style="background:#C4881A;"></div><div class="osc-lib-name">Payment Setup</div>
             </div>
-            <div class="lib-label" style="margin-top:.75rem;">Add an API Call</div>
-            <div class="lib-item" draggable="true" data-type="MVR Lookup" data-color="#2DC8DE" data-api="true">
-              <div class="lib-dot" style="background:#2DC8DE;"></div><div class="lib-name">MVR Lookup</div>
+            <div class="osc-lib-label" style="margin-top:.75rem;">Add an API Call</div>
+            <div class="osc-lib-item" draggable="true" data-type="MVR Lookup" data-color="#2DC8DE" data-api="true">
+              <div class="osc-lib-dot" style="background:#2DC8DE;"></div><div class="osc-lib-name">MVR Lookup</div>
             </div>
-            <div class="lib-item" draggable="true" data-type="OFAC Screen" data-color="#2DC8DE" data-api="true">
-              <div class="lib-dot" style="background:#2DC8DE;"></div><div class="lib-name">OFAC Screen</div>
+            <div class="osc-lib-item" draggable="true" data-type="OFAC Screen" data-color="#2DC8DE" data-api="true">
+              <div class="osc-lib-dot" style="background:#2DC8DE;"></div><div class="osc-lib-name">OFAC Screen</div>
             </div>
           </div>
 
           <!-- Canvas -->
-          <div class="studio-canvas" id="canvas">
+          <div class="studio-canvas" id="orch-canvas">
             <div class="canvas-label">Current Flow — drag cards to reorder &nbsp;|&nbsp; click a card to expand questions</div>
           </div>
         </div>
@@ -228,297 +228,316 @@
 
 <script src="../assets/js/components.js"></script>
 <script>
-// ── Initial screen data ───────────────────────────────────────────────────
+// ── Screen data model ────────────────────────────────────────────────────────
 var SCREENS = [
-  {
-    id:'s1', title:'Applicant Information', color:'#12B5CC', api:false,
-    tags:[{t:'6 questions',cls:'s-tag-q'},{t:'Required',cls:'s-tag-rule'}],
+  { id:'s1', title:'Applicant Information',     color:'#12B5CC', api:false,
     questions:[
-      {id:'q1',text:'Full legal name',type:'text',active:true},
-      {id:'q2',text:'Date of birth',type:'date',active:true},
-      {id:'q3',text:'Gender',type:'select',active:true},
-      {id:'q4',text:'Social Security Number',type:'ssn',active:true},
-      {id:'q5',text:'Residential address',type:'address',active:true},
-      {id:'q6',text:'Phone number',type:'phone',active:true},
+      {id:'q1a',text:'Full legal name',                          type:'text',    on:true},
+      {id:'q1b',text:'Date of birth',                            type:'date',    on:true},
+      {id:'q1c',text:'Gender',                                   type:'select',  on:true},
+      {id:'q1d',text:'Social Security Number',                   type:'ssn',     on:true},
+      {id:'q1e',text:'Residential address',                      type:'address', on:true},
+      {id:'q1f',text:'Phone number',                             type:'phone',   on:true}
     ]
   },
-  {
-    id:'s2', title:'Eligibility & Enrollment Type', color:'#C4881A', api:false,
-    tags:[{t:'3 questions',cls:'s-tag-q'},{t:'Branching logic',cls:'s-tag-rule'},{t:'Triggers UW',cls:'s-tag-api'}],
+  { id:'s2', title:'Eligibility & Enrollment Type', color:'#C4881A', api:false,
     questions:[
-      {id:'q7',text:'Are you currently enrolled in Medicare Part B?',type:'yes/no',active:true},
-      {id:'q8',text:'Are you within your Open Enrollment window?',type:'yes/no',active:true},
-      {id:'q9',text:'Are you eligible for Guaranteed Issue?',type:'yes/no',active:true},
+      {id:'q2a',text:'Are you enrolled in Medicare Part B?',     type:'yes/no',  on:true},
+      {id:'q2b',text:'Are you within Open Enrollment?',         type:'yes/no',  on:true},
+      {id:'q2c',text:'Are you eligible for Guaranteed Issue?',   type:'yes/no',  on:true}
     ]
   },
-  {
-    id:'s3', title:'Prescription History', color:'#2DC8DE', api:true,
-    tags:[{t:'Dynamic questions',cls:'s-tag-q'},{t:'Rx API call',cls:'s-tag-api'}],
-    questions:[
-      {id:'q10',text:'Have you used tobacco in the past 12 months?',type:'yes/no',active:true},
-      {id:'q11',text:'Do you currently take any prescription medications?',type:'yes/no',active:true},
-      {id:'q12',text:'List current prescriptions (if yes)',type:'textarea',active:true},
-      {id:'q13',text:'Dosage and frequency',type:'text',active:false},
-    ],
+  { id:'s3', title:'Prescription History',      color:'#2DC8DE', api:true,
     apiToggles:[
-      {label:'Call external Rx database',on:true},
-      {label:'Pre-fill questions from Rx result',on:true},
-      {label:'Bypass for GI applicants',on:false},
+      {label:'Call external Rx database',      on:true},
+      {label:'Pre-fill questions from result', on:true},
+      {label:'Bypass for GI applicants',       on:false}
+    ],
+    questions:[
+      {id:'q3a',text:'Have you used tobacco in the past 12 months?',           type:'yes/no', on:true},
+      {id:'q3b',text:'Do you currently take prescription medications?',         type:'yes/no', on:true},
+      {id:'q3c',text:'List current prescriptions (if yes)',                     type:'textarea',on:true},
+      {id:'q3d',text:'Prescriber name and dosage (optional detail)',            type:'text',   on:false}
     ]
   },
-  {
-    id:'s4', title:'Health Questions', color:'#C4881A', api:false,
-    tags:[{t:'5 active questions',cls:'s-tag-q'},{t:'Reflexive on Yes',cls:'s-tag-rule'}],
+  { id:'s4', title:'Health Questions',          color:'#C4881A', api:false,
     questions:[
-      {id:'q14',text:'In the past 2 years, have you been diagnosed with cancer?',type:'yes/no',active:true},
-      {id:'q15',text:'Have you had a heart attack or stroke in the past 12 months?',type:'yes/no',active:true},
-      {id:'q16',text:'Do you have end-stage renal disease?',type:'yes/no',active:true},
-      {id:'q17',text:'Have you been diagnosed with COPD or emphysema?',type:'yes/no',active:true},
-      {id:'q18',text:'Are you currently on dialysis?',type:'yes/no',active:false},
-      {id:'q19',text:'Details of diagnosis (if yes to any above)',type:'textarea',active:false},
+      {id:'q4a',text:'Diagnosed with cancer in the past 2 years?',             type:'yes/no', on:true},
+      {id:'q4b',text:'Heart attack or stroke in the past 12 months?',          type:'yes/no', on:true},
+      {id:'q4c',text:'Do you have end-stage renal disease?',                   type:'yes/no', on:true},
+      {id:'q4d',text:'Diagnosed with COPD or emphysema?',                      type:'yes/no', on:true},
+      {id:'q4e',text:'Currently on dialysis?',                                 type:'yes/no', on:false},
+      {id:'q4f',text:'Details of diagnosis (if yes to any above)',             type:'textarea',on:false}
     ]
   }
 ];
 
-var dragSrc = null;
-var dragQSrc = null;
+// ── Drag state ────────────────────────────────────────────────────────────────
+var dragScreenId = null;   // screen being dragged
+var dragQId      = null;   // question being dragged  { screenId, qId }
+var dragOverId   = null;   // current drop target
 
+// ── Utility ───────────────────────────────────────────────────────────────────
 function toast(msg) {
-  var t = document.getElementById('studio-toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  var el = document.getElementById('orchToast');
+  el.textContent = msg; el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.style.opacity = '0'; }, 2000);
 }
 
 function updateStatus() {
-  var qCount = 0;
-  var apiCount = 0;
-  SCREENS.forEach(function(s){ 
-    s.questions.forEach(function(q){ if(q.active) qCount++; });
-    if(s.api) apiCount++;
+  var active = 0, apis = 0;
+  SCREENS.forEach(function(s){
+    if(s.api) apis++;
+    (s.questions||[]).forEach(function(q){ if(q.on) active++; });
   });
   var el = document.getElementById('stStatus');
-  if(el) el.textContent = SCREENS.length + ' screens  •  ' + apiCount + ' API calls  •  ' + qCount + ' active questions';
-  document.getElementById('stSave').textContent = 'Unsaved changes';
+  if(el) el.textContent = SCREENS.length + ' screens · ' + apis + ' API calls · ' + active + ' active questions';
+  var sv = document.getElementById('stSave');
+  if(sv) sv.textContent = 'Unsaved changes';
 }
 
-function renderCanvas() {
-  var canvas = document.getElementById('canvas');
-  var label = canvas.querySelector('.canvas-label');
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  var canvas = document.getElementById('orch-canvas');
+  if (!canvas) return;
   canvas.innerHTML = '';
-  canvas.appendChild(label);
 
-  SCREENS.forEach(function(screen, idx) {
+  SCREENS.forEach(function(screen, si) {
+
+    // ── Screen card ──────────────────────────────────────────────────────────
     var card = document.createElement('div');
-    card.className = 's-card';
-    card.draggable = true;
-    card.dataset.id = screen.id;
-
-    // Drag events on card
-    card.addEventListener('dragstart', function(e) {
-      dragSrc = screen.id;
-      setTimeout(function(){ card.classList.add('dragging'); }, 0);
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    card.addEventListener('dragend', function() { card.classList.remove('dragging'); dragSrc = null; });
-    card.addEventListener('dragover', function(e) {
-      e.preventDefault();
-      if(dragSrc && dragSrc !== screen.id) card.classList.add('drag-over');
-    });
-    card.addEventListener('dragleave', function() { card.classList.remove('drag-over'); });
-    card.addEventListener('drop', function(e) {
-      e.preventDefault(); card.classList.remove('drag-over');
-      if(!dragSrc || dragSrc === screen.id) return;
-      var fromIdx = SCREENS.findIndex(function(s){ return s.id === dragSrc; });
-      var toIdx = idx;
-      var moved = SCREENS.splice(fromIdx, 1)[0];
-      SCREENS.splice(toIdx, 0, moved);
-      renderCanvas(); updateStatus(); toast('Screen reordered');
-    });
+    card.className = 'osc';
+    card.dataset.sid = screen.id;
 
     // Header
     var hdr = document.createElement('div');
-    hdr.className = 's-card-header';
-    hdr.innerHTML = '<span class="s-drag-handle" title="Drag to reorder">&#8597;</span>' +
-      '<span class="s-num">' + (idx+1) + '</span>' +
-      '<div class="s-dot" style="width:8px;height:8px;border-radius:50%;background:' + screen.color + ';flex-shrink:0;"></div>' +
-      '<span class="s-title">' + screen.title + '</span>';
+    hdr.className = 'osc-hdr';
+    hdr.innerHTML =
+      '<span class="osc-drag-handle" title="Drag to reorder screens">&#8597;</span>' +
+      '<span class="osc-num">' + (si+1) + '</span>' +
+      '<span class="osc-dot" style="background:' + screen.color + ';"></span>' +
+      '<span class="osc-title">' + screen.title + '</span>';
 
-    var tagsEl = document.createElement('span'); tagsEl.className = 's-tags';
-    screen.tags.forEach(function(tag){ tagsEl.innerHTML += '<span class="s-tag ' + tag.cls + '">' + tag.t + '</span>'; });
-    hdr.appendChild(tagsEl);
-    hdr.innerHTML += '<span class="s-expand-icon">&#8250;</span>';
+    // Tag row
+    var tags = document.createElement('div');
+    tags.className = 'osc-tags';
+    var activeQ = (screen.questions||[]).filter(function(q){ return q.on; }).length;
+    tags.innerHTML = '<span class="osc-tag osc-tag-q">' + activeQ + ' active questions</span>';
+    if(screen.api) tags.innerHTML += ' <span class="osc-tag osc-tag-api">API call</span>';
+    hdr.appendChild(tags);
 
-    hdr.addEventListener('click', function(e) {
-      if(e.target.classList.contains('s-drag-handle')) return;
-      card.classList.toggle('expanded');
-    });
+    // Expand chevron
+    var chev = document.createElement('span');
+    chev.className = 'osc-chev';
+    chev.textContent = '›';
+    hdr.appendChild(chev);
     card.appendChild(hdr);
 
-    // Expandable body
+    // Toggle expand on header click
+    hdr.addEventListener('click', function(e) {
+      if(e.target.classList.contains('osc-drag-handle')) return;
+      card.classList.toggle('osx');
+    });
+
+    // ── Screen drag events ───────────────────────────────────────────────────
+    card.draggable = true;
+    card.addEventListener('dragstart', function(e) {
+      dragScreenId = screen.id;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', screen.id); // required for Firefox
+      setTimeout(function(){ card.classList.add('osc-dragging'); }, 0);
+    });
+    card.addEventListener('dragend', function() {
+      card.classList.remove('osc-dragging');
+      dragScreenId = null;
+      document.querySelectorAll('.osc').forEach(function(c){ c.classList.remove('osc-dragover'); });
+    });
+    card.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if(dragScreenId && dragScreenId !== screen.id) {
+        document.querySelectorAll('.osc').forEach(function(c){ c.classList.remove('osc-dragover'); });
+        card.classList.add('osc-dragover');
+        dragOverId = screen.id;
+      }
+    });
+    card.addEventListener('dragleave', function(e) {
+      if(!card.contains(e.relatedTarget)) {
+        card.classList.remove('osc-dragover');
+      }
+    });
+    card.addEventListener('drop', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      card.classList.remove('osc-dragover');
+      if(!dragScreenId || dragScreenId === screen.id) return;
+      var fromI = SCREENS.findIndex(function(s){ return s.id === dragScreenId; });
+      var toI   = si;
+      var moved = SCREENS.splice(fromI, 1)[0];
+      SCREENS.splice(toI, 0, moved);
+      dragScreenId = null;
+      render(); updateStatus();
+      toast('Screen moved to position ' + (toI+1));
+    });
+
+    // ── Expandable body ──────────────────────────────────────────────────────
     var body = document.createElement('div');
-    body.className = 's-card-body';
+    body.className = 'osc-body';
 
     // Questions list
     var qList = document.createElement('div');
-    qList.className = 'q-list';
+    qList.className = 'osc-qlist';
 
-    screen.questions.forEach(function(q, qIdx) {
+    (screen.questions||[]).forEach(function(q, qi) {
       var qItem = document.createElement('div');
-      qItem.className = 'q-item';
+      qItem.className = 'osc-q' + (q.on ? '' : ' osc-q-off');
       qItem.draggable = true;
       qItem.dataset.qid = q.id;
 
-      qItem.addEventListener('dragstart', function(e) {
-        dragQSrc = { screenId: screen.id, qId: q.id };
-        setTimeout(function(){ qItem.classList.add('dragging'); }, 0);
-        e.dataTransfer.effectAllowed = 'move'; e.stopPropagation();
-      });
-      qItem.addEventListener('dragend', function() { qItem.classList.remove('dragging'); dragQSrc = null; });
-      qItem.addEventListener('dragover', function(e) {
-        e.preventDefault(); e.stopPropagation();
-        if(dragQSrc && dragQSrc.screenId === screen.id && dragQSrc.qId !== q.id) qItem.classList.add('drag-over');
-      });
-      qItem.addEventListener('dragleave', function() { qItem.classList.remove('drag-over'); });
-      qItem.addEventListener('drop', function(e) {
-        e.preventDefault(); e.stopPropagation(); qItem.classList.remove('drag-over');
-        if(!dragQSrc || dragQSrc.screenId !== screen.id || dragQSrc.qId === q.id) return;
-        var qs = screen.questions;
-        var fromI = qs.findIndex(function(x){ return x.id === dragQSrc.qId; });
-        var toI = qIdx;
-        var moved = qs.splice(fromI,1)[0]; qs.splice(toI,0,moved);
-        // Re-render just this card
-        var wasExpanded = card.classList.contains('expanded');
-        renderCanvas(); updateStatus(); toast('Question reordered');
-        if(wasExpanded) {
-          var newCard = document.querySelector('[data-id="' + screen.id + '"]');
-          if(newCard) newCard.classList.add('expanded');
+      qItem.innerHTML =
+        '<span class="osc-q-handle" title="Drag to reorder">&#8597;</span>' +
+        '<span class="osc-q-chk' + (q.on ? ' on' : '') + '" title="' + (q.on ? 'Active — click to suppress' : 'Suppressed — click to activate') + '">' + (q.on ? '&#10003;' : '') + '</span>' +
+        '<span class="osc-q-text">' + q.text + '</span>' +
+        '<span class="osc-q-type">' + q.type + '</span>';
+
+      // Toggle active/suppressed
+      var chkEl = qItem.querySelector('.osc-q-chk');
+      chkEl.addEventListener('click', function(e) {
+        e.stopPropagation();
+        q.on = !q.on;
+        var wasOpen = card.classList.contains('osx');
+        render(); updateStatus();
+        toast(q.on ? 'Question activated' : 'Question suppressed');
+        // Restore expanded state
+        if(wasOpen) {
+          var nc = document.querySelector('[data-sid="'+screen.id+'"]');
+          if(nc) nc.classList.add('osx');
         }
       });
 
-      var checkEl = document.createElement('div');
-      checkEl.className = 'q-check' + (q.active ? '' : ' off');
-      checkEl.textContent = q.active ? '✓' : '';
-      checkEl.title = q.active ? 'Active — click to suppress' : 'Suppressed — click to activate';
-      checkEl.addEventListener('click', function(e) {
+      // Question drag events
+      qItem.addEventListener('dragstart', function(e) {
+        dragQId = { screenId: screen.id, qId: q.id };
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', 'q:'+screen.id+':'+q.id);
         e.stopPropagation();
-        q.active = !q.active;
-        var was = card.classList.contains('expanded');
-        renderCanvas(); updateStatus();
-        toast(q.active ? 'Question activated' : 'Question suppressed');
-        if(was){ var nc = document.querySelector('[data-id="'+screen.id+'"]'); if(nc) nc.classList.add('expanded'); }
+        setTimeout(function(){ qItem.classList.add('osc-dragging'); }, 0);
+      });
+      qItem.addEventListener('dragend', function(e) {
+        qItem.classList.remove('osc-dragging');
+        dragQId = null;
+        document.querySelectorAll('.osc-q').forEach(function(el){ el.classList.remove('osc-qdragover'); });
+      });
+      qItem.addEventListener('dragover', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        if(dragQId && dragQId.screenId === screen.id && dragQId.qId !== q.id) {
+          document.querySelectorAll('.osc-q').forEach(function(el){ el.classList.remove('osc-qdragover'); });
+          qItem.classList.add('osc-qdragover');
+        }
+      });
+      qItem.addEventListener('dragleave', function(e) {
+        if(!qItem.contains(e.relatedTarget)) qItem.classList.remove('osc-qdragover');
+      });
+      qItem.addEventListener('drop', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        qItem.classList.remove('osc-qdragover');
+        if(!dragQId || dragQId.screenId !== screen.id || dragQId.qId === q.id) return;
+        var qs = screen.questions;
+        var fromI = qs.findIndex(function(x){ return x.id === dragQId.qId; });
+        var toI   = qi;
+        var moved = qs.splice(fromI,1)[0]; qs.splice(toI,0,moved);
+        dragQId = null;
+        var wasOpen = card.classList.contains('osx');
+        render(); updateStatus();
+        toast('Question reordered');
+        if(wasOpen){ var nc=document.querySelector('[data-sid="'+screen.id+'"]'); if(nc) nc.classList.add('osx'); }
       });
 
-      qItem.innerHTML = '<span class="q-handle" title="Drag to reorder questions">&#8597;</span>';
-      qItem.appendChild(checkEl);
-      qItem.innerHTML += '<span class="q-text' + (q.active ? '' : '" style="text-decoration:line-through;opacity:.4') + '">' + q.text + '</span><span class="q-type">' + q.type + '</span>';
       qList.appendChild(qItem);
     });
 
-    // Add question row
+    // Add question button
     var addQ = document.createElement('div');
-    addQ.className = 'q-add';
-    addQ.innerHTML = '+ Add question to this screen';
+    addQ.className = 'osc-add-q';
+    addQ.textContent = '+ Add question';
     addQ.addEventListener('click', function() {
-      var txt = prompt('Question text:');
-      if(!txt) return;
-      screen.questions.push({ id:'q'+Date.now(), text:txt, type:'yes/no', active:true });
-      var was = card.classList.contains('expanded');
-      renderCanvas(); updateStatus(); toast('Question added');
-      if(was){ var nc = document.querySelector('[data-id="'+screen.id+'"]'); if(nc) nc.classList.add('expanded'); }
+      var txt = prompt('Enter question text:');
+      if(!txt || !txt.trim()) return;
+      screen.questions.push({ id:'q'+Date.now(), text:txt.trim(), type:'yes/no', on:true });
+      var wasOpen = card.classList.contains('osx');
+      render(); updateStatus();
+      toast('Question added');
+      if(wasOpen){ var nc=document.querySelector('[data-sid="'+screen.id+'"]'); if(nc) nc.classList.add('osx'); }
     });
     qList.appendChild(addQ);
     body.appendChild(qList);
 
-    // API toggles if applicable
+    // API toggles
     if(screen.apiToggles) {
       var apiPanel = document.createElement('div');
-      apiPanel.className = 'api-panel';
-      apiPanel.innerHTML = '<div class="api-label">API Configuration</div>';
-      screen.apiToggles.forEach(function(tog, ti) {
-        var row = document.createElement('div'); row.className = 'api-row';
-        var lbl = document.createElement('span'); lbl.className = 'api-row-label'; lbl.textContent = tog.label;
-        var sw = document.createElement('div');
-        sw.className = 'toggle ' + (tog.on ? 'on' : 'off');
-        sw.innerHTML = '<div class="toggle-k"></div>';
+      apiPanel.className = 'osc-api';
+      apiPanel.innerHTML = '<div class="osc-api-label">API Configuration</div>';
+      screen.apiToggles.forEach(function(tog) {
+        var row = document.createElement('div'); row.className = 'osc-api-row';
+        row.innerHTML = '<span class="osc-api-lbl">' + tog.label + '</span>';
+        var sw = document.createElement('span');
+        sw.className = 'osc-sw' + (tog.on ? ' on' : '');
+        sw.innerHTML = '<span class="osc-sw-k"></span>';
         sw.addEventListener('click', function() {
           tog.on = !tog.on;
-          sw.className = 'toggle ' + (tog.on ? 'on' : 'off');
+          sw.className = 'osc-sw' + (tog.on ? ' on' : '');
           toast(tog.label + ': ' + (tog.on ? 'ON' : 'OFF'));
-          updateStatus();
         });
-        row.appendChild(lbl); row.appendChild(sw); apiPanel.appendChild(row);
+        row.appendChild(sw);
+        apiPanel.appendChild(row);
       });
       body.appendChild(apiPanel);
     }
+
     card.appendChild(body);
-
-    // Drop zone to insert before this card from library
-    var zone = document.createElement('div');
-    zone.className = 'drop-zone';
-    zone.textContent = '+ Drop here to insert before "' + screen.title + '"';
-    zone.addEventListener('dragover', function(e){ e.preventDefault(); zone.classList.add('drag-over'); });
-    zone.addEventListener('dragleave', function(){ zone.classList.remove('drag-over'); });
-    zone.addEventListener('drop', function(e){
-      e.preventDefault(); zone.classList.remove('drag-over');
-      var libItem = e.dataTransfer.getData('libType');
-      if(libItem || window._libDrag) {
-        var type = window._libDrag || libItem;
-        var color = window._libColor || '#12B5CC';
-        SCREENS.splice(idx, 0, {
-          id:'s'+Date.now(), title:type, color:color, api:!!window._libApi,
-          tags:[{t:'0 questions',cls:'s-tag-q'}],
-          questions:[]
-        });
-        window._libDrag = null; window._libColor = null; window._libApi = false;
-        renderCanvas(); updateStatus(); toast(type + ' added');
-      }
-    });
-
-    canvas.appendChild(zone);
     canvas.appendChild(card);
   });
 
-  // End drop zone
+  // ── Library drag-drop: end zone ──────────────────────────────────────────
   var endZone = document.createElement('div');
-  endZone.className = 'drop-zone';
-  endZone.textContent = '+ Drag a screen from the library to append it here';
-  endZone.addEventListener('dragover', function(e){ e.preventDefault(); endZone.classList.add('drag-over'); });
-  endZone.addEventListener('dragleave', function(){ endZone.classList.remove('drag-over'); });
+  endZone.className = 'osc-drop-zone';
+  endZone.textContent = '+ Drag a screen from the library here to add it';
+  endZone.addEventListener('dragover', function(e){ e.preventDefault(); endZone.classList.add('osc-dz-over'); });
+  endZone.addEventListener('dragleave', function(){ endZone.classList.remove('osc-dz-over'); });
   endZone.addEventListener('drop', function(e){
-    e.preventDefault(); endZone.classList.remove('drag-over');
-    if(window._libDrag) {
-      SCREENS.push({ id:'s'+Date.now(), title:window._libDrag, color:window._libColor||'#12B5CC', api:!!window._libApi, tags:[{t:'0 questions',cls:'s-tag-q'}], questions:[] });
-      window._libDrag = null; window._libColor = null; window._libApi = false;
-      renderCanvas(); updateStatus(); toast(window._libDrag + ' added');
+    e.preventDefault(); endZone.classList.remove('osc-dz-over');
+    var data = e.dataTransfer.getData('text/plain');
+    if(data && data.startsWith('lib:')) {
+      var parts = data.split(':');
+      SCREENS.push({ id:'s'+Date.now(), title:parts[1], color:parts[2]||'#12B5CC', api:!!parts[3], apiToggles: parts[3] ? [{label:'Enable API call',on:true}] : undefined, questions:[] });
+      render(); updateStatus(); toast(parts[1] + ' added');
     }
   });
   canvas.appendChild(endZone);
+
+  updateStatus();
 }
 
-// Library items drag
-document.querySelectorAll('.lib-item').forEach(function(el) {
+// ── Library item drag ─────────────────────────────────────────────────────────
+document.querySelectorAll('.osc-lib-item').forEach(function(el) {
   el.addEventListener('dragstart', function(e) {
-    window._libDrag = el.dataset.type;
-    window._libColor = el.dataset.color;
-    window._libApi = !!el.dataset.api;
     e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.setData('text/plain', 'lib:' + el.dataset.type + ':' + (el.dataset.color||'#12B5CC') + ':' + (el.dataset.api||''));
   });
-  el.addEventListener('dragend', function() { window._libDrag = null; });
 });
 
-function stPreview() { toast('Opening preview in Enroller sandbox...'); }
-function stValidate() { toast('Flow valid — 4 screens, all required fields present, no rule conflicts.'); }
-function stPromote() {
-  if(confirm('Promote this configuration from Sandbox to Production?\n\nChanges will be live immediately.')) {
-    document.getElementById('stSave').textContent = 'Saved & promoted ' + new Date().toLocaleTimeString();
-    toast('Promoted to Production successfully.');
+// ── Studio buttons ────────────────────────────────────────────────────────────
+window.stPreview  = function(){ toast('Preview opened in Enroller sandbox...'); };
+window.stValidate = function(){ toast('Flow valid — no rule conflicts detected.'); };
+window.stPromote  = function(){
+  if(confirm('Promote this configuration from Sandbox to Production?\n\nChanges will be live immediately for all agents.')) {
+    document.getElementById('stSave').textContent = 'Promoted ' + new Date().toLocaleTimeString();
+    toast('Configuration promoted to production.');
   }
-}
+};
 
-// Init
-renderCanvas();
-updateStatus();
+// ── Init ──────────────────────────────────────────────────────────────────────
+render();
 </script>
 </body>
 </html>
