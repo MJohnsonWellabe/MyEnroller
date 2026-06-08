@@ -97,6 +97,7 @@ var NAV_HTML = [
 '        <a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a>',
 '        <a class="dd-sub" href="../pages/see-it-in-action.html">&#8627; See Enroller in Action</a>',
 '        <a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a>',
+'        <a class="dd-sub" href="../pages/activity-map.html">&#8627; Activity Map</a>',
 '        <a class="dd-sub" href="../pages/pulse-dashboard.html">&#8627; Executive Dashboard</a>',
 '        <a href="../pages/tools.html?tab=engage">Pylaex Engage</a>',
 '        <a href="../pages/tools.html?tab=launchpad">Pylaex Launchpad</a>',
@@ -140,6 +141,7 @@ var NAV_HTML = [
 '        <li><a href="../pages/tools.html?tab=enroller">Pylaex Enroller</a></li>',
 '        <li><a class="sb-indent" href="../pages/see-it-in-action.html">&#8627; See Enroller in Action</a></li>',
 '        <li><a href="../pages/tools.html?tab=pulse">Pylaex Pulse</a></li>',
+'        <li><a class="sb-indent" href="../pages/activity-map.html">&#8627; Activity Map</a></li>',
 '        <li><a class="sb-indent" href="../pages/pulse-dashboard.html">&#8627; Executive Dashboard</a></li>',
 '        <li><a href="../pages/tools.html?tab=engage">Pylaex Engage</a></li>',
 '        <li><a class="sb-indent" href="../pages/my-easy-match.html">&#8627; MatchIQ</a></li>',
@@ -264,6 +266,6 @@ document.querySelectorAll('.sb-menu a').forEach(function(a) {
 });
 
 /* ── Load extra scripts ── */
-['../assets/js/nav.js','../assets/js/chatbot.js','../assets/js/features.js'].forEach(function(src){
+['../assets/js/chatbot.js','../assets/js/features.js'].forEach(function(src){
   var s = document.createElement('script'); s.src = src; document.body.appendChild(s);
 });

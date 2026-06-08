@@ -1,124 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>See Orchestrator in Action – Pylaex</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
   <style>
-    /* ── Orchestrator Studio UI ── */
-    .studio { background:var(--navy); border-radius:16px; overflow:hidden; border:1px solid rgba(18,181,204,.2); box-shadow:0 8px 40px rgba(0,0,0,.5); }
-    .studio-bar { background:#091828; padding:.65rem 1.25rem; display:flex; align-items:center; gap:.75rem; border-bottom:2px solid #C4881A; }
-    .studio-bar-title { font-size:.9rem; font-weight:700; color:var(--white); flex:1; font-family:var(--font-display); }
-    .studio-env { font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .65rem; border-radius:999px; background:rgba(196,136,26,.2); color:#C4881A; border:1px solid rgba(196,136,26,.4); }
-    .studio-save { font-size:.72rem; color:rgba(255,255,255,.4); margin-left:auto; font-family:monospace; }
-
-    .studio-body { display:grid; grid-template-columns:220px 1fr; min-height:520px; }
-
-    /* ── Left: Block library ── */
-    .block-lib { background:rgba(0,0,0,.3); border-right:1px solid rgba(255,255,255,.07); padding:.75rem 0; overflow-y:auto; }
-    .lib-label { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--aqua); padding:.65rem 1rem .3rem; }
-    .lib-item {
-      display:flex; align-items:center; gap:.6rem; padding:.55rem 1rem;
-      cursor:grab; margin:.2rem .6rem; border-radius:6px;
-      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
-      transition:background .15s, border-color .15s; user-select:none;
-    }
-    .lib-item:hover { background:rgba(196,136,26,.1); border-color:rgba(196,136,26,.3); }
-    .lib-item:active { cursor:grabbing; opacity:.7; }
-    .lib-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-    .lib-name { font-size:.78rem; color:rgba(255,255,255,.8); font-weight:500; }
-
-    /* ── Right: Canvas ── */
-    .studio-canvas { padding:1.25rem; display:flex; flex-direction:column; gap:0; overflow-y:auto; }
-    .canvas-label { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:.6rem; }
-
-    /* Sortable screen card */
-    .s-card {
-      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
-      border-radius:10px; margin-bottom:.6rem; overflow:hidden;
-      transition:border-color .2s, box-shadow .2s;
-      cursor:move;
-    }
-    .s-card:hover { border-color:rgba(196,136,26,.4); }
-    .s-card.drag-over { border-color:#C4881A; box-shadow:0 0 0 2px rgba(196,136,26,.3); background:rgba(196,136,26,.06); }
-    .s-card.dragging { opacity:.4; border-style:dashed; }
-    .s-card-header {
-      display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem;
-      cursor:pointer;
-    }
-    .s-drag-handle { color:rgba(255,255,255,.25); font-size:.9rem; cursor:move; flex-shrink:0; padding:0 2px; }
-    .s-num { font-size:.62rem; font-weight:700; color:rgba(255,255,255,.3); min-width:18px; font-family:monospace; }
-    .s-title { font-size:.88rem; font-weight:700; color:var(--white); flex:1; }
-    .s-tags { display:flex; gap:.35rem; flex-wrap:wrap; }
-    .s-tag { font-size:.62rem; padding:.1rem .45rem; border-radius:4px; font-weight:700; }
-    .s-tag-q { background:rgba(196,136,26,.15); color:#C4881A; }
-    .s-tag-api { background:rgba(18,181,204,.12); color:var(--aqua); }
-    .s-tag-rule { background:rgba(255,255,255,.08); color:rgba(255,255,255,.55); }
-    .s-expand-icon { font-size:.7rem; color:rgba(255,255,255,.35); flex-shrink:0; transition:transform .2s; }
-    .s-card.expanded .s-expand-icon { transform:rotate(90deg); }
-    .s-card-body { display:none; border-top:1px solid rgba(255,255,255,.07); }
-    .s-card.expanded .s-card-body { display:block; }
-
-    /* Questions inside a card */
-    .q-list { padding:.6rem .8rem; }
-    .q-item {
-      display:flex; align-items:center; gap:.6rem; padding:.45rem .6rem;
-      margin-bottom:.3rem; border-radius:6px;
-      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
-      cursor:move; user-select:none; transition:background .15s;
-    }
-    .q-item:hover { background:rgba(196,136,26,.08); border-color:rgba(196,136,26,.2); }
-    .q-item.dragging { opacity:.4; }
-    .q-item.drag-over { border-color:#C4881A; background:rgba(196,136,26,.1); }
-    .q-handle { color:rgba(255,255,255,.2); font-size:.75rem; cursor:move; }
-    .q-check { width:14px; height:14px; border-radius:3px; border:1px solid rgba(255,255,255,.25); background:rgba(18,181,204,.2); flex-shrink:0; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:.6rem; color:var(--aqua); }
-    .q-check.off { background:transparent; color:transparent; }
-    .q-text { font-size:.78rem; color:rgba(255,255,255,.75); flex:1; }
-    .q-type { font-size:.62rem; color:rgba(255,255,255,.3); font-family:monospace; }
-    .q-add { display:flex; align-items:center; gap:.5rem; padding:.4rem .6rem; font-size:.75rem; color:rgba(255,255,255,.35); cursor:pointer; border:1px dashed rgba(255,255,255,.12); border-radius:6px; margin:.3rem 0 .6rem; transition:color .15s, border-color .15s; }
-    .q-add:hover { color:var(--aqua); border-color:var(--aqua); }
-
-    /* API toggle panel */
-    .api-panel { background:rgba(18,181,204,.05); border-top:1px solid rgba(18,181,204,.12); padding:.75rem 1rem; }
-    .api-label { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--aqua); margin-bottom:.5rem; }
-    .api-row { display:flex; align-items:center; gap:.75rem; margin-bottom:.35rem; }
-    .api-row-label { font-size:.78rem; color:rgba(255,255,255,.7); flex:1; }
-    .toggle { width:34px; height:19px; border-radius:9px; position:relative; cursor:pointer; flex-shrink:0; transition:background .2s; }
-    .toggle.on { background:#C4881A; }
-    .toggle.off { background:rgba(255,255,255,.15); }
-    .toggle-k { position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; background:white; transition:left .18s; }
-    .toggle.on .toggle-k { left:17px; }
-
+    /* ── Orchestrator Studio ── */
+    .studio-wrap{background:#0B1C2C;border-radius:14px;overflow:hidden;border:1px solid rgba(18,181,204,.2);box-shadow:0 8px 40px rgba(0,0,0,.5);}
+    .studio-bar{background:#091828;padding:.6rem 1.2rem;display:flex;align-items:center;gap:.75rem;border-bottom:2px solid #C4881A;}
+    .studio-bar-title{font-family:"EB Garamond",Georgia,serif;font-weight:700;color:#fff;font-size:.95rem;flex:1;}
+    .studio-env{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .6rem;border-radius:999px;background:rgba(196,136,26,.18);color:#C4881A;border:1px solid rgba(196,136,26,.4);}
+    .studio-saved{font-size:.68rem;color:rgba(255,255,255,.35);font-family:monospace;margin-left:auto;}
+    .studio-body{display:grid;grid-template-columns:200px 1fr;min-height:500px;}
+    /* Library */
+    .lib-col{background:rgba(0,0,0,.3);border-right:1px solid rgba(255,255,255,.07);padding:.6rem 0;overflow-y:auto;}
+    .lib-sect{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#12B5CC;padding:.6rem 1rem .25rem;}
+    .lib-item{display:flex;align-items:center;gap:.55rem;padding:.52rem .9rem;margin:.2rem .55rem;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);cursor:grab;user-select:none;transition:background .15s,border-color .15s;}
+    .lib-item:hover{background:rgba(196,136,26,.1);border-color:rgba(196,136,26,.35);}
+    .lib-item:active{cursor:grabbing;}
+    .lib-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .lib-name{font-size:.75rem;color:rgba(255,255,255,.8);font-weight:500;}
+    /* Canvas */
+    .canvas-col{padding:1rem;display:flex;flex-direction:column;gap:.5rem;overflow-y:auto;}
+    .canvas-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.25rem;}
+    /* Screen cards */
+    .sc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;transition:border-color .2s;cursor:move;}
+    .sc:hover{border-color:rgba(196,136,26,.35);}
+    .sc.drag-over{border-color:#C4881A;border-style:dashed;background:rgba(196,136,26,.06);}
+    .sc.dragging{opacity:.4;}
+    .sc-hdr{display:flex;align-items:center;gap:.6rem;padding:.7rem .9rem;cursor:pointer;}
+    .sc-handle{color:rgba(255,255,255,.22);font-size:.85rem;cursor:move;flex-shrink:0;}
+    .sc-num{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.3);min-width:16px;font-family:monospace;}
+    .sc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .sc-title{font-size:.85rem;font-weight:700;color:#fff;flex:1;}
+    .sc-tags{display:flex;gap:.3rem;}
+    .sc-tag{font-size:.6rem;padding:.1rem .42rem;border-radius:4px;font-weight:700;}
+    .sc-tag-q{background:rgba(196,136,26,.15);color:#C4881A;}
+    .sc-tag-api{background:rgba(18,181,204,.12);color:#12B5CC;}
+    .sc-chev{font-size:.7rem;color:rgba(255,255,255,.3);transition:transform .2s;flex-shrink:0;}
+    .sc.expanded .sc-chev{transform:rotate(90deg);}
+    .sc-body{display:none;border-top:1px solid rgba(255,255,255,.07);}
+    .sc.expanded .sc-body{display:block;}
+    /* Questions */
+    .q-list{padding:.5rem .7rem;}
+    .q-item{display:flex;align-items:center;gap:.55rem;padding:.42rem .55rem;margin-bottom:.28rem;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:move;user-select:none;transition:background .15s,border-color .15s;}
+    .q-item:hover{background:rgba(196,136,26,.07);border-color:rgba(196,136,26,.2);}
+    .q-item.dragging{opacity:.35;}
+    .q-item.drag-over{border-color:#C4881A;background:rgba(196,136,26,.1);}
+    .q-handle{font-size:.75rem;color:rgba(255,255,255,.2);cursor:move;flex-shrink:0;}
+    .q-chk{width:15px;height:15px;border-radius:3px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.06);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.6rem;color:#12B5CC;transition:all .15s;}
+    .q-chk.on{background:rgba(18,181,204,.18);border-color:#12B5CC;}
+    .q-chk:hover{border-color:#C4881A;}
+    .q-text{flex:1;font-size:.76rem;color:rgba(255,255,255,.78);}
+    .q-item.off .q-text{text-decoration:line-through;opacity:.38;}
+    .q-type{font-size:.6rem;color:rgba(255,255,255,.28);font-family:monospace;}
+    .q-add{display:flex;align-items:center;gap:.4rem;padding:.35rem .55rem;font-size:.72rem;color:rgba(255,255,255,.3);cursor:pointer;border:1px dashed rgba(255,255,255,.1);border-radius:6px;margin:.25rem 0 .5rem;transition:color .15s,border-color .15s;}
+    .q-add:hover{color:#12B5CC;border-color:#12B5CC;}
+    /* API panel */
+    .api-panel{background:rgba(18,181,204,.05);border-top:1px solid rgba(18,181,204,.1);padding:.6rem .9rem;}
+    .api-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#12B5CC;margin-bottom:.45rem;}
+    .api-row{display:flex;align-items:center;gap:.65rem;margin-bottom:.3rem;}
+    .api-lbl{font-size:.76rem;color:rgba(255,255,255,.7);flex:1;}
+    .sw{width:34px;height:19px;border-radius:9px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s;}
+    .sw.on{background:#C4881A;}.sw.off{background:rgba(255,255,255,.15);}
+    .sw-k{position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;transition:left .18s;}
+    .sw.on .sw-k{left:17px;}
     /* Drop zone */
-    .drop-zone {
-      border:2px dashed rgba(255,255,255,.12); border-radius:10px;
-      padding:.85rem; text-align:center;
-      color:rgba(255,255,255,.28); font-size:.78rem; margin-bottom:.6rem;
-      transition:border-color .2s, background .2s;
-    }
-    .drop-zone.drag-over { border-color:#C4881A; background:rgba(196,136,26,.06); color:rgba(255,255,255,.6); }
-
-    /* Studio footer */
-    .studio-footer { background:#091828; padding:.75rem 1.25rem; display:flex; align-items:center; gap:.75rem; border-top:1px solid rgba(255,255,255,.07); flex-wrap:wrap; }
-    .s-btn { padding:.42rem 1rem; border-radius:6px; font-size:.78rem; font-weight:700; cursor:pointer; border:none; font-family:var(--font-body); transition:all .18s; white-space:nowrap; }
-    .s-btn-gold { background:#C4881A; color:#0B1C2C; }
-    .s-btn-gold:hover { background:#D9A040; }
-    .s-btn-out { background:transparent; color:rgba(255,255,255,.65); border:1px solid rgba(255,255,255,.18); }
-    .s-btn-out:hover { border-color:var(--aqua); color:var(--aqua); }
-    .s-status { margin-left:auto; font-size:.72rem; color:rgba(255,255,255,.35); font-family:monospace; }
-
-    .step-call { background:rgba(196,136,26,.08); border-left:3px solid #C4881A; border-radius:0 8px 8px 0; padding:1rem 1.25rem; }
-    .step-call-num { font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#C4881A; margin-bottom:.3rem; }
-    .step-call p { color:rgba(255,255,255,.78); font-size:.88rem; margin:0; line-height:1.65; }
-
-    /* Toast notification */
-    #studio-toast { position:fixed; bottom:5rem; left:50%; transform:translateX(-50%); background:#0C3B4F; border:1px solid #12B5CC; border-radius:8px; padding:.6rem 1.25rem; font-size:.82rem; color:var(--white); opacity:0; transition:opacity .3s; pointer-events:none; z-index:9999; }
-    #studio-toast.show { opacity:1; }
-
-    @media(max-width:768px){ .studio-body { grid-template-columns:1fr; } .block-lib { display:none; } }
+    .drop-zone{border:2px dashed rgba(255,255,255,.12);border-radius:10px;padding:.75rem;text-align:center;color:rgba(255,255,255,.28);font-size:.75rem;transition:border-color .2s,background .2s;cursor:default;}
+    .drop-zone.over{border-color:#C4881A;background:rgba(196,136,26,.06);color:rgba(255,255,255,.55);}
+    /* Footer */
+    .studio-footer{background:#091828;padding:.65rem 1.2rem;display:flex;align-items:center;gap:.75rem;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap;}
+    .sb{padding:.4rem .95rem;border-radius:6px;font-size:.76rem;font-weight:700;cursor:pointer;border:none;font-family:"DM Sans",system-ui,sans-serif;transition:all .18s;white-space:nowrap;}
+    .sb-gold{background:#C4881A;color:#0B1C2C;}.sb-gold:hover{background:#D9A040;}
+    .sb-out{background:transparent;color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.18);}.sb-out:hover{border-color:#12B5CC;color:#12B5CC;}
+    .st-status{margin-left:auto;font-size:.68rem;color:rgba(255,255,255,.32);font-family:monospace;}
+    /* Toast */
+    #orch-toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:#0C3B4F;border:1px solid #12B5CC;border-radius:8px;padding:.5rem 1.1rem;font-size:.8rem;color:#fff;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9998;white-space:nowrap;}
+    #orch-toast.show{opacity:1;}
+    .callout{background:rgba(196,136,26,.08);border-left:3px solid #C4881A;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;}
+    .callout-label{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C4881A;margin-bottom:.3rem;}
+    .callout p{color:rgba(255,255,255,.78);font-size:.87rem;margin:0;line-height:1.65;}
+    @media(max-width:768px){.studio-body{grid-template-columns:1fr;}.lib-col{display:none;}}
   </style>
 </head>
 <body>
@@ -126,23 +91,23 @@
 
 <div class="page-content">
   <div class="page-header">
-    <div class="breadcrumb"><a href="../index.html">Home</a> &rsaquo; <a href="tools.html">Platform Suite</a> &rsaquo; Pylaex Orchestrator</div>
+    <div class="breadcrumb"><a href="../index.html">Home</a> &rsaquo; <a href="tools.html?tab=orchestrator">Pylaex Orchestrator</a> &rsaquo; See It in Action</div>
     <h1>See Orchestrator in Action</h1>
     <p class="page-subtitle">The Configurability Engine</p>
-    <p>Your screens. Your questions. Your rules. Your API calls. No IT ticket. No release cycle. Promoted to production in minutes.</p>
+    <p>Your screens. Your questions. Your rules. Your API calls. No IT ticket. No release cycle. Changes go live when you say so.</p>
   </div>
 
   <section class="section" style="background:#0C3B4F;">
     <div class="container">
       <div class="section-title">
-        <span class="eyebrow" style="color:var(--aqua);">How Orchestrator works</span>
-        <h2 style="color:var(--white);">You configure. Enroller executes.</h2>
+        <span class="eyebrow" style="color:var(--aqua);">How it works</span>
+        <h2 style="color:#fff;">You configure. Enroller executes.</h2>
         <div class="divider-aqua" style="background:#C4881A;"></div>
-        <p style="color:rgba(255,255,255,.75);max-width:680px;margin:0 auto;">Orchestrator is the layer behind Pylaex Enroller. Everything your agents see — every screen, every question, every API call — is defined here by your operations team, not an engineering sprint.</p>
+        <p style="color:rgba(255,255,255,.75);max-width:680px;margin:0 auto 2rem;">Orchestrator is the control layer behind Pylaex Enroller. Every screen your agents see, every question asked, every API call made — it all starts here, configured by your operations team, not an engineering sprint.</p>
       </div>
       <div class="grid-2" style="gap:1.25rem;">
-        <div class="step-call"><div class="step-call-num">What you control</div><p>Screen order. Question order within screens. Which questions are active or suppressed. Where to call external APIs and when to bypass them. Underwriting logic — approve, decline, refer, reflexive triggers. Rate tables and eligibility rules.</p></div>
-        <div class="step-call"><div class="step-call-num">What you don't need</div><p>A developer. An IT ticket. A release cycle. A change management process. A testing sprint. Configuration changes go from sandbox to live in minutes. Your business team owns the product.</p></div>
+        <div class="callout"><div class="callout-label">What you control</div><p>Screen order and flow. Which questions appear and in what order. API calls — which to make, when, and when to bypass. Underwriting logic: approve, decline, refer, reflexive triggers. Rate tables and eligibility rules.</p></div>
+        <div class="callout"><div class="callout-label">What you don't need</div><p>A developer. An IT ticket. A release cycle. A testing sprint. Configure in sandbox, preview it in Enroller, promote to production in minutes. Your business team owns the product.</p></div>
       </div>
     </div>
   </section>
@@ -151,69 +116,71 @@
     <div class="container">
       <div class="section-title">
         <span class="eyebrow" style="color:var(--aqua);">Interactive Demo</span>
-        <h2 style="color:var(--white);">Configure a Medicare Supplement flow</h2>
+        <h2 style="color:#fff;">Configure a Medicare Supplement flow</h2>
         <div class="divider-aqua" style="background:#C4881A;"></div>
-        <p style="color:rgba(255,255,255,.6);max-width:620px;margin:0 auto 2rem;font-size:.9rem;">Drag screens to reorder them. Click a screen to expand it and reorder questions inside. Toggle API calls on or off. This is a representative demo — contact us for a live walkthrough of the production studio.</p>
+        <p style="color:rgba(255,255,255,.58);max-width:600px;margin:0 auto 2rem;font-size:.88rem;">
+          Drag screen cards to reorder them. Click a card to expand it and see its questions.
+          Drag questions to reorder within a screen. Click the checkbox to activate or suppress a question.
+          Drag from the library on the left to add new screens.
+        </p>
       </div>
 
-      <div class="studio" id="studio">
+      <div class="studio-wrap">
         <div class="studio-bar">
-          <div class="studio-bar-title">Product Flow Editor — Medicare Supplement Plan G</div>
+          <div class="studio-bar-title">Flow Editor — Medicare Supplement Plan G</div>
           <div class="studio-env">Sandbox</div>
-          <div class="studio-save" id="stSave">Unsaved changes</div>
+          <div class="studio-saved" id="st-saved">Unsaved changes</div>
         </div>
-
         <div class="studio-body">
-          <!-- Block Library -->
-          <div class="block-lib">
-            <div class="osc-lib-label">Add a Screen</div>
-            <div class="osc-lib-item" draggable="true" data-type="Suitability Check" data-color="#C4881A">
-              <div class="osc-lib-dot" style="background:#C4881A;"></div><div class="osc-lib-name">Suitability Check</div>
+          <!-- Library -->
+          <div class="lib-col">
+            <div class="lib-sect">Add Screen</div>
+            <div class="lib-item" draggable="true" data-type="Suitability Check" data-color="#C4881A">
+              <div class="lib-dot" style="background:#C4881A;"></div><div class="lib-name">Suitability Check</div>
             </div>
-            <div class="osc-lib-item" draggable="true" data-type="Coverage Selection" data-color="#12B5CC">
-              <div class="osc-lib-dot" style="background:#12B5CC;"></div><div class="osc-lib-name">Coverage Selection</div>
+            <div class="lib-item" draggable="true" data-type="Coverage Selection" data-color="#12B5CC">
+              <div class="lib-dot" style="background:#12B5CC;"></div><div class="lib-name">Coverage Selection</div>
             </div>
-            <div class="osc-lib-item" draggable="true" data-type="Beneficiary Info" data-color="#12B5CC">
-              <div class="osc-lib-dot" style="background:#12B5CC;"></div><div class="osc-lib-name">Beneficiary Info</div>
+            <div class="lib-item" draggable="true" data-type="Beneficiary Info" data-color="#12B5CC">
+              <div class="lib-dot" style="background:#12B5CC;"></div><div class="lib-name">Beneficiary Info</div>
             </div>
-            <div class="osc-lib-item" draggable="true" data-type="Payment Setup" data-color="#C4881A">
-              <div class="osc-lib-dot" style="background:#C4881A;"></div><div class="osc-lib-name">Payment Setup</div>
+            <div class="lib-item" draggable="true" data-type="Payment Setup" data-color="#C4881A">
+              <div class="lib-dot" style="background:#C4881A;"></div><div class="lib-name">Payment Setup</div>
             </div>
-            <div class="osc-lib-label" style="margin-top:.75rem;">Add an API Call</div>
-            <div class="osc-lib-item" draggable="true" data-type="MVR Lookup" data-color="#2DC8DE" data-api="true">
-              <div class="osc-lib-dot" style="background:#2DC8DE;"></div><div class="osc-lib-name">MVR Lookup</div>
+            <div class="lib-sect" style="margin-top:.5rem;">Add API Call</div>
+            <div class="lib-item" draggable="true" data-type="MVR Lookup" data-color="#2DC8DE" data-api="1">
+              <div class="lib-dot" style="background:#2DC8DE;"></div><div class="lib-name">MVR Lookup</div>
             </div>
-            <div class="osc-lib-item" draggable="true" data-type="OFAC Screen" data-color="#2DC8DE" data-api="true">
-              <div class="osc-lib-dot" style="background:#2DC8DE;"></div><div class="osc-lib-name">OFAC Screen</div>
+            <div class="lib-item" draggable="true" data-type="OFAC Screen" data-color="#2DC8DE" data-api="1">
+              <div class="lib-dot" style="background:#2DC8DE;"></div><div class="lib-name">OFAC Screen</div>
             </div>
           </div>
-
-          <!-- Canvas -->
-          <div class="studio-canvas" id="orch-canvas">
-            <div class="canvas-label">Current Flow — drag cards to reorder &nbsp;|&nbsp; click a card to expand questions</div>
+          <!-- Canvas (filled by JS) -->
+          <div class="canvas-col" id="canvas">
+            <div class="canvas-label">Current Flow — drag cards to reorder &nbsp;|&nbsp; click to expand &amp; edit questions</div>
           </div>
         </div>
-
         <div class="studio-footer">
-          <button class="s-btn s-btn-out" onclick="stPreview()">Preview in Enroller</button>
-          <button class="s-btn s-btn-out" onclick="stValidate()">Validate Flow</button>
-          <button class="s-btn s-btn-gold" onclick="stPromote()">Promote to Production</button>
-          <div class="s-status" id="stStatus">4 screens &nbsp;&bull;&nbsp; 2 API calls &nbsp;&bull;&nbsp; 26 questions</div>
+          <button class="sb sb-out" onclick="stPreview()">Preview in Enroller</button>
+          <button class="sb sb-out" onclick="stValidate()">Validate</button>
+          <button class="sb sb-gold" onclick="stPromote()">Promote to Production</button>
+          <div class="st-status" id="st-status">Loading...</div>
         </div>
       </div>
+      <p style="text-align:center;font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.6rem;">Representative demo — contact us for a live walkthrough of the production Orchestrator studio.</p>
     </div>
   </section>
 
   <section class="section" style="background:#0C3B4F;">
     <div class="container">
-      <h2 style="color:var(--white);text-align:center;margin-bottom:2rem;">What you can configure without touching code</h2>
+      <h2 style="color:#fff;text-align:center;margin-bottom:2rem;">Configure everything without writing code</h2>
       <div class="grid-3">
-        <div class="card"><h3>Screen Order</h3><p>Drag and drop to change the sequence agents see screens. Every reorder reflects immediately in Enroller after you promote.</p></div>
-        <div class="card"><h3>Questions &amp; Branching</h3><p>Activate or suppress questions within any screen. Set reflexive logic — answering Yes to one question automatically surfaces follow-up questions.</p></div>
-        <div class="card"><h3>API Calls</h3><p>Toggle external data calls on or off by product, state, or eligibility type. Choose when to call, what to do with results, and when to bypass.</p></div>
-        <div class="card"><h3>Underwriting Logic</h3><p>Configure approve, decline, refer, and table-rating outcomes based on responses, API results, and carrier-defined product rules. Every decision logged.</p></div>
-        <div class="card"><h3>Product Rules</h3><p>Rate tables, eligibility windows, benefit amounts — all configurable without a release cycle. Update and promote in minutes.</p></div>
-        <div class="card"><h3>Sandbox &amp; Promotion</h3><p>Every change happens in sandbox first. Preview in Enroller, validate, then promote to production. Your team owns the timeline.</p></div>
+        <div class="card"><h3>Screen Order</h3><p>Drag and drop to reorder screens in the flow. Changes reflect in Enroller immediately after you promote from sandbox.</p></div>
+        <div class="card"><h3>Questions &amp; Branching</h3><p>Activate or suppress questions within any screen. Set reflexive logic — yes to X automatically surfaces follow-up questions Y and Z.</p></div>
+        <div class="card"><h3>API Calls</h3><p>Toggle external data calls on or off per product or eligibility type. Control when to call, what to do with results, and when to bypass entirely.</p></div>
+        <div class="card"><h3>Underwriting Logic</h3><p>Configure approve, decline, refer, and table-rating outcomes based on responses and API results. Every decision is logged and auditable.</p></div>
+        <div class="card"><h3>Product Rules</h3><p>Rate tables, eligibility windows, benefit tiers — configurable without a release cycle. Update and promote in minutes, not quarters.</p></div>
+        <div class="card"><h3>Sandbox &amp; Promotion</h3><p>All changes happen in sandbox first. Preview in Enroller, validate, then promote. Your team controls the go-live timeline.</p></div>
       </div>
       <div style="text-align:center;margin-top:2rem;">
         <a href="contact.html" class="btn btn-primary">Request a Live Demo</a>
@@ -224,320 +191,285 @@
 </div>
 
 <div id="footer-placeholder"></div>
-<div id="studio-toast"></div>
+<div id="orch-toast"></div>
 
 <script src="../assets/js/components.js"></script>
 <script>
-// ── Screen data model ────────────────────────────────────────────────────────
+// ── Data ──────────────────────────────────────────────────────────────────────
 var SCREENS = [
-  { id:'s1', title:'Applicant Information',     color:'#12B5CC', api:false,
-    questions:[
-      {id:'q1a',text:'Full legal name',                          type:'text',    on:true},
-      {id:'q1b',text:'Date of birth',                            type:'date',    on:true},
-      {id:'q1c',text:'Gender',                                   type:'select',  on:true},
-      {id:'q1d',text:'Social Security Number',                   type:'ssn',     on:true},
-      {id:'q1e',text:'Residential address',                      type:'address', on:true},
-      {id:'q1f',text:'Phone number',                             type:'phone',   on:true}
-    ]
-  },
-  { id:'s2', title:'Eligibility & Enrollment Type', color:'#C4881A', api:false,
-    questions:[
-      {id:'q2a',text:'Are you enrolled in Medicare Part B?',     type:'yes/no',  on:true},
-      {id:'q2b',text:'Are you within Open Enrollment?',         type:'yes/no',  on:true},
-      {id:'q2c',text:'Are you eligible for Guaranteed Issue?',   type:'yes/no',  on:true}
-    ]
-  },
-  { id:'s3', title:'Prescription History',      color:'#2DC8DE', api:true,
+  { id:'s1', title:'Applicant Information', color:'#12B5CC', api:false, qs:[
+    {id:'q1a', text:'Full legal name',                            type:'text',     on:true},
+    {id:'q1b', text:'Date of birth',                             type:'date',     on:true},
+    {id:'q1c', text:'Gender',                                    type:'select',   on:true},
+    {id:'q1d', text:'Social Security Number',                    type:'ssn',      on:true},
+    {id:'q1e', text:'Residential address',                       type:'address',  on:true},
+    {id:'q1f', text:'Phone number',                              type:'phone',    on:true}
+  ]},
+  { id:'s2', title:'Eligibility & Enrollment Type', color:'#C4881A', api:false, qs:[
+    {id:'q2a', text:'Enrolled in Medicare Part B?',              type:'yes/no',   on:true},
+    {id:'q2b', text:'Within Open Enrollment window?',            type:'yes/no',   on:true},
+    {id:'q2c', text:'Eligible for Guaranteed Issue?',            type:'yes/no',   on:true}
+  ]},
+  { id:'s3', title:'Prescription History', color:'#2DC8DE', api:true,
     apiToggles:[
-      {label:'Call external Rx database',      on:true},
-      {label:'Pre-fill questions from result', on:true},
-      {label:'Bypass for GI applicants',       on:false}
+      {label:'Call external Rx database',       on:true},
+      {label:'Pre-fill questions from result',  on:true},
+      {label:'Bypass for GI applicants',        on:false}
     ],
-    questions:[
-      {id:'q3a',text:'Have you used tobacco in the past 12 months?',           type:'yes/no', on:true},
-      {id:'q3b',text:'Do you currently take prescription medications?',         type:'yes/no', on:true},
-      {id:'q3c',text:'List current prescriptions (if yes)',                     type:'textarea',on:true},
-      {id:'q3d',text:'Prescriber name and dosage (optional detail)',            type:'text',   on:false}
+    qs:[
+      {id:'q3a', text:'Used tobacco in past 12 months?',         type:'yes/no',   on:true},
+      {id:'q3b', text:'Currently taking prescription medications?', type:'yes/no', on:true},
+      {id:'q3c', text:'List current prescriptions (if yes)',     type:'textarea', on:true},
+      {id:'q3d', text:'Prescriber and dosage detail (optional)', type:'text',     on:false}
     ]
   },
-  { id:'s4', title:'Health Questions',          color:'#C4881A', api:false,
-    questions:[
-      {id:'q4a',text:'Diagnosed with cancer in the past 2 years?',             type:'yes/no', on:true},
-      {id:'q4b',text:'Heart attack or stroke in the past 12 months?',          type:'yes/no', on:true},
-      {id:'q4c',text:'Do you have end-stage renal disease?',                   type:'yes/no', on:true},
-      {id:'q4d',text:'Diagnosed with COPD or emphysema?',                      type:'yes/no', on:true},
-      {id:'q4e',text:'Currently on dialysis?',                                 type:'yes/no', on:false},
-      {id:'q4f',text:'Details of diagnosis (if yes to any above)',             type:'textarea',on:false}
-    ]
-  }
+  { id:'s4', title:'Health Questions', color:'#C4881A', api:false, qs:[
+    {id:'q4a', text:'Diagnosed with cancer in past 2 years?',    type:'yes/no',   on:true},
+    {id:'q4b', text:'Heart attack or stroke in past 12 months?', type:'yes/no',   on:true},
+    {id:'q4c', text:'End-stage renal disease?',                  type:'yes/no',   on:true},
+    {id:'q4d', text:'COPD or emphysema diagnosis?',              type:'yes/no',   on:true},
+    {id:'q4e', text:'Currently on dialysis?',                    type:'yes/no',   on:false},
+    {id:'q4f', text:'Diagnosis details (if yes to any above)',   type:'textarea', on:false}
+  ]}
 ];
 
-// ── Drag state ────────────────────────────────────────────────────────────────
-var dragScreenId = null;   // screen being dragged
-var dragQId      = null;   // question being dragged  { screenId, qId }
-var dragOverId   = null;   // current drop target
+var dragScreenId = null;
+var dragQData    = null; // {screenId, qId}
 
-// ── Utility ───────────────────────────────────────────────────────────────────
+// ── Toast ─────────────────────────────────────────────────────────────────────
 function toast(msg) {
-  var el = document.getElementById('orchToast');
-  el.textContent = msg; el.style.opacity = '1';
+  var el = document.getElementById('orch-toast');
+  el.textContent = msg; el.classList.add('show');
   clearTimeout(el._t);
-  el._t = setTimeout(function(){ el.style.opacity = '0'; }, 2000);
+  el._t = setTimeout(function(){ el.classList.remove('show'); }, 2200);
 }
 
+// ── Status bar ────────────────────────────────────────────────────────────────
 function updateStatus() {
-  var active = 0, apis = 0;
+  var active=0, apis=0;
   SCREENS.forEach(function(s){
     if(s.api) apis++;
-    (s.questions||[]).forEach(function(q){ if(q.on) active++; });
+    (s.qs||[]).forEach(function(q){ if(q.on) active++; });
   });
-  var el = document.getElementById('stStatus');
-  if(el) el.textContent = SCREENS.length + ' screens · ' + apis + ' API calls · ' + active + ' active questions';
-  var sv = document.getElementById('stSave');
+  var el = document.getElementById('st-status');
+  if(el) el.textContent = SCREENS.length+' screens \u00B7 '+apis+' API calls \u00B7 '+active+' active questions';
+  var sv = document.getElementById('st-saved');
   if(sv) sv.textContent = 'Unsaved changes';
 }
 
 // ── Render ────────────────────────────────────────────────────────────────────
-function render() {
-  var canvas = document.getElementById('orch-canvas');
-  if (!canvas) return;
+function render(expandId) {
+  var canvas = document.getElementById('canvas');
+  var label  = canvas.querySelector('.canvas-label');
   canvas.innerHTML = '';
+  canvas.appendChild(label);
 
   SCREENS.forEach(function(screen, si) {
-
-    // ── Screen card ──────────────────────────────────────────────────────────
+    // ── Card ──────────────────────────────────────────────────────────────────
     var card = document.createElement('div');
-    card.className = 'osc';
+    card.className = 'sc' + (expandId === screen.id ? ' expanded' : '');
     card.dataset.sid = screen.id;
 
     // Header
     var hdr = document.createElement('div');
-    hdr.className = 'osc-hdr';
+    hdr.className = 'sc-hdr';
+    var activeQ = (screen.qs||[]).filter(function(q){ return q.on; }).length;
     hdr.innerHTML =
-      '<span class="osc-drag-handle" title="Drag to reorder screens">&#8597;</span>' +
-      '<span class="osc-num">' + (si+1) + '</span>' +
-      '<span class="osc-dot" style="background:' + screen.color + ';"></span>' +
-      '<span class="osc-title">' + screen.title + '</span>';
-
-    // Tag row
-    var tags = document.createElement('div');
-    tags.className = 'osc-tags';
-    var activeQ = (screen.questions||[]).filter(function(q){ return q.on; }).length;
-    tags.innerHTML = '<span class="osc-tag osc-tag-q">' + activeQ + ' active questions</span>';
-    if(screen.api) tags.innerHTML += ' <span class="osc-tag osc-tag-api">API call</span>';
-    hdr.appendChild(tags);
-
-    // Expand chevron
-    var chev = document.createElement('span');
-    chev.className = 'osc-chev';
-    chev.textContent = '›';
-    hdr.appendChild(chev);
+      '<span class="sc-handle" title="Drag to reorder">&#8597;</span>' +
+      '<span class="sc-num">'+(si+1)+'</span>' +
+      '<span class="sc-dot" style="background:'+screen.color+';"></span>' +
+      '<span class="sc-title">'+screen.title+'</span>' +
+      '<span class="sc-tags">' +
+        '<span class="sc-tag sc-tag-q">'+activeQ+' active</span>' +
+        (screen.api ? '<span class="sc-tag sc-tag-api">API</span>' : '') +
+      '</span>' +
+      '<span class="sc-chev">&#8250;</span>';
+    hdr.addEventListener('click', function(e) {
+      if(e.target.classList.contains('sc-handle')) return;
+      var wasOpen = card.classList.contains('expanded');
+      render(wasOpen ? null : screen.id);
+    });
     card.appendChild(hdr);
 
-    // Toggle expand on header click
-    hdr.addEventListener('click', function(e) {
-      if(e.target.classList.contains('osc-drag-handle')) return;
-      card.classList.toggle('osx');
-    });
-
-    // ── Screen drag events ───────────────────────────────────────────────────
+    // ── Screen drag ──────────────────────────────────────────────────────────
     card.draggable = true;
     card.addEventListener('dragstart', function(e) {
       dragScreenId = screen.id;
       e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/plain', screen.id); // required for Firefox
-      setTimeout(function(){ card.classList.add('osc-dragging'); }, 0);
+      e.dataTransfer.setData('text/plain', 'screen:'+screen.id);
+      setTimeout(function(){ card.classList.add('dragging'); }, 0);
     });
     card.addEventListener('dragend', function() {
-      card.classList.remove('osc-dragging');
-      dragScreenId = null;
-      document.querySelectorAll('.osc').forEach(function(c){ c.classList.remove('osc-dragover'); });
+      card.classList.remove('dragging'); dragScreenId = null;
+      document.querySelectorAll('.sc.drag-over').forEach(function(c){ c.classList.remove('drag-over'); });
     });
     card.addEventListener('dragover', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if(dragScreenId && dragScreenId !== screen.id) {
-        document.querySelectorAll('.osc').forEach(function(c){ c.classList.remove('osc-dragover'); });
-        card.classList.add('osc-dragover');
-        dragOverId = screen.id;
-      }
+      e.preventDefault(); e.stopPropagation();
+      if(dragScreenId && dragScreenId !== screen.id) card.classList.add('drag-over');
     });
     card.addEventListener('dragleave', function(e) {
-      if(!card.contains(e.relatedTarget)) {
-        card.classList.remove('osc-dragover');
-      }
+      if(!card.contains(e.relatedTarget)) card.classList.remove('drag-over');
     });
     card.addEventListener('drop', function(e) {
       e.preventDefault(); e.stopPropagation();
-      card.classList.remove('osc-dragover');
+      card.classList.remove('drag-over');
+      var data = e.dataTransfer.getData('text/plain');
+      if(data.startsWith('lib:')) {
+        // Insert library item before this card
+        var parts = data.split('|');
+        SCREENS.splice(si, 0, {id:'s'+Date.now(), title:parts[1], color:parts[2]||'#12B5CC', api:!!parts[3], qs:[]});
+        render(null); updateStatus(); toast(parts[1]+' added before '+screen.title);
+        return;
+      }
       if(!dragScreenId || dragScreenId === screen.id) return;
       var fromI = SCREENS.findIndex(function(s){ return s.id === dragScreenId; });
-      var toI   = si;
-      var moved = SCREENS.splice(fromI, 1)[0];
+      var moved = SCREENS.splice(fromI,1)[0];
+      // Find new index after splice
+      var toI = SCREENS.findIndex(function(s){ return s.id === screen.id; });
       SCREENS.splice(toI, 0, moved);
       dragScreenId = null;
-      render(); updateStatus();
-      toast('Screen moved to position ' + (toI+1));
+      render(null); updateStatus();
+      toast('Moved "'+moved.title+'" to position '+(toI+1));
     });
 
     // ── Expandable body ──────────────────────────────────────────────────────
     var body = document.createElement('div');
-    body.className = 'osc-body';
+    body.className = 'sc-body';
 
-    // Questions list
+    // Questions
     var qList = document.createElement('div');
-    qList.className = 'osc-qlist';
+    qList.className = 'q-list';
 
-    (screen.questions||[]).forEach(function(q, qi) {
-      var qItem = document.createElement('div');
-      qItem.className = 'osc-q' + (q.on ? '' : ' osc-q-off');
-      qItem.draggable = true;
-      qItem.dataset.qid = q.id;
+    (screen.qs||[]).forEach(function(q, qi) {
+      var item = document.createElement('div');
+      item.className = 'q-item' + (q.on ? '' : ' off');
+      item.draggable = true;
+      item.dataset.qid = q.id;
 
-      qItem.innerHTML =
-        '<span class="osc-q-handle" title="Drag to reorder">&#8597;</span>' +
-        '<span class="osc-q-chk' + (q.on ? ' on' : '') + '" title="' + (q.on ? 'Active — click to suppress' : 'Suppressed — click to activate') + '">' + (q.on ? '&#10003;' : '') + '</span>' +
-        '<span class="osc-q-text">' + q.text + '</span>' +
-        '<span class="osc-q-type">' + q.type + '</span>';
-
-      // Toggle active/suppressed
-      var chkEl = qItem.querySelector('.osc-q-chk');
-      chkEl.addEventListener('click', function(e) {
+      var chk = document.createElement('div');
+      chk.className = 'q-chk' + (q.on ? ' on' : '');
+      chk.innerHTML = q.on ? '&#10003;' : '';
+      chk.title = q.on ? 'Active — click to suppress' : 'Suppressed — click to activate';
+      chk.addEventListener('click', function(e) {
         e.stopPropagation();
         q.on = !q.on;
-        var wasOpen = card.classList.contains('osx');
-        render(); updateStatus();
+        render(screen.id); updateStatus();
         toast(q.on ? 'Question activated' : 'Question suppressed');
-        // Restore expanded state
-        if(wasOpen) {
-          var nc = document.querySelector('[data-sid="'+screen.id+'"]');
-          if(nc) nc.classList.add('osx');
-        }
       });
 
-      // Question drag events
-      qItem.addEventListener('dragstart', function(e) {
-        dragQId = { screenId: screen.id, qId: q.id };
+      item.innerHTML = '<span class="q-handle" title="Drag to reorder questions">&#8597;</span>';
+      item.appendChild(chk);
+      var textSpan = document.createElement('span'); textSpan.className = 'q-text'; textSpan.textContent = q.text;
+      var typeSpan = document.createElement('span'); typeSpan.className = 'q-type'; typeSpan.textContent = q.type;
+      item.appendChild(textSpan); item.appendChild(typeSpan);
+
+      // Question drag
+      item.addEventListener('dragstart', function(e) {
+        dragQData = {screenId: screen.id, qId: q.id};
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', 'q:'+screen.id+':'+q.id);
         e.stopPropagation();
-        setTimeout(function(){ qItem.classList.add('osc-dragging'); }, 0);
+        setTimeout(function(){ item.classList.add('dragging'); }, 0);
       });
-      qItem.addEventListener('dragend', function(e) {
-        qItem.classList.remove('osc-dragging');
-        dragQId = null;
-        document.querySelectorAll('.osc-q').forEach(function(el){ el.classList.remove('osc-qdragover'); });
+      item.addEventListener('dragend', function() {
+        item.classList.remove('dragging'); dragQData = null;
+        document.querySelectorAll('.q-item.drag-over').forEach(function(el){ el.classList.remove('drag-over'); });
       });
-      qItem.addEventListener('dragover', function(e) {
+      item.addEventListener('dragover', function(e) {
         e.preventDefault(); e.stopPropagation();
-        if(dragQId && dragQId.screenId === screen.id && dragQId.qId !== q.id) {
-          document.querySelectorAll('.osc-q').forEach(function(el){ el.classList.remove('osc-qdragover'); });
-          qItem.classList.add('osc-qdragover');
-        }
+        if(dragQData && dragQData.screenId === screen.id && dragQData.qId !== q.id) item.classList.add('drag-over');
       });
-      qItem.addEventListener('dragleave', function(e) {
-        if(!qItem.contains(e.relatedTarget)) qItem.classList.remove('osc-qdragover');
+      item.addEventListener('dragleave', function(e) {
+        if(!item.contains(e.relatedTarget)) item.classList.remove('drag-over');
       });
-      qItem.addEventListener('drop', function(e) {
+      item.addEventListener('drop', function(e) {
         e.preventDefault(); e.stopPropagation();
-        qItem.classList.remove('osc-qdragover');
-        if(!dragQId || dragQId.screenId !== screen.id || dragQId.qId === q.id) return;
-        var qs = screen.questions;
-        var fromI = qs.findIndex(function(x){ return x.id === dragQId.qId; });
+        item.classList.remove('drag-over');
+        if(!dragQData || dragQData.screenId !== screen.id || dragQData.qId === q.id) return;
+        var qs = screen.qs;
+        var fromI = qs.findIndex(function(x){ return x.id === dragQData.qId; });
         var toI   = qi;
         var moved = qs.splice(fromI,1)[0]; qs.splice(toI,0,moved);
-        dragQId = null;
-        var wasOpen = card.classList.contains('osx');
-        render(); updateStatus();
-        toast('Question reordered');
-        if(wasOpen){ var nc=document.querySelector('[data-sid="'+screen.id+'"]'); if(nc) nc.classList.add('osx'); }
+        dragQData = null;
+        render(screen.id); updateStatus(); toast('Question reordered');
       });
 
-      qList.appendChild(qItem);
+      qList.appendChild(item);
     });
 
-    // Add question button
+    // Add question
     var addQ = document.createElement('div');
-    addQ.className = 'osc-add-q';
-    addQ.textContent = '+ Add question';
+    addQ.className = 'q-add';
+    addQ.innerHTML = '+ Add question to this screen';
     addQ.addEventListener('click', function() {
-      var txt = prompt('Enter question text:');
-      if(!txt || !txt.trim()) return;
-      screen.questions.push({ id:'q'+Date.now(), text:txt.trim(), type:'yes/no', on:true });
-      var wasOpen = card.classList.contains('osx');
-      render(); updateStatus();
-      toast('Question added');
-      if(wasOpen){ var nc=document.querySelector('[data-sid="'+screen.id+'"]'); if(nc) nc.classList.add('osx'); }
+      var txt = prompt('Question text:');
+      if(txt && txt.trim()) {
+        screen.qs.push({id:'q'+Date.now(), text:txt.trim(), type:'yes/no', on:true});
+        render(screen.id); updateStatus(); toast('Question added');
+      }
     });
     qList.appendChild(addQ);
     body.appendChild(qList);
 
     // API toggles
     if(screen.apiToggles) {
-      var apiPanel = document.createElement('div');
-      apiPanel.className = 'osc-api';
-      apiPanel.innerHTML = '<div class="osc-api-label">API Configuration</div>';
+      var ap = document.createElement('div'); ap.className = 'api-panel';
+      ap.innerHTML = '<div class="api-label">API Configuration</div>';
       screen.apiToggles.forEach(function(tog) {
-        var row = document.createElement('div'); row.className = 'osc-api-row';
-        row.innerHTML = '<span class="osc-api-lbl">' + tog.label + '</span>';
-        var sw = document.createElement('span');
-        sw.className = 'osc-sw' + (tog.on ? ' on' : '');
-        sw.innerHTML = '<span class="osc-sw-k"></span>';
+        var row = document.createElement('div'); row.className = 'api-row';
+        var lbl = document.createElement('span'); lbl.className = 'api-lbl'; lbl.textContent = tog.label;
+        var sw  = document.createElement('div'); sw.className = 'sw '+(tog.on?'on':'off');
+        sw.innerHTML = '<div class="sw-k"></div>';
         sw.addEventListener('click', function() {
-          tog.on = !tog.on;
-          sw.className = 'osc-sw' + (tog.on ? ' on' : '');
-          toast(tog.label + ': ' + (tog.on ? 'ON' : 'OFF'));
+          tog.on = !tog.on; sw.className = 'sw '+(tog.on?'on':'off');
+          toast(tog.label+': '+(tog.on?'ON':'OFF'));
         });
-        row.appendChild(sw);
-        apiPanel.appendChild(row);
+        row.appendChild(lbl); row.appendChild(sw); ap.appendChild(row);
       });
-      body.appendChild(apiPanel);
+      body.appendChild(ap);
     }
 
     card.appendChild(body);
     canvas.appendChild(card);
   });
 
-  // ── Library drag-drop: end zone ──────────────────────────────────────────
-  var endZone = document.createElement('div');
-  endZone.className = 'osc-drop-zone';
-  endZone.textContent = '+ Drag a screen from the library here to add it';
-  endZone.addEventListener('dragover', function(e){ e.preventDefault(); endZone.classList.add('osc-dz-over'); });
-  endZone.addEventListener('dragleave', function(){ endZone.classList.remove('osc-dz-over'); });
-  endZone.addEventListener('drop', function(e){
-    e.preventDefault(); endZone.classList.remove('osc-dz-over');
+  // Drop zone at end
+  var dz = document.createElement('div'); dz.className = 'drop-zone';
+  dz.textContent = '+ Drag a screen from the library to add it here';
+  dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('over'); });
+  dz.addEventListener('dragleave', function(){ dz.classList.remove('over'); });
+  dz.addEventListener('drop', function(e) {
+    e.preventDefault(); dz.classList.remove('over');
     var data = e.dataTransfer.getData('text/plain');
-    if(data && data.startsWith('lib:')) {
-      var parts = data.split(':');
-      SCREENS.push({ id:'s'+Date.now(), title:parts[1], color:parts[2]||'#12B5CC', api:!!parts[3], apiToggles: parts[3] ? [{label:'Enable API call',on:true}] : undefined, questions:[] });
-      render(); updateStatus(); toast(parts[1] + ' added');
+    if(data.startsWith('lib:')) {
+      var parts = data.split('|');
+      SCREENS.push({id:'s'+Date.now(), title:parts[1], color:parts[2]||'#12B5CC', api:!!parts[3], qs:[]});
+      render(null); updateStatus(); toast(parts[1]+' added');
     }
   });
-  canvas.appendChild(endZone);
-
-  updateStatus();
+  canvas.appendChild(dz);
 }
 
-// ── Library item drag ─────────────────────────────────────────────────────────
-document.querySelectorAll('.osc-lib-item').forEach(function(el) {
+// ── Library drag ──────────────────────────────────────────────────────────────
+document.querySelectorAll('.lib-item').forEach(function(el) {
   el.addEventListener('dragstart', function(e) {
     e.dataTransfer.effectAllowed = 'copy';
-    e.dataTransfer.setData('text/plain', 'lib:' + el.dataset.type + ':' + (el.dataset.color||'#12B5CC') + ':' + (el.dataset.api||''));
+    e.dataTransfer.setData('text/plain', 'lib:|'+el.dataset.type+'|'+(el.dataset.color||'#12B5CC')+'|'+(el.dataset.api||''));
   });
 });
 
-// ── Studio buttons ────────────────────────────────────────────────────────────
-window.stPreview  = function(){ toast('Preview opened in Enroller sandbox...'); };
-window.stValidate = function(){ toast('Flow valid — no rule conflicts detected.'); };
+// ── Buttons ───────────────────────────────────────────────────────────────────
+window.stPreview  = function(){ toast('Preview loading in Enroller sandbox...'); };
+window.stValidate = function(){ toast('Flow valid — '+SCREENS.length+' screens, no rule conflicts.'); };
 window.stPromote  = function(){
-  if(confirm('Promote this configuration from Sandbox to Production?\n\nChanges will be live immediately for all agents.')) {
-    document.getElementById('stSave').textContent = 'Promoted ' + new Date().toLocaleTimeString();
-    toast('Configuration promoted to production.');
+  if(confirm('Promote this configuration to Production?\n\nChanges will be live immediately for all agents.')) {
+    document.getElementById('st-saved').textContent = 'Promoted '+new Date().toLocaleTimeString();
+    toast('Promoted to production successfully.');
   }
 };
 
 // ── Init ──────────────────────────────────────────────────────────────────────
-render();
+render(null);
 </script>
 </body>
 </html>
