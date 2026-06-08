@@ -1,110 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pylaex Pulse – PYLAEX</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/style.css" />
-  <style>
-    .map-frame {
-      background: var(--navy);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      position: relative;
-      min-height: 400px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .map-frame img { width: 100%; display: block; opacity: 0.7; filter: hue-rotate(180deg) saturate(0.6) brightness(0.7); }
-    .map-pin {
-      position: absolute;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: #C4881A;
-      box-shadow: 0 0 0 4px rgba(196,136,26,0.3), 0 0 16px rgba(196,136,26,0.5);
-      cursor: pointer; transform: translate(-50%,-50%);
-    }
-    .map-pin::after { content: attr(data-city); position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: .65rem; font-weight: 700; color: #C4881A; white-space: nowrap; font-family: var(--font-body); }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pylaex Pulse — Pylaex</title>
+<link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
-<div id="nav-placeholder"></div>
-<div class="page-content">
-  <div class="page-header">
-    <div class="breadcrumb"><a href="../index.html">Home</a> &rsaquo; <a href="tools.html">Platform Suite</a> &rsaquo; Pylaex Pulse</div>
-    <h1>Pylaex Pulse</h1>
-    <p class="page-subtitle">Analytics &amp; Dashboards &mdash; Executive Intelligence</p>
-    <p>Activity maps, agent engagement metrics, placement rate trends, pipeline health, and STP ratios &mdash; exactly how your carrier is competing, in real time.</p>
-  </div>
-
-  <section class="section section-alt">
-    <div class="container" style="max-width:900px;">
-      <div class="section-title">
-        <span class="eyebrow">Pylaex Pulse</span>
-        <h2>See Where You're Competing</h2>
-        <div class="divider-aqua"></div>
-        <p>Real-time visibility into your carrier's distribution footprint. See where agents are active, where applications are flowing, and where the gaps are.</p>
-      </div>
-      <div class="map-frame">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map_%28states_only%29.svg" alt="US carrier activity map" />
-        <div class="map-pin" data-city="TX" style="left:33%;top:72%;"></div>
-        <div class="map-pin" data-city="OH" style="left:73%;top:38%;"></div>
-        <div class="map-pin" data-city="FL" style="left:72%;top:82%;"></div>
-        <div class="map-pin" data-city="IL" style="left:63%;top:34%;"></div>
-        <div class="map-pin" data-city="MO" style="left:57%;top:44%;"></div>
-        <div class="map-pin" data-city="GA" style="left:72%;top:65%;"></div>
-        <div class="map-pin" data-city="IA" style="left:56%;top:30%;"></div>
-        <div class="map-pin" data-city="IN" style="left:68%;top:36%;"></div>
-        <div class="map-pin" data-city="TN" style="left:67%;top:57%;"></div>
-        <div class="map-pin" data-city="CO" style="left:35%;top:43%;"></div>
-        <div class="map-pin" data-city="NC" style="left:75%;top:55%;"></div>
-      </div>
-      <p style="text-align:center;font-size:.82rem;color:var(--gray-600);margin-top:.75rem;">Live activity map from a Pylaex Pulse production environment &mdash; 11 active states shown</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="grid-2" style="gap:2rem;margin-bottom:3rem;">
-        <div>
-          <h2>What Pylaex Pulse Delivers</h2>
-          <div class="divider-aqua" style="margin-left:0;"></div>
-          <p>Pulse aggregates data from Pylaex Orchestrator and Enroller to give leadership a real-time picture of what's happening across distribution &mdash; not a report from last week.</p>
-          <ul class="feature-list" style="margin-top:1rem;">
-            <li>Live activity map showing carrier footprint and agent activity by geography</li>
-            <li>Agent engagement metrics, production scoring, and activity tracking</li>
-            <li>Placement rate trends by product, channel, and agent segment</li>
-            <li>Pipeline health &mdash; submissions in progress, pending, and issued</li>
-            <li>Straight-through processing ratios and underwriting outcome analytics</li>
-            <li>Configurable dashboards for executive, operations, and distribution teams</li>
-            <li>Alert thresholds &mdash; flag unusual activity patterns before they become problems</li>
-          </ul>
-        </div>
-        <div>
-          <h2>The Advantage</h2>
-          <div class="divider-aqua" style="margin-left:0;"></div>
-          <p>Most carriers are operating on reports that are days or weeks old. By the time a problem shows up in the data, it's already cost you production. Pulse changes that &mdash; when something shifts, you see it in real time and can act before it becomes a trend.</p>
-          <div style="background:var(--gray-50);border-left:4px solid #C4881A;border-radius:0 10px 10px 0;padding:1.25rem;margin-top:1.5rem;">
-            <p style="color:var(--navy);font-style:italic;margin:0;font-family:'EB Garamond',Georgia,serif;">"Deliver timely, decision-ready insights that connect performance, risk, and growth across the enterprise."</p>
-          </div>
-          <div style="margin-top:1.5rem;">
-            <a href="contact.html" class="btn btn-primary">Request a Demo</a>
-            <a href="tools.html" class="btn btn-navy" style="margin-left:1rem;">Back to Platform Suite</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-4">
-        <div class="stat-block" style="background:var(--navy);border-radius:12px;padding:1.5rem;"><div class="stat-number" style="color:#C4881A;">Real-time</div><div class="stat-label">Data &mdash; not a weekly report</div></div>
-        <div class="stat-block" style="background:var(--navy);border-radius:12px;padding:1.5rem;"><div class="stat-number" style="color:#C4881A;">50+</div><div class="stat-label">States &amp; territories trackable</div></div>
-        <div class="stat-block" style="background:var(--navy);border-radius:12px;padding:1.5rem;"><div class="stat-number" style="color:#C4881A;">6</div><div class="stat-label">Executive dashboard views built in</div></div>
-        <div class="stat-block" style="background:var(--navy);border-radius:12px;padding:1.5rem;"><div class="stat-number" style="color:#C4881A;">0</div><div class="stat-label">BI developers required to run it</div></div>
-      </div>
-    </div>
-  </section>
-</div>
-<div id="footer-placeholder"></div>
 <script src="../assets/js/components.js"></script>
+<div class="page-content">
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-title-label">Pylaex Pulse</span>
+      <h1>Pylaex Pulse</h1>
+      <p class="page-subtitle">Real-time visibility into your carrier's distribution activity.</p>
+    </div>
+  </div>
+  <section class="section">
+  <div class="container">
+    <div class="two-col">
+      <div class="two-col-text">
+        <h2>Pylaex Pulse</h2>
+        <p style="color:var(--text-muted);">Pylaex Pulse gives carrier leaders a real-time view of where their platform is active, where applications are flowing, and where agents need attention — across every state you operate in.</p>
+        <a href="contact.html" class="btn btn-primary" style="margin-top:.5rem;">See It in Action</a>
+      </div>
+      <div class="two-col-visual">
+        <div style="padding:1rem;">
+          <div class="feature-list" style="list-style:none;">
+            <li>Real-time application activity by geography and agent</li><li>State-level carrier footprint and licensing status</li><li>Pipeline heat maps by product line and channel</li><li>Alert triggers on unusual activity patterns</li><li>Agent activity scoring by territory</li><li>Exportable reports for executive and board audiences</li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="container">
+    <h2>Ready to see it in action?</h2>
+    <p>Request a demo tailored to your product lines, channels, and team size.</p>
+    <div class="btn-group">
+      <a href="contact.html" class="btn btn-primary">Request a Demo</a>
+      <a href="products.html" class="btn btn-outline">Explore the Platform</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/chatbot.js"></script>
 </body>
 </html>

@@ -1,132 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Products – PYLAEX</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/style.css" />
-  <style>
-    @media (max-width: 700px) {
-      .products-row-3,
-      .products-row-2 {
-        grid-template-columns: 1fr !important;
-        max-width: 100% !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pylaex Orchestrator — Pylaex</title>
+<link rel="stylesheet" href="../assets/css/style.css"/>
 </head>
 <body>
-<div id="nav-placeholder"></div>
-
+<script src="../assets/js/components.js"></script>
 <div class="page-content">
-  <div class="page-header">
-    <div class="breadcrumb"><a href="../index.html">Home</a> › Our Products</div>
-    <h1>Products Built for How Carriers Actually Grow</h1>
-    <p><strong>Pylaex Enroller</strong> is the guided, intelligent enrollment platform your agents use to take applicants from first question to issued policy — across every product line your carrier offers. Behind it, <strong>Pylaex Orchestrator</strong> lets your operations team configure the screens, questions, rules, and API calls Enroller executes. Together, they give you complete control over the agent and applicant experience without engineering dependency.</p>
-  </div>
-
-  <section class="section" style="background:#F5F2ED;">
+  <div class="page-hero">
     <div class="container">
-      <!-- Row 1: 3 cards (collapses to 1 on mobile) -->
-      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-bottom:2rem;" class="products-row-3">
-
-        <div class="product-card">
-          <div class="product-card-header">
-            <div class="tag">Senior Health</div>
-            <h3>Medicare Supplement</h3>
-          </div>
-          <div class="product-card-body">
-            <p><strong>Built for speed, placement, and scale in Med Supp.</strong> Pylaex Enroller guides agents through the Medicare Supplement buying process with adaptive questionnaires, real-time decisioning, and instant outcomes. Carrier-defined rules run quietly in Orchestrator — agents see a clean, fast experience. The result: more placements, less friction, and faster iteration when you need to update rates or rules.</p>
-            <div class="results-label">Results carriers care about:</div>
-            <p style="margin:0;font-size:0.92rem;">Faster launches, greater quality, higher placement rates, and scalable growth.</p>
-            <a class="btn btn-navy" href="medicare-supplement.html" style="margin-top:1.5rem;">Learn More</a>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-card-header">
-            <div class="tag">Final Arrangements</div>
-            <h3>Preneed</h3>
-          </div>
-          <div class="product-card-body">
-            <p><strong>A modern buying experience for a complex market.</strong> Pylaex Enroller brings structure and confidence to Preneed sales — guiding funeral home agents through intuitive, carrier-defined workflows with underwriting discipline embedded from the first question. Carriers gain consistency across agents, cleaner submissions, and the ability to grow without slow, paper-based processes.</p>
-            <div class="results-label">Results carriers care about:</div>
-            <p style="margin:0;font-size:0.92rem;">Improved application quality, reduced rework, and more predictable outcomes.</p>
-            <a class="btn btn-navy" href="preneed.html" style="margin-top:1.5rem;">Learn More</a>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-card-header">
-            <div class="tag">Life Insurance</div>
-            <h3>Final Expense</h3>
-          </div>
-          <div class="product-card-body">
-            <p><strong>Designed for simplicity — without sacrificing control.</strong> Final Expense requires speed and clarity at the point of sale. Pylaex Enroller delivers real-time underwriting guidance and streamlined enrollment flows that help agents move quickly while ensuring carriers maintain their risk standards.</p>
-            <div class="results-label">Results carriers care about:</div>
-            <p style="margin:0;font-size:0.92rem;">Better quality submissions, smoother underwriting, and stronger agent engagement.</p>
-            <a class="btn btn-navy" href="final-expense.html" style="margin-top:1.5rem;">Learn More</a>
-          </div>
-        </div>
-
+      <span class="page-title-label">Core Platform</span>
+      <h1>Pylaex Orchestrator</h1>
+      <p class="page-subtitle">Configurable enrollment and underwriting — built for the way carriers actually work.</p>
+    </div>
+  </div>
+  <section class="section">
+  <div class="container">
+    <p style="color:var(--text-muted);max-width:720px;margin-bottom:2.5rem;">A configurable buying and underwriting platform built to help carriers move faster, convert more business, and make better decisions at the point of sale. It combines modern enrollment, real-time underwriting decisioning, and data visibility into a single, carrier-designed platform — without adding operational complexity.</p>
+    <div class="pa-card">
+      <div class="pa-tabs">
+        <button class="pa-tab active" onclick="showTab('enroll',this)">Enrollment</button>
+        <button class="pa-tab" onclick="showTab('uw',this)">Underwriting</button>
+        <button class="pa-tab" onclick="showTab('data',this)">Data &amp; Visibility</button>
+        <button class="pa-tab" onclick="showTab('config',this)">Configurability</button>
+        <button class="pa-tab" onclick="showTab('integ',this)">Integrations</button>
       </div>
-
-      <!-- Row 2: 2 cards centered (collapses to 1 on mobile) -->
-      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; max-width:780px; margin:0 auto;" class="products-row-2">
-
-        <div class="product-card">
-          <div class="product-card-header">
-            <div class="tag">Retirement</div>
-            <h3>Annuity</h3>
-          </div>
-          <div class="product-card-body">
-            <p><strong>Modern enrollment for long-term products.</strong> Pylaex Enroller supports annuity carriers with flexible enrollment flows, guided data capture, and configurable decisioning that reduce friction while preserving suitability and compliance standards. The platform adapts to complex product structures without slowing down distribution.</p>
-            <div class="results-label">Results carriers care about:</div>
-            <p style="margin:0;font-size:0.92rem;">Improved sales experience, clearer outcomes, and faster time to market for product updates.</p>
-            <a class="btn btn-navy" href="annuity.html" style="margin-top:1.5rem;">Learn More</a>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-card-header">
-            <div class="tag">Supplemental Health</div>
-            <h3>Ancillary Health</h3>
-          </div>
-          <div class="product-card-body">
-            <p><strong>Built to handle variation, volume, and speed.</strong> Across Hospital Indemnity (HI), Critical Illness (CI), and Short-Term Care (STC), Pylaex Enroller enables carriers to manage diverse product rules and underwriting approaches within a single, configurable platform. Carriers can move faster while maintaining consistency across products and channels.</p>
-            <div class="results-label">Results carriers care about:</div>
-            <p style="margin:0;font-size:0.92rem;">Faster iteration, better alignment with underwriting intent, and scalable growth in fast-moving markets.</p>
-            <a class="btn btn-navy" href="ancillary-health.html" style="margin-top:1.5rem;">Learn More</a>
+      <div class="pa-panel active" id="tab-enroll">
+        <div>
+          <h3>Modern, guided enrollment</h3>
+          <p>A clean, intuitive application experience that walks agents and consumers through the buying process — reducing drop-off, errors, and re-work.</p>
+          <ul class="feature-list">
+            <li>Adaptive questionnaires that respond to applicant answers in real time</li>
+            <li>Agent-assisted and fully self-service modes in a single platform</li>
+            <li>e-Signature and wet-signature workflows supported</li>
+            <li>State-specific form logic handled automatically</li>
+            <li>Mobile-optimized experience — no pinch-and-zoom</li>
+            <li>In-flight save and resume for complex applications</li>
+            <li>Multi-product enrollment within a single session</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat-box"><div class="stat-n">37%</div><div class="stat-d">Increase in applications per agent</div></div>
+            <div class="stat-box"><div class="stat-n">2×</div><div class="stat-d">YoY sales growth, first client</div></div>
           </div>
         </div>
-
+        <div class="pa-visual">Enrollment</div>
+      </div>
+      <div class="pa-panel" id="tab-uw">
+        <div>
+          <h3>Real-time underwriting decisioning</h3>
+          <p>Rules-based decisioning that works at the speed of the sale — giving immediate feedback on eligibility, pricing, and risk.</p>
+          <ul class="feature-list">
+            <li>Sub-second decisioning on standard applications</li>
+            <li>Carrier-configurable rules engine — no code deployment required</li>
+            <li>Reflexive questions triggered by application responses</li>
+            <li>Decline, approve, and refer routing built in</li>
+            <li>Full decision audit trail for regulatory compliance</li>
+            <li>Integration with third-party data sources and Rx history</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat-box"><div class="stat-n">&lt;1s</div><div class="stat-d">Avg. decision time</div></div>
+            <div class="stat-box"><div class="stat-n">1+</div><div class="stat-d">Product mods per day on average</div></div>
+          </div>
+        </div>
+        <div class="pa-visual">Underwriting</div>
+      </div>
+      <div class="pa-panel" id="tab-data">
+        <div>
+          <h3>Data visibility for carrier leaders</h3>
+          <p>Real-time dashboards, pipeline analytics, and agent performance scoring built around insurance workflows.</p>
+          <ul class="feature-list">
+            <li>Live application pipeline with conversion funnel visibility</li>
+            <li>Agent performance scoring and activity tracking</li>
+            <li>Approval rate analytics by product, channel, and agent</li>
+            <li>Exception reporting and configurable threshold alerts</li>
+            <li>Exportable to standard BI tools via data connectors</li>
+          </ul>
+        </div>
+        <div class="pa-visual">Analytics</div>
+      </div>
+      <div class="pa-panel" id="tab-config">
+        <div>
+          <h3>Carrier-controlled configurability</h3>
+          <p>Carriers control product setup, underwriting rules, form logic, and branding — without touching code.</p>
+          <ul class="feature-list">
+            <li>Product configuration studio for rates, rules, and forms</li>
+            <li>White-label enrollment experience with carrier branding</li>
+            <li>Sandbox environment for QA before production release</li>
+            <li>Role-based access controls for carrier operations teams</li>
+            <li>Launch checklists and compliance sign-off workflows</li>
+          </ul>
+        </div>
+        <div class="pa-visual">Config</div>
+      </div>
+      <div class="pa-panel" id="tab-integ">
+        <div>
+          <h3>Integrations that don't require a rebuild</h3>
+          <p>API-first architecture that connects to your existing systems — not the other way around.</p>
+          <ul class="feature-list">
+            <li>Pre-built connectors for major PAS platforms</li>
+            <li>REST API for any system outside the connector library</li>
+            <li>Billing system integration for premium and payment data</li>
+            <li>CRM and agency management system connectors</li>
+            <li>SOC 2 Type II certified data handling</li>
+          </ul>
+        </div>
+        <div class="pa-visual">Integrations</div>
       </div>
     </div>
-  </section>
-
-  <!-- What they all share -->
-  <section class="section section-navy">
-    <div class="container" style="max-width:760px;text-align:center;">
-      <span class="eyebrow" style="color:var(--aqua);">Across Every Product</span>
-      <h2 style="color:var(--white);">Bring It All Together</h2>
-      <div class="divider-aqua"></div>
-      <p>No matter the product line, the Pylaex platform delivers:</p>
-      <ul class="feature-list" style="display:inline-block;text-align:left;margin-top:1rem;">
-        <li>Faster time to market through configuration, not custom builds</li>
-        <li>Better quality of business by moving decisioning earlier</li>
-        <li>Improved agent experience without added risk</li>
-        <li>Built by carrier operators who've been in your seat</li>
-      </ul>
-      <div style="margin-top:2rem;">
-        <a class="btn btn-primary" href="see-orchestrator-in-action.html">See Orchestrator in Action</a>
-      </div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="container">
+    <h2>Ready to see it in action?</h2>
+    <p>Request a demo tailored to your product lines, channels, and team size.</p>
+    <div class="btn-group">
+      <a href="contact.html" class="btn btn-primary">Request a Demo</a>
+      <a href="products.html" class="btn btn-outline">Explore the Platform</a>
     </div>
-  </section>
+  </div>
+</div>
 </div>
 
-<div id="footer-placeholder"></div>
-<script src="../assets/js/components.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/chatbot.js"></script>
 </body>
 </html>
