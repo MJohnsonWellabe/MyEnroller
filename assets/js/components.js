@@ -60,7 +60,7 @@ var NAV_HTML = [
 '  li.sbopen .sb-arr{transform:rotate(90deg);}',
 '  /* Submenu */',
 '  .sb-sub{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s ease;background:rgba(0,0,0,.18);}',
-'  li.sbopen .sb-sub{max-height:600px;}',
+'  li.sbopen .sb-sub{max-height:900px;}',
 '  .sb-sub li a{display:block;padding:.55rem 1.4rem .55rem 2.2rem;color:rgba(255,255,255,.7);font-size:.88rem;font-family:"DM Sans",system-ui,sans-serif;transition:color .15s;text-decoration:none;}',
 '  .sb-sub li a:hover{color:#C4881A;}',
 '  .sb-sub li a.sb-indent{padding-left:3rem;font-size:.8rem;opacity:.75;}',
