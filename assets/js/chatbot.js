@@ -1,5 +1,5 @@
 /**
- * PYLAEX – Site Chatbot
+ * FXe – Site Chatbot
  * Injects a floating chat widget on every page.
  * Calls the Anthropic Messages API with full site context + strict system prompt.
  *
@@ -18,10 +18,10 @@
   // Core site content used as context for every chat message.
   // Update this object if you add new pages or change content.
   const SITE_CONTENT = `
-=== PYLAEX Website Content ===
+=== FXe Website Content ===
 
 COMPANY OVERVIEW
-PYLAEX builds intelligent insurance application technology. Core product: PYLAEX Orchestrator (enrollment and underwriting workflow engine). Full tool suite: PYLAEX Engage.
+FXe builds intelligent insurance application technology. Core product: FXe Orchestrator (enrollment and underwriting workflow engine). Full tool suite: FXe Engage.
 Mission: Create the best insurance buying and engagement experiences for consumers and agents, via fast, intuitive technology solutions that help clients grow.
 Vision: Become the trusted platform partner for modern insurance buying and underwriting — recognized for speed, flexibility, and results — while reshaping how carriers go to market in a digital-first world.
 Built by career carrier operators. First client more than doubled year-over-year sales by removing friction at the point of sale.
@@ -77,30 +77,30 @@ Annuity: Reimagined for modern buying experience. Replaces legacy friction with 
 Ancillary Health (HI, CI, STC): Built to handle variation, volume, and speed. Supports Hospital Indemnity, Critical Illness, and Short-Term Care in one configurable platform.
 
 OUR TOOLS
-PYLAEX Pulse: Real-time visual view of business activity across products and geographies.
+FXe Pulse: Real-time visual view of business activity across products and geographies.
 MatchIQ: Automatically pairs customers with most appropriate product. Removes guesswork for agents.
-PYLAEX Link: Integrated messaging within the enrollment workflow. Reduces follow-ups and off-platform coordination.
-PYLAEX Spark: Real-time incentive visibility embedded in enrollment. Aligns agent behavior with carrier objectives immediately.
+FXe Link: Integrated messaging within the enrollment workflow. Reduces follow-ups and off-platform coordination.
+FXe Spark: Real-time incentive visibility embedded in enrollment. Aligns agent behavior with carrier objectives immediately.
 ScanIQ: Converts paper applications into structured digital submissions. Enables digital adoption without disrupting distribution.
-PYLAEX LeadFlow: Supports digital lead capture and routing into guided enrollment workflows.
+FXe LeadFlow: Supports digital lead capture and routing into guided enrollment workflows.
 
 CASE STUDIES
-Time to Market: Mid-sized regional carrier. Challenge: slow product change cycles. Solution: PYLAEX as system of engagement. Impact: more frequent enhancements, shorter launch cycles (months to weeks), increased experimentation, year-over-year growth more than doubled.
+Time to Market: Mid-sized regional carrier. Challenge: slow product change cycles. Solution: FXe as system of engagement. Impact: more frequent enhancements, shorter launch cycles (months to weeks), increased experimentation, year-over-year growth more than doubled.
 
-Business Growth (Wellabe): Mutual insurance organization. Challenge: growing faster without operational strain. Solution: PYLAEX for rapid iteration. Impact: more rapid product iteration, shortened launch timelines, year-over-year sales more than doubled, sustainable execution at scale.
+Business Growth (Wellabe): Mutual insurance organization. Challenge: growing faster without operational strain. Solution: FXe for rapid iteration. Impact: more rapid product iteration, shortened launch timelines, year-over-year sales more than doubled, sustainable execution at scale.
 
-Quality of Business: Multi-product carrier. Challenge: inconsistent application quality in certain channels. Solution: PYLAEX to apply guardrails consistently, guide applicants toward higher-quality submissions. Impact: higher underwriting success rates, improved consistency across channels, access to previously avoided distribution segments.
+Quality of Business: Multi-product carrier. Challenge: inconsistent application quality in certain channels. Solution: FXe to apply guardrails consistently, guide applicants toward higher-quality submissions. Impact: higher underwriting success rates, improved consistency across channels, access to previously avoided distribution segments.
 
 Agent Satisfaction: Multi-product carrier. Challenge: complex applications, unclear underwriting outcomes creating friction. Agent quotes: "The platform is simple and easy to use. It looks good and is intuitive. It guides the user through the process like Amazon." / "This is the easiest system I use compared to other carriers. Auto-underwriting is amazing." / "If all carriers used a system like this, my life would be much simpler and better." Impact: increased agent preference, greater confidence at point of sale, higher quality submissions, stronger long-term engagement.
 
 TEAM
 Matt Johnson — CEO: Career insurance operator, former Chief Actuary and Growth Officer. Scaled Medicare Supplement sales from under $20M to over $180M in annual production in five years. Blends actuarial discipline with a builder's mindset.
-Bill Butters — Lead Developer: Principal architect of the PYLAEX Orchestrator platform. Decades of carrier technology experience. Built the modern buying and underwriting platform at prior carrier that enabled rapid iteration and dramatically higher sales volume.
+Bill Butters — Lead Developer: Principal architect of the FXe Orchestrator platform. Decades of carrier technology experience. Built the modern buying and underwriting platform at prior carrier that enabled rapid iteration and dramatically higher sales volume.
 Dave Keith — Strategic Advisor: Co-founded SE2, built it into a leading annuity administration and outsourcing platform. Extensive experience launching and scaling technology-enabled insurance businesses.
 Todd Nevenhoven — Operating Advisor: Deep experience leading operations at large carriers and TPAs. Brings operator's lens to platform implementation and client delivery.
 
 FAQ
-What is PYLAEX? A configurable buying and underwriting platform that combines modern enrollment, real-time underwriting decisioning, and data visibility in a single, carrier-designed platform.
+What is FXe? A configurable buying and underwriting platform that combines modern enrollment, real-time underwriting decisioning, and data visibility in a single, carrier-designed platform.
 Who is it for? Carriers and distributors who want speed without sacrificing control. Ideal for organizations modernizing buying experience, improving agent satisfaction, increasing placement quality, and iterating faster without rebuilding core systems.
 Will I control my underwriting decisions? Yes. Fully configurable to your underwriting philosophy, rules, and risk tolerances.
 Key benefits: Faster time to market through configuration; improved agent experience; better quality of business through earlier decisioning; real-time visibility; platform built by carrier operators.
@@ -110,15 +110,15 @@ Visitors can contact the team through the Contact Us page on the website.
 `;
 
   // ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
-  const SYSTEM_PROMPT = `You are a knowledgeable, credible product specialist for PYLAEX, a carrier-facing intelligent insurance application platform. Key products: PYLAEX Orchestrator (core enrollment engine) and PYLAEX Engage (full tool suite). Your audience includes life & health carrier executives, product leaders, distribution leaders, and technology teams.
+  const SYSTEM_PROMPT = `You are a knowledgeable, credible product specialist for FXe, a carrier-facing intelligent insurance application platform. Key products: FXe Orchestrator (core enrollment engine) and FXe Engage (full tool suite). Your audience includes life & health carrier executives, product leaders, distribution leaders, and technology teams.
 
 Critical constraints (never violate these):
-1. You may ONLY answer questions using information explicitly provided in the PYLAEX website content passed to you in each message.
+1. You may ONLY answer questions using information explicitly provided in the FXe website content passed to you in each message.
 2. If the answer is not clearly supported by the site content, say so plainly and offer to connect the visitor with the team.
 3. Do NOT speculate, over-promise, or introduce features not described on the site.
 4. Do NOT use marketing hype or buzzwords. Use plain, precise language suitable for insurance executives.
 5. Do NOT answer questions about pricing, contracts, certifications, specific timelines, or client names unless explicitly stated on the site.
-6. Do NOT compare PYLAEX or its products to competitors unless the site explicitly does so.
+6. Do NOT compare FXe or its products to competitors unless the site explicitly does so.
 7. Do NOT claim regulatory approval, security certifications, or performance metrics unless present on the site.
 
 Tone: Clear. Professional. Operator-minded. Confident but not salesy. No startup hype language.
@@ -135,7 +135,7 @@ Behavior rules:
 When information is missing, use wording like:
 "I don't see that addressed on the site. If it helps, I can connect you with the team to go deeper — you can reach them via the Contact page."
 
-Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX Orchestrator and PYLAEX Engage are relevant to their operating model — with clarity, honesty, and credibility.`;
+Your goal: Help serious carrier stakeholders quickly understand whether FXe Orchestrator and FXe Engage are relevant to their operating model — with clarity, honesty, and credibility.`;
 
   // ── STATE ────────────────────────────────────────────────────────────────────
   let messages = [];
@@ -333,7 +333,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
       <div id="me-chat-header">
         <div class="me-avatar">ME</div>
         <div class="me-info">
-          <div class="me-name">PYLAEX Assistant</div>
+          <div class="me-name">FXe Assistant</div>
           <div class="me-status">Ask me anything about the platform</div>
         </div>
         <button id="me-chat-minimize" title="Minimize">−</button>
@@ -345,7 +345,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
           <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
         </button>
       </div>
-      <div id="me-chat-footer">Powered by PYLAEX · AI responses may vary</div>
+      <div id="me-chat-footer">Powered by FXe · AI responses may vary</div>
     </div>
     <button id="me-chat-toggle" title="Chat with us">
       <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
@@ -486,7 +486,7 @@ Your goal: Help serious carrier stakeholders quickly understand whether PYLAEX O
     } catch (err) {
       hideTyping();
       addMessage('bot', "I'm having trouble connecting right now. Please try again or reach out via the Contact page.");
-      console.error('PYLAEX chatbot error:', err);
+      console.error('FXe chatbot error:', err);
     }
 
     isTyping = false;

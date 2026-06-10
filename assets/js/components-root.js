@@ -4,7 +4,7 @@ const NAV_HTML = `
   <div id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
-  <a class="nav-brand" href="index.html">PYL<span class="brand-a">A</span>EX</a>
+  <a class="nav-brand" href="index.html">FX<span class="brand-a">e</span></a>
   <a class="btn btn-primary nav-cta" href="pages/contact.html">Contact Us</a>
 </nav>
 <div id="sidebar">
@@ -25,11 +25,11 @@ const NAV_HTML = `
       <span>Our Tools <span class="arrow">›</span></span>
       <ul class="sidebar-submenu">
         <li><a href="pages/tools.html">All Tools</a></li>
-        <li><a href="pages/products.html">Pylaex Orchestrator</a></li>
-        <li><a href="pages/tools.html#enroller">Pylaex Enroller</a></li>
-        <li><a href="pages/activity-map.html">Pylaex Pulse</a></li>
-        <li><a href="pages/tools.html#engage">Pylaex Engage</a></li>
-        <li><a href="pages/tools.html#launchpad">Pylaex Launchpad</a></li>
+        <li><a href="pages/products.html">FXe Orchestrator</a></li>
+        <li><a href="pages/tools.html#enroller">FXe Enroller</a></li>
+        <li><a href="pages/activity-map.html">FXe Pulse</a></li>
+        <li><a href="pages/tools.html#engage">FXe Engage</a></li>
+        <li><a href="pages/tools.html#launchpad">FXe Launchpad</a></li>
       </ul>
     </li>
     <li><a href="pages/contact.html">Contact Us</a></li>
@@ -46,9 +46,9 @@ const FOOTER_HTML = `
 <footer id="site-footer">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">PYL<span class="brand-a">A</span>EX</div>
+      <div class="footer-brand">FX<span class="brand-a">e</span></div>
       <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:0.5rem;max-width:280px;">
-        The platform the incumbents don't want you to have.
+        Change the equation.
       </p>
     </div>
     <div>
@@ -64,11 +64,11 @@ const FOOTER_HTML = `
     <div>
       <h4>Tools</h4>
       <ul>
-        <li><a href="pages/products.html">Pylaex Orchestrator</a></li>
-        <li><a href="pages/tools.html#enroller">Pylaex Enroller</a></li>
-        <li><a href="pages/activity-map.html">Pylaex Pulse</a></li>
-        <li><a href="pages/tools.html#engage">Pylaex Engage</a></li>
-        <li><a href="pages/tools.html#launchpad">Pylaex Launchpad</a></li>
+        <li><a href="pages/products.html">FXe Orchestrator</a></li>
+        <li><a href="pages/tools.html#enroller">FXe Enroller</a></li>
+        <li><a href="pages/activity-map.html">FXe Pulse</a></li>
+        <li><a href="pages/tools.html#engage">FXe Engage</a></li>
+        <li><a href="pages/tools.html#launchpad">FXe Launchpad</a></li>
       </ul>
     </div>
     <div>
@@ -84,7 +84,7 @@ const FOOTER_HTML = `
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; <span id="footer-year"></span> PYLAEX. All rights reserved.
+    &copy; <span id="footer-year"></span> FXe. All rights reserved.
   </div>
 </footer>
 `;

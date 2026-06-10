@@ -29,7 +29,7 @@
 }
 
 /* ── Brand A accent (PYLAEX gold A in logo) ── */
-.brand-a { color: #C4881A !important; }
+.brand-a { color:#C4881A; font-size:0.68em; vertical-align:0.5em; }
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -130,7 +130,7 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
   letter-spacing: 0.01em;
 }
 .nav-wordmark { display: block; white-space: nowrap; line-height: 1; }
-.nav-brand .brand-a { color: #C4881A; }
+.nav-brand .brand-a { color:#C4881A; font-size:0.68em; vertical-align:0.5em; }
 .nav-tagline { font-size: 0.6rem; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; margin-top: 2px; white-space: nowrap; display: block; }
 
 /* Hamburger */
@@ -801,3 +801,6 @@ ul li { margin-bottom: 0.4rem; color: var(--gray-600); }
   .modal-box { padding: 2rem 1.5rem; }
   .grid-2 { grid-template-columns: 1fr; }
 }
+
+.brand-a { color:#C4881A; font-size:0.68em; vertical-align:0.5em; }
+.fxe-e   { color:#C4881A; font-size:0.68em; vertical-align:0.5em; font-weight:700; }

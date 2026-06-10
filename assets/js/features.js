@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-  // Pylaex brand colors — always applied, no theme picker
-  var PYLAEX_VARS = {
+  // FXe brand colors — always applied, no theme picker
+  var FXe_VARS = {
     '--navy':       '#0B1C2C',
     '--navy-mid':   '#0C3B4F',
     '--navy-light': '#0C3B4F',
@@ -11,7 +11,7 @@
     '--gold':       '#C4881A',
     '--gold-lt':    '#D9A040'
   };
-  Object.keys(PYLAEX_VARS).forEach(function(v) {
-    document.documentElement.style.setProperty(v, PYLAEX_VARS[v]);
+  Object.keys(FXe_VARS).forEach(function(v) {
+    document.documentElement.style.setProperty(v, FXe_VARS[v]);
   });
 })();
